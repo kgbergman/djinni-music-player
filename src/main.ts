@@ -180,27 +180,28 @@ OBR.onReady(async () => {
           });
 
           audioTag.src = audioStreams['256kbps'] || audioStreams['128kbps'] || audioStreams['48kbps'];
+          audioTag.id = videoTag;
           mixPlayer?.appendChild(audioTag);
         })
       }
     });
   }
 
-  function playAudio(srcToPlay: string) {
+  function playAudio(idToPlay: string) {
     const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
-    console.log("playing", srcToPlay);
+    console.log("playing", idToPlay);
     audioTags.forEach(audioTag => {
-      if (audioTag.src === srcToPlay) {
+      if (audioTag.id === idToPlay) {
         audioTag.play();
       }
     });
   }
 
-  function pauseAudio(srcToPause: string) {
+  function pauseAudio(idToPause: string) {
     const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
-    console.log("pausing", srcToPause);
+    console.log("pausing", idToPause);
     audioTags.forEach(audioTag => {
-      if (audioTag.src === srcToPause) {
+      if (audioTag.id === idToPause) {
         audioTag.pause();
       }
     });
@@ -210,14 +211,14 @@ OBR.onReady(async () => {
     if (playPauseButton.innerHTML === "Play") {
       const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
       audioTags.forEach(audioTag => {
-        sendMetaData("play", audioTag.src, ++playCmd);
+        sendMetaData("play", audioTag.id, ++playCmd);
       });
       playPauseButton.innerHTML = "Pause";
     }
     else {
       const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
       audioTags.forEach(audioTag => {
-        sendMetaData("pause", audioTag.src, ++pauseCmd);
+        sendMetaData("pause", audioTag.id, ++pauseCmd);
       });
       playPauseButton.innerHTML = "Play";
     }
