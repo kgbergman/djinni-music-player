@@ -152,7 +152,7 @@ OBR.onReady(async () => {
           
           const audioStreams: { [key: string]: string } = {};
           
-          streams.forEach((stream, n) => {
+          streams.forEach((stream) => {
             const itag = stream.itag * 1;
             let quality: string | false = false;
             
