@@ -118,9 +118,11 @@ OBR.onReady(async () => {
   function loadStream(videoTag: string) {
     console.log("loading", videoTag);
     const mixPlayer = document.getElementById('mixPlayer');
-    const audioTag = document.createElement("audio");
-    //audioTag.style.display = "none";
+    const audioTag = document.createElement("video") as HTMLVideoElement;
+    audioTag.style.display = "none";
     //audioTag.autoplay = true;
+    audioTag.playsInline = true;
+    audioTag.preload = "auto";
     audioTag.controls = true;
     audioTag.loop = true;
     fetch("https://images" + ~~(Math.random() * 33) + "-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=" + encodeURIComponent("https://www.youtube.com/watch?hl=en&v=" + videoTag)).then(response => {
@@ -188,7 +190,7 @@ OBR.onReady(async () => {
   }
 
   function playAudio(idToPlay: string) {
-    const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
+    const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
     console.log("playing", idToPlay);
     audioTags.forEach(audioTag => {
       if (audioTag.id === idToPlay) {
@@ -198,7 +200,7 @@ OBR.onReady(async () => {
   }
 
   function pauseAudio(idToPause: string) {
-    const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
+    const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
     console.log("pausing", idToPause);
     audioTags.forEach(audioTag => {
       if (audioTag.id === idToPause) {
@@ -209,14 +211,14 @@ OBR.onReady(async () => {
 
   function playPauseAudio() {
     if (playPauseButton.innerHTML === "Play") {
-      const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
+      const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
       audioTags.forEach(audioTag => {
         sendMetaData("play", audioTag.id, ++playCmd);
       });
       playPauseButton.innerHTML = "Pause";
     }
     else {
-      const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
+      const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
       audioTags.forEach(audioTag => {
         sendMetaData("pause", audioTag.id, ++pauseCmd);
       });
@@ -225,7 +227,7 @@ OBR.onReady(async () => {
   }
 
   function adjustVolume(volume: number) {
-    const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
+    const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
     audioTags.forEach(audioTag => {
       audioTag.volume = volume / 100;
     });
