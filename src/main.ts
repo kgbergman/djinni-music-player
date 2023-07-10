@@ -119,7 +119,7 @@ OBR.onReady(async () => {
     console.log("loading", videoTag);
     const mixPlayer = document.getElementById('mixPlayer');
     const audioTag = document.createElement("video") as HTMLVideoElement;
-    audioTag.style.display = "none";
+    //audioTag.style.display = "none";
     //audioTag.autoplay = true;
     audioTag.playsInline = true;
     audioTag.preload = "auto";
@@ -168,16 +168,8 @@ OBR.onReady(async () => {
               case 141:
                 quality = "256kbps";
                 break;
-              case 249:
-                quality = "webm_l";
-                break;
-              case 250:
-                quality = "webm_m";
-                break;
-              case 251:
-                quality = "webm_h";
-                break;
             }
+            console.log(stream);
             if (quality) audioStreams[quality] = stream.url;
           });
 
