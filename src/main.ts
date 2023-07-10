@@ -38,6 +38,7 @@ OBR.onReady(async () => {
         <div class="slidecontainer">
           <input type="range" min="0" max="100" value="50" class="slider" id="playerSlider">
         </div>
+        <div id="mixPlayer"></div>
       </div>
     `
   }
@@ -78,7 +79,8 @@ OBR.onReady(async () => {
         volumeState = "volume_full";
       }
       updateVolumeIcon();
-      adjustVolume(level);
+      adjustVolumeMetadata(level);
+      //adjustVolume(level);
     } 
   }
 
@@ -225,8 +227,11 @@ OBR.onReady(async () => {
     const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
     audioTags.forEach(audioTag => {
       audioTag.volume = volume / 100;
-      sendMetaData("adjustVolume", volume, ++adjustVolumeCmd);
     });
+  }
+
+  function adjustVolumeMetadata(volume: number) {
+    sendMetaData("adjustVolume", volume, ++adjustVolumeCmd);
   }
 
   function getAudioUrls() {
@@ -285,7 +290,7 @@ OBR.onReady(async () => {
       prevPauseCmd = pauseMetadata[1];
     }
     if (adjustVolumeMetadata[1] !== prevAdjustVolumeCmd) {
-      console.log("adjust volume", adjustVolumeMetadata[0]);
+      adjustVolume(adjustVolumeMetadata[0]);
       prevAdjustVolumeCmd = adjustVolumeMetadata[1];
     }
   });
