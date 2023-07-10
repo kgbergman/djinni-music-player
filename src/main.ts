@@ -119,7 +119,7 @@ OBR.onReady(async () => {
     console.log("loading", videoTag);
     const mixPlayer = document.getElementById('mixPlayer');
     const audioTag = document.createElement("audio");
-    audioTag.style.display = "none";
+    //audioTag.style.display = "none";
     //audioTag.autoplay = true;
     audioTag.controls = true;
     audioTag.loop = true;
