@@ -80,7 +80,6 @@ OBR.onReady(async () => {
       }
       updateVolumeIcon();
       adjustVolumeMetadata(level);
-      //adjustVolume(level);
     } 
   }
 
@@ -112,17 +111,18 @@ OBR.onReady(async () => {
   }
 
   function loadStreamMetadata(videoTag: string) {
+    console.log(loadStreamCmd);
+    sendMetaData("loadStream", "", 0);
     sendMetaData("loadStream", videoTag, ++loadStreamCmd);
+    console.log(loadStreamCmd);
   }
 
   function loadStream(videoTag: string) {
     console.log("loading", videoTag);
     const mixPlayer = document.getElementById('mixPlayer');
-    const audioTag = document.createElement("video") as HTMLVideoElement;
+    const audioTag = document.createElement("audio") as HTMLAudioElement;
     //audioTag.style.display = "none";
     //audioTag.autoplay = true;
-    audioTag.playsInline = true;
-    audioTag.preload = "auto";
     audioTag.controls = true;
     audioTag.loop = true;
     fetch("https://images" + ~~(Math.random() * 33) + "-focus-opensocial.googleusercontent.com/gadgets/proxy?container=none&url=" + encodeURIComponent("https://www.youtube.com/watch?hl=en&v=" + videoTag)).then(response => {
@@ -182,50 +182,53 @@ OBR.onReady(async () => {
   }
 
   function playAudio(idToPlay: string) {
-    const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
+    const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
     console.log("playing", idToPlay);
     audioTags.forEach(audioTag => {
       if (audioTag.id === idToPlay) {
         audioTag.play();
       }
     });
+    playPauseButton.innerHTML = "Pause";
   }
 
   function pauseAudio(idToPause: string) {
-    const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
+    const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
     console.log("pausing", idToPause);
     audioTags.forEach(audioTag => {
       if (audioTag.id === idToPause) {
         audioTag.pause();
       }
     });
+    playPauseButton.innerHTML = "Play";
   }
 
   function playPauseAudio() {
     if (playPauseButton.innerHTML === "Play") {
-      const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
+      const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
       audioTags.forEach(audioTag => {
+        sendMetaData("play", "", 0);
         sendMetaData("play", audioTag.id, ++playCmd);
       });
-      playPauseButton.innerHTML = "Pause";
     }
     else {
-      const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
+      const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
       audioTags.forEach(audioTag => {
+        sendMetaData("pause", "", 0);
         sendMetaData("pause", audioTag.id, ++pauseCmd);
       });
-      playPauseButton.innerHTML = "Play";
     }
   }
 
   function adjustVolume(volume: number) {
-    const audioTags = document.querySelectorAll<HTMLAudioElement>("video");
+    const audioTags = document.querySelectorAll<HTMLAudioElement>("audio");
     audioTags.forEach(audioTag => {
       audioTag.volume = volume / 100;
     });
   }
 
   function adjustVolumeMetadata(volume: number) {
+    sendMetaData("adjustVolume", "", 0);
     sendMetaData("adjustVolume", volume, ++adjustVolumeCmd);
   }
 
@@ -272,19 +275,20 @@ OBR.onReady(async () => {
     const playMetadata = metadata[playId] as Array<any>;
     const pauseMetadata = metadata[pauseId] as Array<any>;
     const adjustVolumeMetadata = metadata[adjustVolumeId] as Array<any>;
-    if (loadStreamMetadata[1] !== prevLoadStreamCmd) {
+    console.log(loadStreamMetadata);
+    if (loadStreamMetadata[1] !== prevLoadStreamCmd && loadStreamMetadata[0] !== "") {
       loadStream(loadStreamMetadata[0]);
       prevLoadStreamCmd = loadStreamMetadata[1];
     }
-    if (playMetadata[1] !== prevPlayCmd) {
+    if (playMetadata[1] !== prevPlayCmd && playMetadata[0] !== "") {
       playAudio(playMetadata[0]);
       prevPlayCmd = playMetadata[1];
     }
-    if (pauseMetadata[1] !== prevPauseCmd) {
+    if (pauseMetadata[1] !== prevPauseCmd && pauseMetadata[0] !== "") {
       pauseAudio(playMetadata[0]);
       prevPauseCmd = pauseMetadata[1];
     }
-    if (adjustVolumeMetadata[1] !== prevAdjustVolumeCmd) {
+    if (adjustVolumeMetadata[1] !== prevAdjustVolumeCmd && adjustVolumeMetadata[0] !== "") {
       adjustVolume(adjustVolumeMetadata[0]);
       prevAdjustVolumeCmd = adjustVolumeMetadata[1];
     }
