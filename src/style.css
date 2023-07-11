@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: rgb(45, 48, 66);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,21 +14,75 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  width: 610px;
+  height: 400px;
+}
+
+.buttons-container {
+  width: 150px;
+  padding: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.top-row {
+  display: flex;
+  width: 610px;
+  height: 40px;
+}
+
+.top-button {
+  width: 20px;
+  display: flex;
+  height: 20px;
+  color: white;
+  padding: 5px;
+  border-radius: 30px;
+  transition: background-color 100ms linear;
+}
+
+.top-button:hover {
+  background-color: rgb(61, 64, 81);
+  cursor: pointer;
+}
+
+.button-icon {
+  filter: invert(100%);
+}
+
+.tabs {
+  width: 400px;
+}
+
+.button {
+  margin-bottom: 10px;
+}
+.tab {
+  display: none;
+}
+.tab.active {
+  display: block;
+}
+
+.tab-content {
+  height: 340px;
+  width: 590px;
+  padding: 10px;
+  background-color: rgb(34, 38, 57);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
 }
 
 h1 {
@@ -37,31 +91,16 @@ h1 {
 }
 
 #app {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
+  background-color: rgb(45, 48, 66);
 }
 
 .card {
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
+.container {
 }
 
 button {
@@ -81,19 +120,6 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
 
 .slider {
@@ -123,5 +149,155 @@ button:focus-visible {
   height: 25px;
   border-radius: 50%;
   background: #04AA6D;
+  cursor: pointer;
+}
+
+.stream-slider {
+  margin-top: 5px;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 5px;  
+  background: rgb(84, 81, 107);
+  outline: none;
+  opacity: 1;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.stream-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%; 
+  background: rgb(187, 153, 255);
+  cursor: pointer;
+}
+
+.stream-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgb(187, 153, 255);
+  cursor: pointer;
+}
+
+.stream-slider-container {
+  display: flex;
+  margin-top: 5px;
+  height: 15px;
+}
+
+.stream {
+  aspect-ratio: 1 / 1;
+  border-width: 2px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0);
+}
+
+.stream-icon {
+  margin: 0;
+  font-size: 45px;
+  pointer-events: none;
+}
+
+.stream-low-row {
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  align-items: center;
+}
+
+.stream-high-row {
+  width: 100%;
+  text-align: left;
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+.stream-name-container {
+  padding-left: 5px;
+  flex: 1;
+  min-width: 0;
+  width: 75px;
+}
+
+.stream-name-container > .stream-name {
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+}
+
+.stream-volume-button-container {
+  padding-top: 2px;
+  padding-left: 2px;
+}
+
+.stream-edit-button-container {
+  padding-right: 2px;
+  padding-bottom: 2px;
+}
+
+.stream-volume-container {
+  padding-right: 10px;
+  flex: 1;
+  padding-top: 7px;
+}
+
+.stream-button {  
+  width: 25px;
+  height: 25px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 100ms linear;
+}
+
+.stream-button:hover {
+  background-color: rgba(255, 255, 255, 0.15)
+}
+
+.stream-edit-icon {
+  width: 17px;
+  height: 17px;
+  filter: invert(100%);
+}
+
+.stream-fade {  
+  background: linear-gradient(to bottom, transparent 80%, black 100%);
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.stream-box {
+  background-color: rgb(41, 45, 60);
+  border-radius: 5px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7px;
+  flex-direction: column;
+  transition: background-color 100ms linear;
+  position: relative;
+  overflow: hidden;
+}
+
+.stream-box:hover {
+  background-color: rgb(58, 61, 75);
   cursor: pointer;
 }
