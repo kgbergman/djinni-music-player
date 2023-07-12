@@ -4,7 +4,7 @@ import { Slider } from "../../slider/Slider"
 import './contentheader.css'
 
 export function ContentHeader() {
-    let page = "Stream";
+    let page = "Folder";
 
     if (page === "Folder") {
         return (

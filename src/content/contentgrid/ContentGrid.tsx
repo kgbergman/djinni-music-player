@@ -10,13 +10,61 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack'; 
 
 export function ContentGrid() {
-    let page = "Stream";
+    let page = "Folder";
 
     if (page === "Folder") {
         return (
             <div className="contentgrid">
                 <SimpleBar style={{ height: '314px' }}>
                     <Grid container rowSpacing={1} columnSpacing={1}>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
+                        <Grid item>
+                            <Stream/>
+                        </Grid>
                         <Grid item>
                             <Stream/>
                         </Grid>
