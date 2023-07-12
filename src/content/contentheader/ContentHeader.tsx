@@ -5,7 +5,7 @@ import { TextField } from "@mui/material";
 import './contentheader.css'
 
 export function ContentHeader() {
-    const page = "Stream";
+    let page = "Stream";
 
     if (page === "Folder") {
         return (

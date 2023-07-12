@@ -1,5 +1,4 @@
 import './style.css'
-import OBR from "@owlbear-rodeo/sdk";
 import { getPluginId } from "./getPluginId";
 
 import React from "react";
@@ -9,16 +8,15 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import App from "./App";
 
-import SimpleBar from 'simplebar';
 import 'simplebar/dist/simplebar.css';
 
 // You will need a ResizeObserver polyfill for browsers that don't support it! (iOS Safari, Edge, ...)
-import ResizeObserver from 'resize-observer-polyfill';
 window.ResizeObserver = ResizeObserver;
 
 let volumeState = "volume_full";
 let showPage = "";
 
+/*
 OBR.onReady(async () => {
   const playerRole = await OBR.player.getRole();
   if (showPage === "add") {
@@ -906,3 +904,4 @@ OBR.onReady(async () => {
     }
   });
 });
+*/
