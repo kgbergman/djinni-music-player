@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { getImage } from "./images";
-import { getPluginId } from "./getPluginId";
 import './index.css';
 import App from "./App";
 window.ResizeObserver = ResizeObserver;

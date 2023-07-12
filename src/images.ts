@@ -1,4 +1,4 @@
-import volume_mute from "./images/volume_mute.svg";
+import volume_mute from "./images/volume_full.svg";
 import volume_zero from "./images/volume_zero.svg";
 import volume_low from "./images/volume_low.svg";
 import volume_full from "./images/volume_full.svg";

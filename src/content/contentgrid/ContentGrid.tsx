@@ -92,7 +92,27 @@ export function ContentGrid() {
         return (
             <div className="contentgrid">
                 <SimpleBar style={{ height: '314px' }}>
-                    <Stack spacing={2}>
+                    <Stack
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="stretch"
+                        spacing={2}
+                    >
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
+                        <EditStream></EditStream>
                         <EditStream></EditStream>
                     </Stack>
                     <div className="bottom-row"></div>

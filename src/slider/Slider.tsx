@@ -1,5 +1,4 @@
 import React from "react";
-import { getImage } from "../images";
 import './slider.css'
 
 export function Slider(props: { min: number; max: number; value: number; }) {

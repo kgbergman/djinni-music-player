@@ -1,7 +1,6 @@
 import React from "react";
 import { getImage } from "../../images";
 import './stream.css'
-import { Slider } from "../../slider/Slider";
 
 export function AddStream() {
     return (

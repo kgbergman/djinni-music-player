@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "../../button/Button"
 import { Slider } from "../../slider/Slider"
-import { TextField } from "@mui/material";
 import './contentheader.css'
 
 export function ContentHeader() {

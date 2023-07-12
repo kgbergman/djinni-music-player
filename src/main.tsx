@@ -1,20 +1,8 @@
 import './style.css'
-import { getPluginId } from "./getPluginId";
-
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-import CssBaseline from "@mui/material/CssBaseline";
-
-import App from "./App";
-
 import 'simplebar/dist/simplebar.css';
 
 // You will need a ResizeObserver polyfill for browsers that don't support it! (iOS Safari, Edge, ...)
 window.ResizeObserver = ResizeObserver;
-
-let volumeState = "volume_full";
-let showPage = "";
 
 /*
 OBR.onReady(async () => {
