@@ -1,12 +1,12 @@
 {
-    "name": "Music Player",
-    "version": "1.0.0",
-    "manifest_version": 1,
-    "action": {
-      "title": "Music Player",
-      "icon": "/icon.svg",
-      "popover": "/",
-      "height": 400,
-      "width": 610
-    }
+  "name": "Music Player React",
+  "version": "1.0.0",
+  "manifest_version": 1,
+  "action": {
+    "title": "Music Player",
+    "icon": "/icon.svg",
+    "popover": "/",
+    "height": 400,
+    "width": 580
   }
+}

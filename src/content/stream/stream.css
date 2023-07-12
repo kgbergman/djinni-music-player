@@ -1,0 +1,110 @@
+
+.stream {
+    background-color: rgb(41, 45, 60);
+    max-width: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    outline: solid 2px rgb(187, 153, 255);
+    margin: 2px;
+}
+
+.stream-fade {  
+    background: linear-gradient(to bottom, transparent 70%, black 100%);
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    transition: background-color 100ms linear;
+}
+
+.stream-fade:hover {
+  background-color: rgb(58, 61, 75);
+  cursor: pointer;
+}
+  
+.stream-icon {
+    margin: 0;
+    font-size: 45px;
+    pointer-events: none;
+    position: relative;
+    top: -5px;
+}
+  
+.stream-low-row {
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    align-items: center;
+}
+  
+.stream-high-row {
+    text-align: left;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+    padding-right: 5px;
+}
+
+.stream-name-container {
+    padding-left: 5px;
+    flex: 1;
+    min-width: 0;
+    width: 75px;
+}
+  
+.stream-name-container > .stream-name {
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+    font-size: 10px;
+}
+
+.stream-volume-button-container {
+    display: flex;
+    padding-top: 2px;
+    padding-left: 2px;
+    height: 25px;
+    width: 25px;
+}
+
+.stream-edit-button-container {
+  padding-right: 2px;
+  padding-bottom: 2px;
+}
+
+.add-stream {
+  border-width: 2px;
+  border-radius: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(41, 45, 60);
+  border-radius: 5px;
+  width: 100px;
+  height: 113px;
+}
+
+.add-stream:hover {
+  background-color: rgb(58, 61, 75);
+  cursor: pointer;
+}
+
+.add-stream-icon {
+  filter: invert(100%);
+  height: 50px;
+  width: 50px;
+}

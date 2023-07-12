@@ -1,0 +1,83 @@
+.folder {
+    background-color: rgb(41, 45, 60);
+    max-width: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    outline: solid 0px rgb(187, 153, 255);
+    margin: 2px;
+    height: 113px;
+}
+
+.folder-fade {  
+    background: linear-gradient(to bottom, transparent 70%, black 100%);
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    transition: background-color 100ms linear;
+}
+
+.folder-fade:hover {
+  background-color: rgb(58, 61, 75);
+  cursor: pointer;
+}
+  
+.folder-icon {
+    width: 65px;
+    margin: 0;
+    font-size: 45px;
+    pointer-events: none;
+    position: relative;
+    display: flex;
+    filter: invert(50%) sepia(69%) saturate(4435%) hue-rotate(165deg) brightness(101%) contrast(101%);
+}
+
+.folder-overlay {
+    position: absolute;
+    color: white;
+    font-size: 1.25rem;
+    pointer-events: none;
+}
+
+.folder-icon-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.folder-low-row {
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    font-size: 10px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    align-items: center;
+}
+
+.folder-name-container {
+    padding-left: 5px;
+    flex: 1;
+    min-width: 0;
+    width: 75px;
+}
+  
+.folder-name-container > .folder-name {
+    color: white;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+    font-size: 10px;
+}
+
+.folder-edit-button-container {
+  padding-right: 2px;
+  padding-bottom: 2px;
+}

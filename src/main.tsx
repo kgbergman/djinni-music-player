@@ -1,7 +1,13 @@
 import './style.css'
 import OBR from "@owlbear-rodeo/sdk";
-import { getImage } from "./images";
 import { getPluginId } from "./getPluginId";
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+import CssBaseline from "@mui/material/CssBaseline";
+
+import App from "./App";
 
 import SimpleBar from 'simplebar';
 import 'simplebar/dist/simplebar.css';
@@ -20,9 +26,6 @@ OBR.onReady(async () => {
       <head>
         <noscript>
           <style>
-            /**
-            * Reinstate scrolling for non-JS clients
-            */
             .simplebar-content-wrapper {
               scrollbar-width: auto;
               -ms-overflow-style: auto;
@@ -381,9 +384,6 @@ OBR.onReady(async () => {
       <head>
         <noscript>
           <style>
-            /**
-            * Reinstate scrolling for non-JS clients
-            */
             .simplebar-content-wrapper {
               scrollbar-width: auto;
               -ms-overflow-style: auto;

@@ -1,0 +1,12 @@
+.contentgrid {
+    display: block;
+    height: 314px;
+    margin-left: 15px;
+}
+
+.bottom-row {
+    width: 100%;
+    height: 7px;
+}
+  
+.simplebar-scrollbar::before { background-color: rgb(150, 152, 161) !important; opacity: 0.7; }

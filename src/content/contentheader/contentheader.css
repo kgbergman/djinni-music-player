@@ -1,0 +1,28 @@
+.contentheader {
+    display: flex;
+    justify-content: left;
+    background-color: rgb(34, 38, 57);
+    padding: 5px;
+}
+
+.buttons-container {
+    display: flex;
+}
+
+.buttons {
+    display: flex;
+}
+
+.back-button {
+    display: flex;
+    padding: 5px;
+}
+
+.title {
+    padding-left: 10px;
+    padding-top: 5px;
+    font-size: 16px;
+    color: white;
+    flex: 1;
+    text-align: left;
+}
