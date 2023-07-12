@@ -13,6 +13,7 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "simplebar-react": "^3.2.4",
+    "typescript": "^5.1.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -2,14 +2,15 @@ import React from "react";
 import { Stream } from "../stream/Stream"
 import { AddStream } from "../stream/AddStream"
 import { Folder } from "../folder/Folder"
-import { BottomRow } from "./BottomRow"
+import { EditStream } from "../editstream/EditStream"
 import './contentgrid.css'
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
-import Grid from '@mui/material/Grid'; // Grid version 2
+import Grid from '@mui/material/Grid'; 
+import Stack from '@mui/material/Stack'; 
 
 export function ContentGrid() {
-    const page = "Folders";
+    const page = "Stream";
 
     if (page === "Folder") {
         return (
@@ -90,6 +91,12 @@ export function ContentGrid() {
     else if (page === "Stream") {
         return (
             <div className="contentgrid">
+                <SimpleBar style={{ height: '314px' }}>
+                    <Stack spacing={2}>
+                        <EditStream></EditStream>
+                    </Stack>
+                    <div className="bottom-row"></div>
+                </SimpleBar>
             </div>
         );
     }
