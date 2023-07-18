@@ -7,7 +7,6 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    outline: solid 2px rgb(187, 153, 255);
     margin: 2px;
 }
 
@@ -52,6 +51,8 @@
     align-items: center;
     z-index: 1;
     padding-right: 5px;
+    padding-top: 2px;
+    padding-left: 4px;
 }
 
 .stream-name-container {
@@ -73,15 +74,15 @@
 
 .stream-volume-button-container {
     display: flex;
-    padding-top: 2px;
-    padding-left: 2px;
     height: 25px;
     width: 25px;
+    align-items: center;
+    justify-content: center;
 }
 
 .stream-edit-button-container {
   padding-right: 2px;
-  padding-bottom: 2px;
+  padding-bottom: 1px;
 }
 
 .add-stream {
@@ -96,6 +97,7 @@
   border-radius: 5px;
   width: 100px;
   height: 113px;
+  margin: 2px;
 }
 
 .add-stream:hover {

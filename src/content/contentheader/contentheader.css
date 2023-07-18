@@ -3,6 +3,7 @@
     justify-content: left;
     background-color: rgb(34, 38, 57);
     padding: 5px;
+    align-items: center;
 }
 
 .buttons-container {
@@ -20,7 +21,6 @@
 
 .title {
     padding-left: 10px;
-    padding-top: 5px;
     font-size: 16px;
     color: white;
     flex: 1;
@@ -33,18 +33,38 @@
 .volume-container {
     display: flex;
     max-width: 125px;
+    width: 125px;
+    align-items: center;
 }
 
 .fade-container {
     margin-left: 15px;
-    max-width: 100px;
     display: flex;
-    margin-right: 10px;
+    margin-right: 15px;
+    width: 115px;
+    height: 40px;
 }
 
 .caption {
     font-size: 10px;
     color: white;
     flex: 1;
-    text-align: left;
+    text-align: center;
+}
+
+.fade-slider-container {
+    width: 100px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.header-slider-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
 }

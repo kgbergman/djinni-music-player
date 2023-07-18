@@ -7,15 +7,14 @@ import './contentgrid.css'
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 import Grid from '@mui/material/Grid'; 
-import Stack from '@mui/material/Stack'; 
 
 export function ContentGrid() {
-    let page = "Folder";
+    let page = "Stream";
 
     if (page === "Folder") {
         return (
             <div className="contentgrid">
-                <SimpleBar style={{ height: '314px' }}>
+                <SimpleBar style={{ height: '300px' }}>
                     <Grid container rowSpacing={1} columnSpacing={1}>
                         <Grid item>
                             <Stream/>
@@ -80,7 +79,7 @@ export function ContentGrid() {
     else if (page === "Folders") {
         return (
             <div className="contentgrid">
-                <SimpleBar style={{ height: '314px' }}>
+                <SimpleBar style={{ height: '300px' }}>
                     <Grid container rowSpacing={1} columnSpacing={1}>
                         <Grid item>
                             <Folder/>
@@ -139,13 +138,8 @@ export function ContentGrid() {
     else if (page === "Stream") {
         return (
             <div className="contentgrid">
-                <SimpleBar style={{ height: '314px' }}>
-                    <Stack
-                        direction="column"
-                        justifyContent="flex-start"
-                        alignItems="stretch"
-                        spacing={2}
-                    >
+                <SimpleBar style={{ height: '300px' }}>
+                    <div>
                         <EditStream></EditStream>
                         <EditStream></EditStream>
                         <EditStream></EditStream>
@@ -162,7 +156,8 @@ export function ContentGrid() {
                         <EditStream></EditStream>
                         <EditStream></EditStream>
                         <EditStream></EditStream>
-                    </Stack>
+                        <EditStream></EditStream>
+                    </div>
                     <div className="bottom-row"></div>
                 </SimpleBar>
             </div>

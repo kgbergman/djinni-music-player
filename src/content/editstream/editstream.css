@@ -1,6 +1,65 @@
 .edit-stream {
-    flex: 1;
-    background-color: blue;
-    height: 50px;
+    background-color: rgb(41, 45, 60);
+    height: 65px;
+    display: flex;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 10px;
     margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+.name-container {
+    padding-top: 8px;
+    padding-bottom: 5px;
+    margin-right: 15px;
+    width: 125px;
+}
+
+.link-container {
+    padding-top: 8px;
+    padding-bottom: 5px;
+    width: 125px;
+}
+
+.edit-stream-volume-container {
+    display: flex;
+    max-width: 150px;
+    width: 150px;
+    align-items: center;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.edit-stream-slider-container {
+    margin-left: 5px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.edit-stream-loop-slider-container {
+    margin-left: 5px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 5px;
+}
+
+.loop-container {
+    display: flex;
+    width: 150px;
+    margin-right: 15px;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+}
+
+.remove-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

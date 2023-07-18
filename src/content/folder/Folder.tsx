@@ -1,9 +1,16 @@
 import React from "react";
-import { MiniButton } from "../../button/MiniButton";
 import { getImage } from "../../images";
+import { IconButton } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
 import './folder.css'
 
 export function Folder() {
+    const buttonStyle = { 
+        color: "#ffffff",
+        '&:hover': {
+        backgroundColor: 'rgb(62, 64, 80)',
+        },
+    };
     return (
     <div className="folder">
         <div className="folder-fade"></div>
@@ -16,7 +23,9 @@ export function Folder() {
                 <span className="folder-name">Folder 1</span>
             </div>
             <div className="folder-edit-button-container">
-                <MiniButton image="edit"/>
+                <IconButton size="small" sx={buttonStyle} aria-label="edit">
+                    <EditIcon fontSize="small" sx={{ fontSize: "15px" }} />
+                </IconButton>
             </div>
         </div>
     </div>
