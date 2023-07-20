@@ -22,6 +22,19 @@
     width: 125px;
 }
 
+.name-container-mobile {
+    padding-top: 8px;
+    padding-bottom: 5px;
+    margin-right: 15px;
+    flex: 1;
+}
+
+.link-container-mobile {
+    padding-top: 8px;
+    padding-bottom: 5px;
+    flex: 1;
+}
+
 .edit-stream-volume-container {
     display: flex;
     max-width: 150px;
@@ -47,6 +60,16 @@
     padding-top: 5px;
 }
 
+.edit-stream-mobile-loop-slider-container {
+    margin-left: 5px;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 15px;
+    position: relative;
+}
+
 .loop-container {
     display: flex;
     width: 150px;
@@ -62,4 +85,52 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.edit-stream-mobile {
+    background-color: rgb(41, 45, 60);
+    height: 165px;
+    display: flex;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    flex-direction: column;
+}
+
+.edit-stream-row {
+    display: flex;
+    height: 54px;
+    margin-bottom: 5px;
+}
+
+.edit-stream-mobile-volume-container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    margin-right: 25px;
+}
+
+.mobile-loop-container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    margin-left: 7px;
+    margin-right: 20px;
+}
+
+.delete-row {
+    display: flex;
+    height: 35px;
+    justify-content: center;
+}
+
+.caption-mobile {
+    position: absolute;
+    top: 12px;
+    font-size: 10px;
+    color: white;
+    flex: 1;
+    text-align: center;
 }

@@ -18,6 +18,7 @@
     height: 100%;
     width: 100%;
     transition: background-color 100ms linear;
+    z-index: 0;
 }
 
 .folder-fade:hover {
@@ -33,6 +34,7 @@
     position: relative;
     display: flex;
     filter: invert(50%) sepia(69%) saturate(4435%) hue-rotate(165deg) brightness(101%) contrast(101%);
+    z-index: 1;
 }
 
 .folder-overlay {
@@ -40,6 +42,8 @@
     color: white;
     font-size: 1.25rem;
     pointer-events: none;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    user-select: none;
 }
 
 .folder-icon-container {
@@ -75,9 +79,131 @@
     width: 100%;
     display: block;
     font-size: 10px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .folder-edit-button-container {
   padding-right: 2px;
   padding-bottom: 2px;
+}
+
+.popup-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 3;
+}
+
+.popup {
+    width: 300px;
+    height: 300px;
+    border-radius: 15px;
+    background-color: rgb(45, 49, 67);
+    z-index: 4;
+}
+
+.popup-header {
+    height: 40px;
+    color: white;
+    text-align: left;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    padding: 16px 24px 0px 24px;
+    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+}
+
+.popup-name-container {
+    flex: 1;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-bottom: 16px;
+}
+
+.popup-color-picker {
+    display: flex;
+    flex: 1;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-bottom: 16px;
+}
+
+.popup-color-picker .react-colorful {
+    height: 100px;
+    flex: 1;
+  }
+.popup-color-picker .react-colorful__saturation {
+    border-radius: 4px 4px 0 0;
+}
+.popup-color-picker .react-colorful__hue {
+    height: 10px;
+    border-radius: 0 0 4px 4px;
+}
+
+.popup-color-picker .react-colorful__saturation-pointer {
+  width: 30px;
+  height: 30px;
+}
+
+.popup-color-picker .react-colorful__hue-pointer {
+  width: 20px;
+  height: 20px;
+}
+
+.popup-color-title {
+    color: rgba(255, 255, 255, 0.7);
+    text-align: left;
+    font-weight: 400;
+    line-height: 1.4375em;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    padding: 0px;
+    position: relative;
+    font-size: 0.75rem;
+    margin-bottom: 4px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.popup-buttons-container {
+    display: flex;
+    justify-content: end;
+    padding-right: 6px;
+}
+
+.popup-buttons-container-save {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.popup-caption {
+    flex: 1;
+    text-align: left;
+    padding-left: 24px;
+    padding-right: 24px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.delete-folder-popup {
+    width: 300px;
+    height: 150px;
+    border-radius: 15px;
+    background-color: rgb(45, 49, 67);
+    z-index: 4;
 }

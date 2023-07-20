@@ -1,0 +1,176 @@
+[
+    {
+        "folderName": "First",
+        "folderColor": "#FF0000",
+        "id": 1,
+        "streams": [
+            {
+                "streamName": "Waves",
+                "streamIcon": "🌊",
+                "streamVolume": 15,
+                "streamFade": 0,
+                "id": 1,
+                "streamData": [
+                    {
+                        "name": "First",
+                        "link": "www.youtube.com/1",
+                        "volume": 100,
+                        "loop": true,
+                        "loop1": 20,
+                        "loop2": 60
+                    },
+                    {
+                        "name": "Second",
+                        "link": "www.youtube.com/2",
+                        "volume": 50,
+                        "loop": false,
+                        "loop1": 0,
+                        "loop2": 0
+                    }
+                ]
+            },
+            {
+                "streamName": "Heart Eyes",
+                "streamIcon": "😍",
+                "streamVolume": 100,
+                "streamFade": 5,
+                "id": 2,
+                "streamData": [
+                    {
+                        "name": "First",
+                        "link": "www.youtube.com/3",
+                        "volume": 100,
+                        "loop": true,
+                        "loop1": 20,
+                        "loop2": 60
+                    },
+                    {
+                        "name": "Second",
+                        "link": "www.youtube.com/4",
+                        "volume": 50,
+                        "loop": false,
+                        "loop1": 0,
+                        "loop2": 60
+                    }
+                ]
+
+            }
+        ]
+    },
+    {
+        "folderName": "Example",
+        "folderColor": "#00FF00",
+        "id": 2,
+        "streams": [
+            
+            {
+                "streamName": "Heart",
+                "streamIcon": "💗",
+                "streamVolume": 50,
+                "streamFade": 10,
+                "id": 3,
+                "streamData": [
+                    {
+                        "name": "What",
+                        "link": "www.youtube.com/7",
+                        "volume": 25,
+                        "loop": false,
+                        "loop1": 0,
+                        "loop2": 0
+                    },
+                    {
+                        "name": "The",
+                        "link": "www.youtube.com/8",
+                        "volume": 75,
+                        "loop": true,
+                        "loop1": 50,
+                        "loop2": 60
+                    }
+                ]
+            },
+            {
+                "streamName": "Smiley",
+                "streamIcon": "😄",
+                "streamVolume": 30,
+                "streamFade": 7,
+                "id": 4,
+                "streamData": [
+                    {
+                        "name": "What",
+                        "link": "www.youtube.com/5",
+                        "volume": 25,
+                        "loop": true,
+                        "loop1": 1,
+                        "loop2": 3
+                    },
+                    {
+                        "name": "The",
+                        "link": "www.youtube.com/6",
+                        "volume": 75,
+                        "loop": true,
+                        "loop1": 10,
+                        "loop2": 20
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "folderName": "Blue",
+        "folderColor": "#0000FF",
+        "id": 3,
+        "streams": [
+            
+            {
+                "streamName": "Heart",
+                "streamIcon": "💗",
+                "streamVolume": 50,
+                "streamFade": 10,
+                "id": 5,
+                "streamData": [
+                    {
+                        "name": "What",
+                        "link": "www.youtube.com/7",
+                        "volume": 25,
+                        "loop": false,
+                        "loop1": 0,
+                        "loop2": 0
+                    },
+                    {
+                        "name": "The",
+                        "link": "www.youtube.com/8",
+                        "volume": 75,
+                        "loop": true,
+                        "loop1": 50,
+                        "loop2": 60
+                    }
+                ]
+            },
+            {
+                "streamName": "Smiley",
+                "streamIcon": "😄",
+                "streamVolume": 30,
+                "streamFade": 7,
+                "id": 6,
+                "streamData": [
+                    {
+                        "name": "What",
+                        "link": "www.youtube.com/5",
+                        "volume": 25,
+                        "loop": true,
+                        "loop1": 1,
+                        "loop2": 3
+                    },
+                    {
+                        "name": "The",
+                        "link": "www.youtube.com/6",
+                        "volume": 75,
+                        "loop": true,
+                        "loop1": 10,
+                        "loop2": 20
+                    }
+                ]
+            }
+        ]
+    }
+]

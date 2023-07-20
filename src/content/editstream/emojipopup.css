@@ -1,0 +1,37 @@
+.emoji-popup-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+.emoji-popup-background .picker-container {
+    position: absolute;
+    top: 90px;
+    left: 45px;
+    height: 250px;
+    width: 280px;
+  }
+
+  em-emoji-picker {
+    overflow: hidden;
+    height: 250px;
+    width: 280px;
+    min-height: 250px;
+    max-height: 250px;
+    min-width: 280px;
+    max-width: 280px;
+    --border-radius: 10px;
+    --category-icon-size: 24px;
+    --color-border-over: rgba(0, 0, 0, 0.1);
+    --color-border: rgba(0, 0, 0, 0.05);
+    --font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    --font-size: 16px;
+    --rgb-accent: 187, 153, 255;
+    --rgb-background: 41, 45, 60;
+    --rgb-color: 255, 255, 255;
+  }
+  
