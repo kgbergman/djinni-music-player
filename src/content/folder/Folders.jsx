@@ -3,16 +3,13 @@ import './folder.css'
 import Grid from '@mui/material/Grid';
 import { Folder } from "./Folder";
 
-export function Folders({ folders, sortByAlpha, editFolderClicked, folderOpened }) {
-
-    const [selectedFolder, setSelectedFolder] = useState(0);
+export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, folderOpened, openDeletePopup, selectedFolder, setSelectedFolder }) {
 
     function folderClicked(event) {
         setSelectedFolder(parseInt(event.currentTarget.id));
     }
     
     function folderDoubleClicked(event) {
-        console.log(event.currentTarget);
         folderOpened(event.currentTarget.id);
     }
     

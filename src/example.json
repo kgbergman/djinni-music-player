@@ -7,14 +7,18 @@
             {
                 "streamName": "Waves",
                 "streamIcon": "🌊",
-                "streamVolume": 15,
-                "streamFade": 0,
+                "streamMute": true,
+                "streamVolume": 100,
+                "streamFade": false,
+                "streamFadeTime": 5,
                 "id": 1,
                 "streamData": [
                     {
                         "name": "First",
                         "link": "www.youtube.com/1",
+                        "mute": false,
                         "volume": 100,
+                        "id": 1,
                         "loop": true,
                         "loop1": 20,
                         "loop2": 60
@@ -22,7 +26,9 @@
                     {
                         "name": "Second",
                         "link": "www.youtube.com/2",
+                        "mute": false,
                         "volume": 50,
+                        "id": 2,
                         "loop": false,
                         "loop1": 0,
                         "loop2": 0
@@ -32,14 +38,18 @@
             {
                 "streamName": "Heart Eyes",
                 "streamIcon": "😍",
+                "streamMute": false,
                 "streamVolume": 100,
-                "streamFade": 5,
+                "streamFade": false,
+                "streamFadeTime": 5,
                 "id": 2,
                 "streamData": [
                     {
                         "name": "First",
                         "link": "www.youtube.com/3",
+                        "mute": true,
                         "volume": 100,
+                        "id": 3,
                         "loop": true,
                         "loop1": 20,
                         "loop2": 60
@@ -47,7 +57,9 @@
                     {
                         "name": "Second",
                         "link": "www.youtube.com/4",
+                        "mute": false,
                         "volume": 50,
+                        "id": 4,
                         "loop": false,
                         "loop1": 0,
                         "loop2": 60
@@ -66,22 +78,28 @@
             {
                 "streamName": "Heart",
                 "streamIcon": "💗",
-                "streamVolume": 50,
-                "streamFade": 10,
+                "streamMute": false,
+                "streamVolume": 100,
+                "streamFade": false,
+                "streamFadeTime": 5,
                 "id": 3,
                 "streamData": [
                     {
                         "name": "What",
                         "link": "www.youtube.com/7",
+                        "mute": true,
                         "volume": 25,
                         "loop": false,
+                        "id": 5,
                         "loop1": 0,
                         "loop2": 0
                     },
                     {
                         "name": "The",
                         "link": "www.youtube.com/8",
+                        "mute": false,
                         "volume": 75,
+                        "id": 6,
                         "loop": true,
                         "loop1": 50,
                         "loop2": 60
@@ -91,14 +109,18 @@
             {
                 "streamName": "Smiley",
                 "streamIcon": "😄",
-                "streamVolume": 30,
-                "streamFade": 7,
+                "streamMute": false,
+                "streamVolume": 100,
+                "streamFade": false,
+                "streamFadeTime": 5,
                 "id": 4,
                 "streamData": [
                     {
                         "name": "What",
                         "link": "www.youtube.com/5",
+                        "mute": false,
                         "volume": 25,
+                        "id": 7,
                         "loop": true,
                         "loop1": 1,
                         "loop2": 3
@@ -106,7 +128,9 @@
                     {
                         "name": "The",
                         "link": "www.youtube.com/6",
+                        "mute": true,
                         "volume": 75,
+                        "id": 8,
                         "loop": true,
                         "loop1": 10,
                         "loop2": 20
@@ -124,14 +148,18 @@
             {
                 "streamName": "Heart",
                 "streamIcon": "💗",
-                "streamVolume": 50,
-                "streamFade": 10,
+                "streamMute": false,
+                "streamVolume": 100,
+                "streamFade": false,
+                "streamFadeTime": 5,
                 "id": 5,
                 "streamData": [
                     {
                         "name": "What",
                         "link": "www.youtube.com/7",
+                        "mute": false,
                         "volume": 25,
+                        "id": 9,
                         "loop": false,
                         "loop1": 0,
                         "loop2": 0
@@ -139,7 +167,9 @@
                     {
                         "name": "The",
                         "link": "www.youtube.com/8",
+                        "mute": true,
                         "volume": 75,
+                        "id": 10,
                         "loop": true,
                         "loop1": 50,
                         "loop2": 60
@@ -149,23 +179,29 @@
             {
                 "streamName": "Smiley",
                 "streamIcon": "😄",
-                "streamVolume": 30,
-                "streamFade": 7,
+                "streamMute": false,
+                "streamVolume": 100,
+                "streamFade": false,
+                "streamFadeTime": 5,
                 "id": 6,
                 "streamData": [
                     {
                         "name": "What",
                         "link": "www.youtube.com/5",
+                        "mute": true,
                         "volume": 25,
                         "loop": true,
+                        "id": 11,
                         "loop1": 1,
                         "loop2": 3
                     },
                     {
                         "name": "The",
                         "link": "www.youtube.com/6",
+                        "mute": false,
                         "volume": 75,
                         "loop": true,
+                        "id": 12,
                         "loop1": 10,
                         "loop2": 20
                     }

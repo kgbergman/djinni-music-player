@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { IconButton } from "@mui/material";
 import { Slider } from "@mui/material";
 import FolderIcon from '@mui/icons-material/Folder';
 import SaveIcon from '@mui/icons-material/Save';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import './header.css'
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
@@ -18,6 +19,10 @@ const muiTheme = createTheme({
 
 
 export function Header({setFolders}) {
+
+  const [masterVolumeMute, setMasterVolumeMute] = useState(false);
+  const [masterVolumeValue, setMasterVolumeValue] = useState(50);
+
   const buttonStyle = { 
     color: "#ffffff",
     '&:hover': {
@@ -53,12 +58,14 @@ export function Header({setFolders}) {
   }
 
   function volumeToggleClicked() {
-    console.log("master volume toggle")
+    setMasterVolumeMute(!masterVolumeMute);
+    if (masterVolumeMute) {
+      setMasterVolumeValue(0);
+    }
   }
 
   const volumeSliderChanged = (event, newValue) => {
-    console.log(event);
-    console.log(newValue);
+    setMasterVolumeValue(newValue);
   };
 
   return (
@@ -76,12 +83,13 @@ export function Header({setFolders}) {
           <div className="buttons-container">
             <div className="buttons">
               <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
-                  <VolumeUpIcon/>
+                {!masterVolumeMute && <VolumeUpIcon/>}
+                {masterVolumeMute && <VolumeOffIcon/>}
               </IconButton>
             </div>
             <div className="slider-container">
               <ThemeProvider theme={muiTheme}>
-                <Slider min={0} max={100} defaultValue={40} onChange={volumeSliderChanged}/>
+                <Slider min={0} max={100} defaultValue={50} disabled={masterVolumeMute} onChange={volumeSliderChanged}/>
               </ThemeProvider>
             </div>
           </div>

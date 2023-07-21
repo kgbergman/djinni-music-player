@@ -8,11 +8,30 @@ import { EditStreams } from "../editstream/EditStreams";
 import { EmojiPopup } from "../editstream/EmojiPopup";
 import { DeletePopup } from "../folder/DeletePopup";
 
-export function ContentGrid({ folders, sortByAlpha, editFolderClicked, folderOpened, openedPage, openedFolder, streamOpened, openedStream, closeEmojiPopup, showEmojiPopup, showDeletePopup, closeDeletePopup }) {
+export function ContentGrid({ 
+    folders, 
+    sortByAlpha, 
+    editFolderClicked, 
+    folderOpened, 
+    openedPage, 
+    openedFolder, 
+    streamOpened, 
+    openedStream, 
+    closeEmojiPopup, 
+    showEmojiPopup, 
+    showDeletePopup, 
+    openDeletePopup,
+    closeDeletePopup,
+    deleteClicked,
+    selectedFolder,
+    setSelectedFolder,
+    setCurrentStreamObject,
+    updateEmoji
+}) {
     if (openedPage === "folder") {
         return (
             <div className="contentgrid">
-                {showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} type={"folder"}/>}
+                {showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"folder"}/>}
                 <SimpleBar style={{ height: '300px' }}>
                     <Streams sortByAlpha={sortByAlpha} folders={folders} openedFolder={openedFolder} streamOpened={streamOpened}/>
                     <div className="bottom-row"></div>
@@ -23,8 +42,9 @@ export function ContentGrid({ folders, sortByAlpha, editFolderClicked, folderOpe
     else if (openedPage === "folders") {
         return (
             <div className="contentgrid">
+                {showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"folder"}/>}
                 <SimpleBar style={{ height: '300px' }}>
-                    <Folders sortByAlpha={sortByAlpha} folders={folders} editFolderClicked={editFolderClicked} folderOpened={folderOpened}/>
+                    <Folders sortByAlpha={sortByAlpha} openedPage={openedPage} folders={folders} openDeletePopup={openDeletePopup} editFolderClicked={editFolderClicked} folderOpened={folderOpened} selectedFolder={selectedFolder} setSelectedFolder={setSelectedFolder}/>
                     <div className="bottom-row"></div>
                 </SimpleBar>
             </div>
@@ -33,10 +53,10 @@ export function ContentGrid({ folders, sortByAlpha, editFolderClicked, folderOpe
     else if (openedPage === "stream") {
         return (
             <div className="contentgrid">
-                {showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} type={"stream"}/>}
-                {showEmojiPopup && <EmojiPopup closeEmojiPopup={closeEmojiPopup}/>}
+                {showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"stream"}/>}
+                {showEmojiPopup && <EmojiPopup closeEmojiPopup={closeEmojiPopup} updateEmoji={updateEmoji}/>}
                 <SimpleBar style={{ height: '300px' }}>
-                    <EditStreams openedFolder={openedFolder} openedStream={openedStream} folders={folders}/>
+                    <EditStreams openedFolder={openedFolder} openedStream={openedStream} folders={folders} setCurrentStreamObject={setCurrentStreamObject}/>
                     <div className="bottom-row"></div>
                 </SimpleBar>
             </div>

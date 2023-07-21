@@ -3,10 +3,11 @@ import './emojipopup.css'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 
-export function EmojiPopup({ closeEmojiPopup }) {
+export function EmojiPopup({ closeEmojiPopup, updateEmoji }) {
 
     function emojiSelected(emoji) {
-        console.log(emoji);
+        updateEmoji(emoji);
+        closeEmojiPopup();
     }
 
     function backgroundClicked() {

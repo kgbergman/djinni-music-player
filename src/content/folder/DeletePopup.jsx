@@ -32,11 +32,10 @@ const muiTheme = createTheme({
     },
   });
 
-export function DeletePopup({ closeDeletePopup, type }) {
+export function DeletePopup({ closeDeletePopup, type, deleteClicked }) {
     let mouseOrigin = "bg";
 
     function popupBackgroundMouseUp(event) {
-        console.log(mouseOrigin);
         if (mouseOrigin === "bg") {
             closeDeletePopup();
         }
@@ -73,7 +72,7 @@ export function DeletePopup({ closeDeletePopup, type }) {
                 <div className="popup-header">Delete this {type}?</div>
                 <div className="popup-caption">This operation cannot be undone.</div>
                 <div className="popup-buttons-container">
-                    <Button variant="text" sx= {deleteButtonStyle}>
+                    <Button variant="text" sx= {deleteButtonStyle} onClick={deleteClicked}>
                         Delete
                     </Button>
                     <Button variant="text" sx= {buttonStyle} onClick={closeDeletePopup}>

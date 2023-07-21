@@ -75,7 +75,7 @@
 
 .fade-slider-container {
     width: 100px;
-    margin-left: 10px;
+    margin-left: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,7 +88,7 @@
     flex: 1;
     flex-direction: column;
     justify-content: center;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .content-header-row {

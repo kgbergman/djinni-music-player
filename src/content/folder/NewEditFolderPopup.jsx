@@ -34,10 +34,52 @@ const muiTheme = createTheme({
     },
   });
 
-export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folders }) {
-    
-    function setColor() {
+export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folders, updateFolders }) {
+    let currentColor = "#000000";
+    let currentName = "New Folder";
 
+    function saveFolderClicked() {
+        for (let i = 0; i < folders.length; i++) {
+            if (parseInt(folders[i].id) === parseInt(folderToEdit)) {
+                folders[i].folderName = currentName;
+                folders[i].folderColor = currentColor;
+                updateFolders(folders);
+            }
+        }
+    }
+
+    function getRandomValue(array) {
+        let e;
+        do {
+            e = Math.trunc(Math.random() * 10000);
+        } while (array.includes(e) && e !== 0)
+        return e;
+    }
+
+    function addFolderClicked() {
+        //Get new folder id
+        let folderIds = folders.map(folder => folder.id);
+        let currentId = getRandomValue(folderIds);
+
+        const newFolder = {
+            "folderName": currentName,
+            "folderColor": currentColor,
+            "id": currentId,
+            "streams": []
+        }
+        updateFolders([...folders, newFolder]);
+    }
+
+    function textChanged(event) {
+        if (event && event.target && event.target.value) {
+            currentName = event.target.value;
+        }
+    }
+
+    function setColor(color) {
+        if (color) {
+            currentColor = color;
+        }
     }
 
     let mouseOrigin = "bg";
@@ -106,7 +148,7 @@ export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folder
                             id="standard-basic"
                             label="Name"
                             variant="standard"
-                            defaultValue="New Folder"
+                            defaultValue={currentName}
                             InputLabelProps={{
                                 sx: {
                                 // set the color of the label when not shrinked
@@ -120,6 +162,7 @@ export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folder
                                 }
                                 }
                             }}
+                            onChange={textChanged}
                         />
                     </ThemeProvider>
                 </div>
@@ -127,13 +170,13 @@ export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folder
                     Color
                 </div>
                 <div className="popup-color-picker">
-                    <HexColorPicker color={"#000000"} onChange={setColor} />
+                    <HexColorPicker color={currentColor} onChange={setColor} />
                 </div>
                 <div className="popup-buttons-container">
                     <Button variant="text" sx= {buttonStyle} onClick={popupClose}>
                         Cancel
                     </Button>
-                    <Button variant="text" sx= {buttonStyle}>
+                    <Button variant="text" sx= {buttonStyle} onClick={addFolderClicked}>
                         Add
                     </Button>
                 </div>
@@ -143,6 +186,8 @@ export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folder
     }
     else {
         const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(folderToEdit))[0];
+        currentColor = thisFolder.folderColor;
+        currentName = thisFolder.folderName;
         return (
         <div className="popup-background" onMouseDown={popupBackgroundMouseDown} onMouseUp={popupBackgroundMouseUp}>
             <div className="popup" onMouseDown={popupClicked}>
@@ -186,6 +231,7 @@ export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folder
                                 }
                                 }
                             }}
+                            onChange={textChanged}
                         />
                     </ThemeProvider>
                 </div>
@@ -193,10 +239,10 @@ export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folder
                     Color
                 </div>
                 <div className="popup-color-picker">
-                    <HexColorPicker color={thisFolder.folderColor} onChange={setColor} />
+                    <HexColorPicker color={currentColor} onChange={setColor} />
                 </div>
                 <div className="popup-buttons-container-save">
-                    <Button variant="outlined" sx= {saveButtonStyle}>
+                    <Button variant="outlined" sx={saveButtonStyle} onClick={saveFolderClicked}>
                         Save
                     </Button>
                 </div>

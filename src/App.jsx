@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Header setFolders={setFolders}/>
-      <Content folders={folders}/>
+      <Content folders={folders} setFolders={setFolders}/>
     </div>
   );
 }
