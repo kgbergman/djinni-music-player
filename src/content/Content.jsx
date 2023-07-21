@@ -115,13 +115,26 @@ export function Content({ folders, setFolders }) {
         return getRandomValue(streamIds);
     }
 
+    function getUniqueEditStreamId() {
+        const editStreamIds = [];
+        for (let i = 0; i < folders.length; i++) {
+            for (let j = 0; j < folders[i].streams.length; j++) {
+                for (let k = 0; k < folders[i].streams[j].length; k++){
+                    editStreamIds.push(folders[i].streams[j].id);
+                }
+            }
+        }
+
+        return getRandomValue(editStreamIds);
+    }
+
     function streamOpened(streamId) {
         if (streamId === "new") {
             //Create a new stream with a new unique id and add to folders
             const newStream = {
                 "streamName": "New Stream",
                 "streamIcon": "😀",
-                "streamVolume": 50,
+                "streamVolume": 100,
                 "streamFade": false,
                 "streamFadeTime": 0,
                 "id": getUniqueStreamId(),
@@ -129,11 +142,12 @@ export function Content({ folders, setFolders }) {
                     {
                         "name": "",
                         "link": "",
-                        "volume": 50,
+                        "volume": 100,
+                        "id": getUniqueEditStreamId(),
                         "mute": false,
                         "loop": false,
-                        "loop1": 0,
-                        "loop2": 1
+                        "loop1": 20,
+                        "loop2": 40
                     }
                 ]
             }
@@ -163,6 +177,7 @@ export function Content({ folders, setFolders }) {
             thisStream.streamName = currentStreamObject.streamName;
             thisStream.streamVolume = currentStreamObject.streamVolume;
             thisStream.streamFade = currentStreamObject.streamFade;
+            thisStream.streamData = currentStreamObject.streamData;
             //Replace folder with new folder that contains the edited stream list
             const newStreams = thisFolder.streams.map(stream => {
                 if (stream.id === thisStream.id) {
@@ -295,6 +310,7 @@ export function Content({ folders, setFolders }) {
                 selectedFolder={selectedFolder}
                 setSelectedFolder={setSelectedFolder}
                 setCurrentStreamObject={setCurrentStreamObject}
+                currentStreamObject={currentStreamObject}
             />
         </div>
     );

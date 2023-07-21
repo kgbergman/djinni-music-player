@@ -6,22 +6,22 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .emoji-popup-background .picker-container {
-    position: absolute;
-    top: 90px;
-    left: 45px;
-    height: 250px;
+    height: 325px;
     width: 280px;
   }
 
   em-emoji-picker {
     overflow: hidden;
-    height: 250px;
+    height: 325px;
     width: 280px;
     min-height: 250px;
-    max-height: 250px;
+    max-height: 325px;
     min-width: 280px;
     max-width: 280px;
     --border-radius: 10px;

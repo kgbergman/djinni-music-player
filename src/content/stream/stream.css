@@ -1,7 +1,5 @@
-
 .stream {
     background-color: rgb(41, 45, 60);
-    width: 100px;
     position: relative;
     overflow: hidden;
     border-radius: 5px;
@@ -9,10 +7,8 @@
     flex-direction: column;
     outline: solid 0px rgb(187, 153, 255);
     margin: 2px;
-}
-
-.stream-mobile {
-  width: 130px;
+    aspect-ratio: 1/1;
+    justify-content: space-between;
 }
 
 .stream-fade {  
@@ -29,12 +25,20 @@
   cursor: pointer;
 }
   
-.stream-icon {
-    margin: 0;
-    font-size: 45px;
-    pointer-events: none;
-    position: relative;
-    top: -5px;
+.stream-icon-container {
+  position: absolute;
+  width: 100%;
+  height: 92%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 15px;
+} 
+
+.stream-icon{
+  font-size: 45px;
 }
   
 .stream-low-row {
@@ -61,10 +65,10 @@
 }
 
 .stream-name-container {
-    padding-left: 5px;
+    padding-left: 10px;
     flex: 1;
     min-width: 0;
-    width: 75px;
+    padding-bottom: 5px;
 }
   
 .stream-name-container > .stream-name {
@@ -74,7 +78,8 @@
     white-space: nowrap;
     width: 100%;
     display: block;
-    font-size: 10px;
+    font-size: 0.8rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .stream-volume-button-container {
@@ -86,8 +91,8 @@
 }
 
 .stream-edit-button-container {
-  padding-right: 2px;
-  padding-bottom: 1px;
+  padding-right: 4px;
+  padding-bottom: 4px;
 }
 
 .add-stream {
@@ -100,14 +105,8 @@
   justify-content: center;
   background-color: rgb(41, 45, 60);
   border-radius: 5px;
-  width: 100px;
-  height: 113px;
+  aspect-ratio: 1/1;
   margin: 2px;
-}
-
-.add-stream-mobile {
-  width: 130px;
-  height: 128px;
 }
 
 .add-stream:hover {

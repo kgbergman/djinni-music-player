@@ -1,0 +1,460 @@
+[
+	{
+		"folderName": "Beach",
+		"folderColor": "#00e7ff",
+		"id": 1,
+		"streams": [
+			{
+				"streamName": "BG Noise",
+				"streamIcon": "🌊",
+				"streamMute": false,
+				"streamVolume": 100,
+				"streamFade": true,
+				"streamFadeTime": 3,
+				"id": 1,
+				"streamData": [
+					{
+						"name": "Waves",
+						"link": "www.youtube.com/1",
+						"mute": false,
+						"volume": 69,
+						"id": 4,
+						"loop": true,
+						"loop1": 0,
+						"loop2": 0
+					},
+					{
+						"name": "Seagulls",
+						"link": "www.youtube.com/1",
+						"mute": false,
+						"volume": 66,
+						"id": 5,
+						"loop": true,
+						"loop1": 20,
+						"loop2": 45
+					},
+					{
+						"name": "Footsteps",
+						"link": "www.youtube.com/1",
+						"mute": false,
+						"volume": 72,
+						"id": 6,
+						"loop": true,
+						"loop1": 40,
+						"loop2": 60
+					}
+				]
+			},
+			{
+				"streamName": "Calm Music",
+				"streamIcon": "🌞",
+				"streamMute": false,
+				"streamVolume": 100,
+				"streamFade": true,
+				"streamFadeTime": 3,
+				"id": 2,
+				"streamData": [
+					{
+						"name": "Music",
+						"link": "www.youtube.com/1",
+						"mute": false,
+						"volume": 100,
+						"id": 7,
+						"loop": true,
+						"loop1": 0,
+						"loop2": 0
+					}
+				]
+			},
+			{
+				"streamName": "Combat Music",
+				"streamIcon": "⚔️",
+				"streamMute": false,
+				"streamVolume": 100,
+				"streamFade": true,
+				"streamFadeTime": 5,
+				"id": 3,
+				"streamData": [
+					{
+						"name": "Combat",
+						"link": "www.youtube.com/1",
+						"mute": false,
+						"volume": 100,
+						"id": 8,
+						"loop": true,
+						"loop1": 0,
+						"loop2": 0
+					}
+				]
+			}
+		]
+	},
+	{
+		"folderName": "Dungeon",
+		"folderColor": "#4c4c4c",
+		"id": 2,
+		"streams": [
+			{
+				"streamName": "Stealth Music",
+				"streamIcon": "🤫",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 2039,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 1953,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Combat Music",
+				"streamIcon": "⚔️",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 7717,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 9436,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Monster Roar",
+				"streamIcon": "🦖",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 6125,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 4783,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "BG Music",
+				"streamIcon": "🔊",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 3181,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 1570,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			}
+		]
+	},
+	{
+		"folderName": "Forest",
+		"folderColor": "#35840d",
+		"id": 3,
+		"streams": [
+			{
+				"streamName": "Creatures",
+				"streamIcon": "🦊",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 492,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 4079,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Creaky Trees",
+				"streamIcon": "🌲",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 5872,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 4140,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Quiet Music",
+				"streamIcon": "🔉",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 7168,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 8813,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Combat Music",
+				"streamIcon": "⚔️",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 5327,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 7549,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			}
+		]
+	},
+	{
+		"folderName": "Volcano",
+		"folderColor": "#ff3300",
+		"id": 3471,
+		"streams": [
+			{
+				"streamName": "Volcano Sounds",
+				"streamIcon": "🌋",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 3511,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 4876,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "BG Music",
+				"streamIcon": "🔥",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 5296,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 5712,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Combat Music",
+				"streamIcon": "⚔️",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 1494,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 6576,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Stealth Music",
+				"streamIcon": "🤫",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 883,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 871,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			}
+		]
+	},
+	{
+		"folderName": "Pirate Ship",
+		"folderColor": "#846501",
+		"id": 9056,
+		"streams": [
+			{
+				"streamName": "BG Sounds",
+				"streamIcon": "🗣️",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 5385,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 7889,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Upbeat Shanty",
+				"streamIcon": "🦜",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 9161,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 8940,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Slow Shanty",
+				"streamIcon": "🏴‍☠️",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 2753,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 8056,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Stormy Weather",
+				"streamIcon": "⛈️",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 3004,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 7919,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			},
+			{
+				"streamName": "Combat Shanty",
+				"streamIcon": "🗡️",
+				"streamVolume": 100,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"id": 8009,
+				"streamData": [
+					{
+						"name": "",
+						"link": "",
+						"volume": 100,
+						"id": 5050,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40
+					}
+				]
+			}
+		]
+	}
+]

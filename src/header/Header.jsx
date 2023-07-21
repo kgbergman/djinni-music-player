@@ -18,7 +18,7 @@ const muiTheme = createTheme({
 });
 
 
-export function Header({setFolders}) {
+export function Header({setFolders, saveButtonClicked}) {
 
   const [masterVolumeMute, setMasterVolumeMute] = useState(false);
   const [masterVolumeValue, setMasterVolumeValue] = useState(50);
@@ -51,10 +51,6 @@ export function Header({setFolders}) {
       }
     };
     input.click();
-  }
-
-  function saveButtonClicked() {
-    console.log("save");
   }
 
   function volumeToggleClicked() {

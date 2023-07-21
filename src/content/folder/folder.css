@@ -1,6 +1,5 @@
 .folder {
     background-color: rgb(41, 45, 60);
-    max-width: 100px;
     position: relative;
     overflow: hidden;
     border-radius: 5px;
@@ -8,7 +7,7 @@
     flex-direction: column;
     outline: solid 0px rgb(187, 153, 255);
     margin: 2px;
-    height: 113px;
+    aspect-ratio: 1/1;
 }
 
 .folder-fade {  
@@ -51,6 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 5px;
 }
   
 .folder-low-row {
@@ -65,10 +65,10 @@
 }
 
 .folder-name-container {
-    padding-left: 5px;
-    flex: 1;
+    padding-left: 10px;
+    flex: 1 1;
     min-width: 0;
-    width: 75px;
+    padding-bottom: 5px;
 }
   
 .folder-name-container > .folder-name {
@@ -78,13 +78,13 @@
     white-space: nowrap;
     width: 100%;
     display: block;
-    font-size: 10px;
+    font-size: 0.8rem;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .folder-edit-button-container {
-  padding-right: 2px;
-  padding-bottom: 2px;
+  padding-right: 4px;
+  padding-bottom: 4px;
 }
 
 .popup-background {

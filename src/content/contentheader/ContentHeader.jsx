@@ -4,8 +4,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import EditIcon from '@mui/icons-material/Edit';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,6 +13,7 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import { TextField } from "@mui/material";
+import { ContentHeaderSliders } from "./ContentHeaderSliders";
 
 const muiTheme = createTheme({
   palette: {
@@ -168,6 +167,11 @@ export function ContentHeader({
             },
             },
         });
+        
+        let thisClass = "contentheader";
+        if (isMobile) {
+            thisClass = "contentheader-stream";
+        }
 
         const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
         const thisFolderStreams = thisFolder.streams;
@@ -186,68 +190,17 @@ export function ContentHeader({
                     {
                         "name": "",
                         "link": "",
-                        "volume": 50,
+                        "volume": 100,
                         "loop": false,
-                        "loop1": 0,
-                        "loop2": 1
+                        "loop1": 20,
+                        "loop2": 40
                     }
                 ]
             }
         }
-
-        if (isMobile) {
-            return (
-                <div className="contentheader-mobile">
-                    <div className="content-header-row">
-                        <div className="buttons-container">
-                            <div className="buttons">
-                                <IconButton sx={buttonStyle} aria-label="back" onClick={backButtonClicked}>
-                                    <ChevronLeftIcon/>
-                                </IconButton>
-                            </div>
-                        </div>
-                        <span className="title">Stream Name</span>
-                    </div>
-                    <div className="content-header-row">
-                        <div className="volume-container-mobile">
-                            <div className="buttons">
-                                <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
-                                    <VolumeUpIcon/>
-                                </IconButton>
-                            </div>
-                            <div className="header-slider-container">
-                                <ThemeProvider theme={muiTheme}>
-                                    <Slider sx={sliderStyle} size="small" min={0} max={100} defaultValue={thisStream.streamVolume} />
-                                </ThemeProvider>
-                            </div>
-                        </div>
-                        <div className="fade-container-mobile">
-                            <div className="buttons">
-                                <IconButton sx={buttonStyle} aria-label="fade toggle" onClick={fadeToggleClicked}>
-                                    <SvgIcon>
-                                        <svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
-                                            x="0px" y="0px" viewBox="0 0 24 24" xmlSpace="preserve">
-                                            <path d="M4,4h4v16H4V4z"/>
-                                            <rect x="10" y="9" width="4" height="11"/>
-                                            <rect x="16" y="13" width="4" height="7"/>
-                                        </svg>
-                                    </SvgIcon>
-                                </IconButton>
-                            </div>
-                            <div className="fade-slider-container">
-                                <span className="caption-mobile-content-header">No Fade</span>
-                                <ThemeProvider theme={muiTheme}>
-                                    <Slider sx={sliderStyle} size="small" min={0} max={10} defaultValue={thisStream.streamFadeTime} />
-                                </ThemeProvider>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            );
-        }
-        else {
-            return (
-                <div className="contentheader">
+        return (
+            <div className={thisClass}>
+                <div className="content-header-top-row">
                     <div className="buttons-container">
                         <div className="buttons">
                             <IconButton sx={buttonStyle} aria-label="back" onClick={backButtonClicked}>
@@ -300,52 +253,18 @@ export function ContentHeader({
                             />
                         </ThemeProvider>
                     </div>
-                    <div className="volume-container">
-                        <div className="buttons">
-                            <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
-                                {!currentStreamMute && <VolumeUpIcon/>}
-                                {currentStreamMute && <VolumeOffIcon/>}
-                            </IconButton>
-                        </div>
-                        <div className="header-slider-container">
-                            <ThemeProvider theme={muiTheme}>
-                                <Slider sx={sliderStyle} size="small" min={0} max={100} disabled={currentStreamMute} defaultValue={thisStream.streamVolume} onChange={streamVolumeChanged}/>
-                            </ThemeProvider>
-                        </div>
-                    </div>
-                    <div className="fade-container">
-                        <div className="buttons">
-                            <IconButton sx={buttonStyle} aria-label="fade toggle" onClick={fadeToggleClicked}>
-                                {!currentStreamFade && <SvgIcon>
-                                        <svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
-                                                x="0px" y="0px" viewBox="0 0 24 24" fill="#FFFFFF" xmlSpace="preserve">
-                                            <polygon class="st0" points="8,5 5,5 8,7.5 "/>
-                                            <polygon class="st0" points="4,20 8,20 8,9.6 4,6.2 "/>
-                                            <polygon class="st0" points="14,9 10,9 10,9.2 14,12.6 "/>
-                                            <polygon class="st0" points="10,20 14,20 14,14.7 10,11.3 "/>
-                                            <polygon class="st0" points="15,20 19,20 19,19 15,15.5 "/>
-                                            <polygon class="st0" points="19,13 15,13 15,13.5 19,16.9 "/>
-                                            <polygon class="st0" points="20.9,20.6 1.9,4.3 0.8,5.6 19.9,21.8 20.9,20.6 20.9,20.6 "/>
-                                        </svg>
-                                    </SvgIcon>}
-                                {currentStreamFade && <SvgIcon>
-                                        <svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
-                                            x="0px" y="0px" viewBox="0 0 24 24" fill="#FFFFFF" xmlSpace="preserve">                 
-                                            <rect x="4" y="5" class="st0" width="4" height="15"/>
-                                            <rect x="10" y="9" class="st0" width="4" height="11"/>
-                                            <rect x="15" y="13" class="st0" width="4" height="7"/>
-                                        </svg>
-                                    </SvgIcon>}
-                            </IconButton>
-                        </div>
-                        <div className="fade-slider-container">
-                            {!currentStreamFade && <span className="caption">No Fade Out</span>}
-                            {currentStreamFade && <span className="caption">Fade out {currentStreamFadeTime}s</span>}
-                            <ThemeProvider theme={muiTheme}>
-                                <Slider sx={sliderStyle} size="small" min={0} max={10} disabled={!currentStreamFade} defaultValue={thisStream.streamFadeTime} onChange={streamFadeTimeChanged}/>
-                            </ThemeProvider>
-                        </div>
-                    </div>
+                    {!isMobile && <ContentHeaderSliders
+                        folders={folders}
+                        openedFolder={openedFolder}
+                        openedStream={openedStream}
+                        volumeToggleClicked={volumeToggleClicked}
+                        currentStreamMute={currentStreamMute}
+                        streamVolumeChanged={streamVolumeChanged}
+                        streamFadeTimeChanged={streamFadeTimeChanged}
+                        fadeToggleClicked={fadeToggleClicked}
+                        currentStreamFade={currentStreamFade}
+                        currentStreamFadeTime={currentStreamFadeTime}
+                    />}
                     <div className="buttons-container">
                         <div className="buttons">
                             <IconButton sx={buttonStyle} aria-label="delete" onClick={deleteButtonClicked}>
@@ -354,7 +273,21 @@ export function ContentHeader({
                         </div>
                     </div>
                 </div>
-            );
-        }
+                <div className="content-header-bottom-row">
+                    {isMobile && <ContentHeaderSliders
+                        folders={folders}
+                        openedFolder={openedFolder}
+                        openedStream={openedStream}
+                        volumeToggleClicked={volumeToggleClicked}
+                        currentStreamMute={currentStreamMute}
+                        streamVolumeChanged={streamVolumeChanged}
+                        streamFadeTimeChanged={streamFadeTimeChanged}
+                        fadeToggleClicked={fadeToggleClicked}
+                        currentStreamFade={currentStreamFade}
+                        currentStreamFadeTime={currentStreamFadeTime}
+                    />}
+                </div>
+            </div>
+        );
     }
 }

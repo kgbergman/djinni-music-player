@@ -6,13 +6,12 @@
     align-items: center;
 }
 
-.contentheader-mobile {
-    display: flex;
-    flex-direction: column;
+.contentheader-stream {
     justify-content: left;
     background-color: rgb(34, 38, 57);
     padding: 5px;
-    align-items: left;
+    padding-bottom: 15px;
+    align-items: center;
 }
 
 .buttons-container {
@@ -128,10 +127,24 @@
 }
 
 .stream-name-edit-container {
-    width: 150px;
+    flex: 1;
     margin-right: 15px;
     height: 35px;
     display: flex;
     align-items: center;
     padding-top: 5px;
+}
+
+.content-header-top-row {
+    display: flex;
+}
+
+.content-header-bottom-row {
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-evenly;
+}
+
+.content-header-sliders {
+    display: flex;
 }

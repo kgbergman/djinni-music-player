@@ -1,0 +1,22 @@
+.save-popup {
+    width: 225px;
+    height: 160px;
+    border-radius: 15px;
+    background-color: rgb(45, 49, 67);
+    z-index: 4;
+}
+
+.save-popup-name-container {
+    display: flex;
+    padding-left: 24px;
+    padding-right: 24px;
+    margin-bottom: 16px;
+}
+
+.save-popup-extension {
+    color: white;
+    display: flex;
+    align-items: end;
+    padding-bottom: 5px;
+    padding-left: 3px;
+}

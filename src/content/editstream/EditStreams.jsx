@@ -2,122 +2,131 @@ import React from "react";
 import { EditStream } from "./EditStream"
 import { AddEditStream } from "./AddEditStream"
 
-export function EditStreams({ folders, openedFolder, openedStream, setCurrentStreamObject }) {
+export function EditStreams({ folders, openedFolder, openedStream, setCurrentStreamObject, currentStreamObject }) {
 
     function editStreamNameChanged(event, editStreamId) {
-        //Get this edit stream
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
-        const thisFolderStreams = thisFolder.streams;
-        const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
-        if (thisStream) {
-            const thisEditStream = thisStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
-            thisEditStream.name = event.target.value;
-            thisStream.streamData = thisStream.streamData.map(editStream => {
-                if (parseInt(editStream.id) === parseInt(editStreamId)) {
-                    return thisEditStream;
-                }
-                return editStream;
-            });
-            setCurrentStreamObject(thisStream);
-        }
+        const newStream = {...currentStreamObject};
+        const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+        thisEditStream.name = event.target.value;
+        newStream.streamData = newStream.streamData.map(editStream => {
+            if (parseInt(editStream.id) === parseInt(editStreamId)) {
+                return thisEditStream;
+            }
+            return editStream;
+        });
+        setCurrentStreamObject(newStream);
     }
 
     function editStreamLinkChanged(event, editStreamId) {
-        //Get this edit stream
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
-        const thisFolderStreams = thisFolder.streams;
-        const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
-        if (thisStream) {
-            const thisEditStream = thisStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
-            thisEditStream.link = event.target.value;
-            thisStream.streamData = thisStream.streamData.map(editStream => {
-                if (parseInt(editStream.id) === parseInt(editStreamId)) {
-                    return thisEditStream;
-                }
-                return editStream;
-            });
-            setCurrentStreamObject(thisStream);
-        }
+        const newStream = {...currentStreamObject};
+        const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+        thisEditStream.link = event.target.value;
+        newStream.streamData = newStream.streamData.map(editStream => {
+            if (parseInt(editStream.id) === parseInt(editStreamId)) {
+                return thisEditStream;
+            }
+            return editStream;
+        });
+        setCurrentStreamObject(newStream);
     }
 
-    function editStreamVolumeChanged(event, editStreamId) {
-        //Get this edit stream
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
-        const thisFolderStreams = thisFolder.streams;
-        const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
-        if (thisStream) {
-            const thisEditStream = thisStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
-            thisEditStream.volume = event.target.value;
-            thisStream.streamData = thisStream.streamData.map(editStream => {
-                if (parseInt(editStream.id) === parseInt(editStreamId)) {
-                    return thisEditStream;
-                }
-                return editStream;
-            });
-            setCurrentStreamObject(thisStream);
-        }
+    function editStreamVolumeChanged(newValue, editStreamId) {
+        const newStream = {...currentStreamObject};
+        const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+        thisEditStream.volume = newValue;
+        newStream.streamData = newStream.streamData.map(editStream => {
+            if (parseInt(editStream.id) === parseInt(editStreamId)) {
+                return thisEditStream;
+            }
+            return editStream;
+        });
+        setCurrentStreamObject(newStream);
     }
 
     function editStreamLoopChanged(value, editStreamId) {
-        //Get this edit stream
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
-        const thisFolderStreams = thisFolder.streams;
-        const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
-        if (thisStream) {
-            const thisEditStream = thisStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
-            thisEditStream.loop1 = value[0];
-            thisEditStream.loop2 = value[1];
-            thisStream.streamData = thisStream.streamData.map(editStream => {
-                if (parseInt(editStream.id) === parseInt(editStreamId)) {
-                    return thisEditStream;
-                }
-                return editStream;
-            });
-            setCurrentStreamObject(thisStream);
-        }
+        console.log(value);
+        const newStream = {...currentStreamObject};
+        const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+        thisEditStream.loop1 = value[0];
+        thisEditStream.loop2 = value[1];
+        newStream.streamData = newStream.streamData.map(editStream => {
+            if (parseInt(editStream.id) === parseInt(editStreamId)) {
+                return thisEditStream;
+            }
+            return editStream;
+        });
+        setCurrentStreamObject(newStream);
     }
 
     function editStreamMuteClicked(event, editStreamId) {
-        //Get this edit stream
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
-        const thisFolderStreams = thisFolder.streams;
-        const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
-        if (thisStream) {
-            const thisEditStream = thisStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
-            thisEditStream.mute = !thisEditStream.mute;
-            thisStream.streamData = thisStream.streamData.map(editStream => {
-                if (parseInt(editStream.id) === parseInt(editStreamId)) {
-                    return thisEditStream;
-                }
-                return editStream;
-            });
-            setCurrentStreamObject(thisStream);
-        }
-    }
-    function editStreamLoopClicked(event, editStreamId) {
-        //Get this edit stream
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
-        const thisFolderStreams = thisFolder.streams;
-        const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
-        if (thisStream) {
-            const thisEditStream = thisStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
-            thisEditStream.loop = !thisEditStream.loop;
-            thisStream.streamData = thisStream.streamData.map(editStream => {
-                if (parseInt(editStream.id) === parseInt(editStreamId)) {
-                    return thisEditStream;
-                }
-                return editStream;
-            });
-            setCurrentStreamObject(thisStream);
-        }
+        const newStream = {...currentStreamObject};
+        const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+        thisEditStream.mute = !thisEditStream.mute;
+        newStream.streamData = newStream.streamData.map(editStream => {
+            if (parseInt(editStream.id) === parseInt(editStreamId)) {
+                return thisEditStream;
+            }
+            return editStream;
+        });
+        setCurrentStreamObject(newStream);
     }
 
-    function editStreamDeleteClicked(streamId) {
-        console.log(streamId);
+    function editStreamLoopClicked(event, editStreamId) {
+        const newStream = {...currentStreamObject};
+        const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+        thisEditStream.loop = !thisEditStream.loop;
+        newStream.streamData = newStream.streamData.map(editStream => {
+            if (parseInt(editStream.id) === parseInt(editStreamId)) {
+                return thisEditStream;
+            }
+            return editStream;
+        });
+        setCurrentStreamObject(newStream);
+    }
+
+    function editStreamDeleteClicked(editStreamId) {
+        const newStreamData = currentStreamObject.streamData.map(l => Object.assign({}, l)).filter(editStream => parseInt(editStream.id) !== parseInt(editStreamId));
+        const newStreamObject = {...currentStreamObject};
+        newStreamObject.streamData = newStreamData;
+        setCurrentStreamObject(newStreamObject);
     }
 
     function addEditStreamClicked() {
-        console.log("add");
+        const newStreamData = currentStreamObject.streamData.map(l => Object.assign({}, l));
+        newStreamData.push({
+            "name": "",
+            "link": "",
+            "mute": false,
+            "volume": 100,
+            "id": getUniqueEditStreamId(),
+            "loop": false,
+            "loop1": 20,
+            "loop2": 40
+        });
+        const newStreamObject = {...currentStreamObject};
+        newStreamObject.streamData = newStreamData;
+        setCurrentStreamObject(newStreamObject);
+    }
+
+    function getRandomValue(array) {
+        let e;
+        do {
+            e = Math.trunc(Math.random() * 10000);
+        } while (array.includes(e) && e !== 0)
+        return e;
+    }
+
+    function getUniqueEditStreamId() {
+        const editStreamIds = [];
+        for (let i = 0; i < folders.length; i++) {
+            for (let j = 0; j < folders[i].streams.length; j++) {
+                for (let k = 0; k < folders[i].streams[j].length; k++){
+                    editStreamIds.push(folders[i].streams[j].id);
+                }
+            }
+        }
+
+        return getRandomValue(editStreamIds);
     }
 
     if (openedStream === "new") {
@@ -125,10 +134,11 @@ export function EditStreams({ folders, openedFolder, openedStream, setCurrentStr
             "name": "",
             "link": "",
             "mute": false,
-            "volume": 50,
+            "volume": 100,
+            "id": getUniqueEditStreamId(),
             "loop": false,
-            "loop1": 0,
-            "loop2": 1
+            "loop1": 20,
+            "loop2": 40
         };
         return (
             <div>
@@ -147,13 +157,9 @@ export function EditStreams({ folders, openedFolder, openedStream, setCurrentStr
         );
     }
     else {
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
-        const thisFolderStreams = thisFolder.streams;
-        const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
-        
         const renderEditStreams = () => {
             //Find the stream by this id
-            return thisStream.streamData.map(editStreamData => {
+            return currentStreamObject.streamData.map(editStreamData => {
                 return <EditStream 
                     editStreamData={editStreamData} 
                     editStreamDeleteClicked={editStreamDeleteClicked} 

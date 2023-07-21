@@ -44,7 +44,7 @@ export default function RangeSlider({ loop1, loop2, disabled, rangeChanged }) {
   return (
     <Slider sx={sliderStyle} size="small" min={0} max={60} defaultValue={60} 
     getAriaLabel={() => 'Minimum distance'}
-    value={value1}
+    value={[loop1, loop2]}
     disabled={disabled}
     onChange={handleChange1}
     disableSwap

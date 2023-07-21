@@ -3,6 +3,8 @@ import './stream.css'
 import Grid from '@mui/material/Grid';
 import { Stream } from "./Stream"
 import { AddStream } from "./AddStream"
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 
 export function Streams({ sortByAlpha, folders, openedFolder, streamOpened }) {
 
@@ -31,6 +33,15 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened }) {
 
     const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
     const thisFolderStreams = thisFolder.streams;
+
+    const theme = createTheme({
+        breakpoints: {
+            values: {
+            xs: 0,
+            sm: 500,
+            },
+        },
+    });
     
     const renderStreams = () => {
         if (sortByAlpha) {
@@ -40,26 +51,39 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened }) {
                 return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
             });
             return sorted.map(stream => {
-                return <Grid item>
-                            <Stream stream={stream} id={stream.id} streamClicked={streamClicked} editStreamClicked={editStreamClicked} selected={selectedStreams.includes(parseInt(stream.id))}/>
+                return <Grid item xs={6} sm={3}>
+                            <Stream 
+                                stream={stream} 
+                                id={stream.id} 
+                                streamClicked={streamClicked} 
+                                editStreamClicked={editStreamClicked} 
+                                selected={selectedStreams.includes(parseInt(stream.id))}
+                            />
                         </Grid>;
             });
         }
         else {
             return thisFolderStreams.map(stream => {
-                return <Grid item>
-                            <Stream stream={stream} streamClicked={streamClicked} editStreamClicked={editStreamClicked} selected={selectedStreams.includes(parseInt(stream.id))}/>
+                return <Grid item xs={6} sm={3}>
+                            <Stream 
+                                stream={stream} 
+                                streamClicked={streamClicked} 
+                                editStreamClicked={editStreamClicked} 
+                                selected={selectedStreams.includes(parseInt(stream.id))}
+                            />
                         </Grid>;
             });
         }
     };
 
     return (
-        <Grid container rowSpacing={1} columnSpacing={1}>
-            {renderStreams()}
-            <Grid item>
-                <AddStream addStreamClicked={addStreamClicked}/>
+        <ThemeProvider theme={theme}>
+            <Grid container rowSpacing={1} columnSpacing={1}>
+                {renderStreams()}
+                <Grid item xs={6} sm={3}>
+                    <AddStream addStreamClicked={addStreamClicked}/>
+                </Grid>
             </Grid>
-        </Grid>
+        </ThemeProvider>
     );
 }

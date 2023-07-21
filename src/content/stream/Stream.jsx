@@ -56,18 +56,6 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked }) {
         },
     };
 
-    const [width, setWidth] = useState(window.innerWidth);
-
-    function handleWindowSizeChange() {
-        setWidth(window.innerWidth);
-    }
-    useEffect(() => {
-        window.addEventListener('resize', handleWindowSizeChange);
-        return () => {
-            window.removeEventListener('resize', handleWindowSizeChange);
-        }
-    }, []);
-
     let selectedOutline = {
         outlineWidth: '0px'
     };
@@ -78,66 +66,34 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked }) {
     };
     selectedShow = selected ? { visibility:'visible' } : selectedShow;
 
-    const isMobile = width < 580;
-
-    if (isMobile) {
-        return (
-        <div className="stream stream-mobile">
-            <div className="stream-fade"></div>
-            <div className="stream-high-row hidden">
-                <div className="stream-volume-button-container">
-                    <IconButton size="small" sx={buttonStyle} aria-label="volume toggle mute">
-                        <VolumeUpIcon fontSize="inherit" />
-                    </IconButton>
-                </div>
-                <div className="stream-slider-container">
-                    <ThemeProvider theme={muiTheme}>
-                        <Slider size="small" min={0} max={100} defaultValue={60} />
-                    </ThemeProvider>
-                </div>
+    return (
+    <div className="stream" id={stream.id} onMouseDown={streamMouseDown} onMouseUp={selectStream} style={selectedOutline}>
+        <div className="stream-fade"></div>
+        <div className="stream-high-row" style={selectedShow}>
+            <div className="stream-volume-button-container">
+                <IconButton size="small" sx={buttonStyle} aria-label="volume toggle mute" onMouseDown={volumeStreamMouseDown} onClick={volumeStreamClicked}>
+                    <VolumeUpIcon fontSize="inherit" />
+                </IconButton>
             </div>
-            <p className="stream-icon">&#127754;</p>
-            <div className="stream-low-row">
-                <div className="stream-name-container">
-                    <span className="stream-name">Ocean</span>
-                </div>
-                <div className="stream-edit-button-container">
-                    <IconButton size="small" sx={buttonStyle} aria-label="edit">
-                        <EditIcon fontSize="small" sx={{ fontSize: "15px" }} />
-                    </IconButton>
-                </div>
+            <div className="stream-slider-container">
+                <ThemeProvider theme={muiTheme}>
+                    <Slider size="small" min={0} max={100} defaultValue={60} onMouseDown={sliderMouseDown}/>
+                </ThemeProvider>
             </div>
         </div>
-        );
-    }
-    else {
-        return (
-        <div className="stream" id={stream.id} onMouseDown={streamMouseDown} onMouseUp={selectStream} style={selectedOutline}>
-            <div className="stream-fade"></div>
-            <div className="stream-high-row" style={selectedShow}>
-                <div className="stream-volume-button-container">
-                    <IconButton size="small" sx={buttonStyle} aria-label="volume toggle mute" onMouseDown={volumeStreamMouseDown} onClick={volumeStreamClicked}>
-                        <VolumeUpIcon fontSize="inherit" />
-                    </IconButton>
-                </div>
-                <div className="stream-slider-container">
-                    <ThemeProvider theme={muiTheme}>
-                        <Slider size="small" min={0} max={100} defaultValue={60} onMouseDown={sliderMouseDown}/>
-                    </ThemeProvider>
-                </div>
-            </div>
+        <div className="stream-icon-container">
             <p className="stream-icon">{stream.streamIcon}</p>
-            <div className="stream-low-row">
-                <div className="stream-name-container">
-                    <span className="stream-name">{stream.streamName}</span>
-                </div>
-                <div className="stream-edit-button-container">
-                    <IconButton id={stream.id} size="small" sx={buttonStyle} aria-label="edit" onMouseDown={editStreamMouseDown} onClick={editStreamClicked}>
-                        <EditIcon fontSize="small" sx={{ fontSize: "15px" }} />
-                    </IconButton>
-                </div>
+        </div>
+        <div className="stream-low-row">
+            <div className="stream-name-container">
+                <span className="stream-name">{stream.streamName}</span>
+            </div>
+            <div className="stream-edit-button-container">
+                <IconButton id={stream.id} size="small" sx={buttonStyle} aria-label="edit" onMouseDown={editStreamMouseDown} onClick={editStreamClicked}>
+                    <EditIcon fontSize="small" sx={{ fontSize: "15px" }} />
+                </IconButton>
             </div>
         </div>
-        );
-    }
+    </div>
+    );
 }
