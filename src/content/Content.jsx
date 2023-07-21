@@ -4,7 +4,7 @@ import { ContentGrid } from "./contentgrid/ContentGrid";
 import { NewEditFolderPopup } from "./folder/NewEditFolderPopup";
 import './content.css'
 
-export function Content({ folders, setFolders }) {
+export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyStreaming }) {
 
     const [showAddFolder, setShowAddFolder] = useState(false);
     const [showEditFolder, setShowEditFolder] = useState(false);
@@ -38,7 +38,6 @@ export function Content({ folders, setFolders }) {
     });
 
     function toggleSort() {
-        console.log("sort button clicked");
         setSortByAlpha(!sortByAlpha);
     }
     
@@ -94,6 +93,58 @@ export function Content({ folders, setFolders }) {
         newStream.streamFadeTime = event.target.value;
         setCurrentStreamFadeTime(newStream.streamFadeTime);
         setCurrentStreamObject(newStream);
+    }
+
+    function streamVolumeChangedFromFolder(event, streamId) {
+        //Update the folder
+        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+        const thisStream = thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0];
+        thisStream.streamVolume = event.target.value;
+        //Replace folder with new folder that contains the edited stream list
+        const newStreams = thisFolder.streams.map(stream => {
+            if (stream.id === thisStream.id) {
+                return thisStream;
+            }
+            else {
+                return stream;
+            }
+        });
+        thisFolder.streams = newStreams;
+        const newFolders = folders.map(folder => {
+            if (folder.id === thisFolder.id) {
+                return thisFolder;
+            }
+            else {
+                return folder;
+            }
+        });
+        setFolders(newFolders);
+    }
+
+    function volumeStreamClicked(event, streamId) {
+        //Update the folder
+        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+        const thisStream = thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0];
+        thisStream.streamMute = !thisStream.streamMute;
+        //Replace folder with new folder that contains the edited stream list
+        const newStreams = thisFolder.streams.map(stream => {
+            if (stream.id === thisStream.id) {
+                return thisStream;
+            }
+            else {
+                return stream;
+            }
+        });
+        thisFolder.streams = newStreams;
+        const newFolders = folders.map(folder => {
+            if (folder.id === thisFolder.id) {
+                return thisFolder;
+            }
+            else {
+                return folder;
+            }
+        });
+        setFolders(newFolders);
     }
 
     function getRandomValue(array) {
@@ -311,6 +362,10 @@ export function Content({ folders, setFolders }) {
                 setSelectedFolder={setSelectedFolder}
                 setCurrentStreamObject={setCurrentStreamObject}
                 currentStreamObject={currentStreamObject}
+                currentlyStreaming={currentlyStreaming}
+                setCurrentlyStreaming={setCurrentlyStreaming}
+                streamVolumeChangedFromFolder={streamVolumeChangedFromFolder}
+                volumeStreamClicked={volumeStreamClicked}
             />
         </div>
     );

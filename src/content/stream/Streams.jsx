@@ -6,17 +6,18 @@ import { AddStream } from "./AddStream"
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 
-export function Streams({ sortByAlpha, folders, openedFolder, streamOpened }) {
-
-    const [selectedStreams, setSelectedStreams] = useState([]);
+export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, currentlyStreaming, setCurrentlyStreaming, streamVolumeChangedFromFolder, volumeStreamClicked }) {
 
     function streamClicked(event) {
         const streamId = parseInt(event.currentTarget.id)
-        if (selectedStreams.includes(streamId)) {
-            setSelectedStreams(selectedStreams.filter(stream => stream !== parseInt(streamId)))
+        const thisFolderStreams = thisFolder.streams;
+        const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0];
+        const currentlyStreamingIds = currentlyStreaming.map(stream => stream.id);
+        if (currentlyStreamingIds.includes(streamId)) {
+            setCurrentlyStreaming(currentlyStreaming.filter(stream => parseInt(stream.id) !== parseInt(streamId)))
         }
         else {
-            setSelectedStreams([...selectedStreams, streamId])
+            setCurrentlyStreaming([...currentlyStreaming, thisStream])
         }
     }
 
@@ -57,7 +58,9 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened }) {
                                 id={stream.id} 
                                 streamClicked={streamClicked} 
                                 editStreamClicked={editStreamClicked} 
-                                selected={selectedStreams.includes(parseInt(stream.id))}
+                                sliderChanged={streamVolumeChangedFromFolder}
+                                volumeStreamClicked={volumeStreamClicked}
+                                selected={currentlyStreaming.map(stream => stream.id).includes(parseInt(stream.id))}
                             />
                         </Grid>;
             });
@@ -69,7 +72,9 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened }) {
                                 stream={stream} 
                                 streamClicked={streamClicked} 
                                 editStreamClicked={editStreamClicked} 
-                                selected={selectedStreams.includes(parseInt(stream.id))}
+                                sliderChanged={streamVolumeChangedFromFolder}
+                                volumeStreamClicked={volumeStreamClicked}
+                                selected={currentlyStreaming.map(stream => stream.id).includes(parseInt(stream.id))}
                             />
                         </Grid>;
             });

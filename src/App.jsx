@@ -2,11 +2,20 @@ import './App.css';
 import { Header } from "./header/Header";
 import { Content } from "./content/Content";
 import { SavePopup } from './savepopup/SavePopup';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
   const [folders, setFolders] = useState([]);
+  const [currentlyStreaming, setCurrentlyStreaming] = useState([]);
   const [showSavePopup, setShowSavePopup] = useState(false);
+
+  let oldStreaming = currentlyStreaming;
+  let count = 0;
+
+  useEffect(() => {
+    console.log(currentlyStreaming, '- has changed');
+    //Update streaming objects here
+  },[currentlyStreaming])
 
   function saveButtonClicked() {
     setShowSavePopup(true);
@@ -37,7 +46,7 @@ function App() {
     <div className="App">
       {showSavePopup && <SavePopup savePopupClose={savePopupClose} savePopupClicked={saveFolders}/>}
       <Header setFolders={setFolders} saveButtonClicked={saveButtonClicked}/>
-      <Content folders={folders} setFolders={setFolders}/>
+      <Content folders={folders} setFolders={setFolders} currentlyStreaming={currentlyStreaming} setCurrentlyStreaming={setCurrentlyStreaming}/>
     </div>
   );
 }

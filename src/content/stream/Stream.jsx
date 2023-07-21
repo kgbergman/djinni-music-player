@@ -1,6 +1,7 @@
 import React, { useState, useEffect }  from "react";
 import { IconButton } from "@mui/material";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import EditIcon from '@mui/icons-material/Edit';
 import './stream.css'
 import { createTheme } from '@mui/material/styles';
@@ -15,38 +16,38 @@ const muiTheme = createTheme({
   },
 });
 
-export function Stream({ stream, streamClicked, selected, editStreamClicked }) {
+export function Stream({ stream, streamClicked, selected, editStreamClicked, sliderChanged, volumeStreamClicked }) {
 
-    let currentTgt = "bg";
+    let [currentTgt, setCurrentTgt] = useState("bg");
 
     function editStreamMouseDown(event) {
-        currentTgt = "edit";
+        setCurrentTgt("edit");
         event.stopPropagation();
     }
 
     function volumeStreamMouseDown(event) {
-        currentTgt = "volume";
-        event.stopPropagation();
-    }
-
-    function volumeStreamClicked(event) {
-        console.log("volume stream");
+        setCurrentTgt("volume");
         event.stopPropagation();
     }
 
     function sliderMouseDown(event) {
-        currentTgt = "slider";
+        setCurrentTgt("volume");
         event.stopPropagation();
     }
 
     function streamMouseDown(event) {
-        currentTgt = "bg";
+        setCurrentTgt("bg");
+        console.log(currentTgt);
     }
 
     function selectStream(event) {
         if (currentTgt === "bg") {
             streamClicked(event);
         }
+    }
+
+    function sliderMoved(event, value) {
+        sliderChanged(event, value);
     }
 
     const buttonStyle = { 
@@ -71,13 +72,14 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked }) {
         <div className="stream-fade"></div>
         <div className="stream-high-row" style={selectedShow}>
             <div className="stream-volume-button-container">
-                <IconButton size="small" sx={buttonStyle} aria-label="volume toggle mute" onMouseDown={volumeStreamMouseDown} onClick={volumeStreamClicked}>
-                    <VolumeUpIcon fontSize="inherit" />
+                <IconButton size="small" sx={buttonStyle} aria-label="volume toggle mute" onMouseDown={volumeStreamMouseDown} onClick={(e) => volumeStreamClicked(e, stream.id)}>
+                    {!stream.streamMute && <VolumeUpIcon fontSize="inherit"/>}
+                    {stream.streamMute && <VolumeOffIcon fontSize="inherit"/>}
                 </IconButton>
             </div>
             <div className="stream-slider-container">
                 <ThemeProvider theme={muiTheme}>
-                    <Slider size="small" min={0} max={100} defaultValue={60} onMouseDown={sliderMouseDown}/>
+                    <Slider size="small" min={0} max={100} defaultValue={stream.streamVolume} disabled={stream.streamMute} onMouseDown={sliderMouseDown} onChange={(e) => sliderMoved(e, stream.id)}/>
                 </ThemeProvider>
             </div>
         </div>

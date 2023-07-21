@@ -1,23 +1,27 @@
 .stream {
-    background-color: rgb(41, 45, 60);
-    position: relative;
-    overflow: hidden;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
-    outline: solid 0px rgb(187, 153, 255);
-    margin: 2px;
-    aspect-ratio: 1/1;
-    justify-content: space-between;
+  background-color: rgb(41, 45, 60);
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  outline: solid 0px rgb(187, 153, 255);
+  margin: 2px;
+  aspect-ratio: 1/1;
+  justify-content: space-between;
+}
+
+.stream:hover {
+  cursor: pointer;
 }
 
 .stream-fade {  
-    background: linear-gradient(to bottom, transparent 70%, black 100%);
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    transition: background-color 100ms linear;
+  background: linear-gradient(to bottom, transparent 70%, black 100%);
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transition: background-color 100ms linear;
 }
 
 .stream-fade:hover {
@@ -39,55 +43,57 @@
 
 .stream-icon{
   font-size: 45px;
+  user-select: none;
 }
   
 .stream-low-row {
-    margin: 0;
-    width: 100%;
-    text-align: left;
-    font-size: 10px;
-    display: flex;
-    justify-content: space-between;
-    z-index: 1;
-    align-items: center;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+  align-items: center;
+  user-select: none;
 }
   
 .stream-high-row {
-    text-align: left;
-    font-size: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1;
-    padding-right: 5px;
-    padding-top: 2px;
-    padding-left: 4px;
+  text-align: left;
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-left: 4px;
 }
 
 .stream-name-container {
-    padding-left: 10px;
-    flex: 1;
-    min-width: 0;
-    padding-bottom: 5px;
+  padding-left: 10px;
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 5px;
 }
   
 .stream-name-container > .stream-name {
-    color: white;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    width: 100%;
-    display: block;
-    font-size: 0.8rem;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  display: block;
+  font-size: 0.8rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .stream-volume-button-container {
-    display: flex;
-    height: 25px;
-    width: 25px;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  height: 25px;
+  width: 25px;
+  align-items: center;
+  justify-content: center;
 }
 
 .stream-edit-button-container {

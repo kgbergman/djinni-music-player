@@ -29,7 +29,11 @@ export function ContentGrid({
     currentStreamObject,
     setCurrentStreamData,
     currentStreamData,
-    updateEmoji
+    updateEmoji,
+    currentlyStreaming,
+    setCurrentlyStreaming,
+    streamVolumeChangedFromFolder,
+    volumeStreamClicked
 }) {
     if (openedPage === "folder") {
         return (
@@ -41,6 +45,10 @@ export function ContentGrid({
                         folders={folders} 
                         openedFolder={openedFolder} 
                         streamOpened={streamOpened}
+                        currentlyStreaming={currentlyStreaming}
+                        setCurrentlyStreaming={setCurrentlyStreaming}
+                        streamVolumeChangedFromFolder={streamVolumeChangedFromFolder}
+                        volumeStreamClicked={volumeStreamClicked}
                     />
                     <div className="bottom-row"></div>
                 </SimpleBar>
