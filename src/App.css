@@ -7,3 +7,8 @@
   overflow-y: hidden;
   overflow: hidden;
 }
+
+.audio-streams {
+  display: none;
+  height: 200px;
+}

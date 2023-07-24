@@ -186,6 +186,7 @@ export function ContentHeader({
                 "streamFade": false,
                 "streamFadeTime": 0,
                 "id": 0,
+                "playing": false,
                 "streamData": [
                     {
                         "name": "",

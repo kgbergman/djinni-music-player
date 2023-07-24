@@ -4,7 +4,7 @@ import { ContentGrid } from "./contentgrid/ContentGrid";
 import { NewEditFolderPopup } from "./folder/NewEditFolderPopup";
 import './content.css'
 
-export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyStreaming }) {
+export function Content({ folders, setFolders, streamables, setStreamables, currentlyStreaming, setCurrentlyStreaming }) {
 
     const [showAddFolder, setShowAddFolder] = useState(false);
     const [showEditFolder, setShowEditFolder] = useState(false);
@@ -21,12 +21,9 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
     const [currentStreamFade, setCurrentStreamFade] = useState(false);
     const [currentStreamIcon, setCurrentStreamIcon] = useState("😀");
     const [currentStreamFadeTime, setCurrentStreamFadeTime] = useState(0);
-    
-    document.addEventListener("keydown", function(event) {
-        return; //For some reason this is firing all the time regardless of selectedfolder and openedpage
+
+    function keyPressed(event) {
         if (event.repeat) return;
-        console.log(selectedFolder);
-        console.log(openedPage);
         if (openedPage !== "folder" && openedPage !== "stream") {
             if (event.key === "Delete") {
                 if (selectedFolder !== 0) {
@@ -35,7 +32,7 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
                 }
             }
         }
-    });
+    }
 
     function toggleSort() {
         setSortByAlpha(!sortByAlpha);
@@ -119,6 +116,17 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
             }
         });
         setFolders(newFolders);
+        //Update currently streaming
+        setCurrentlyStreaming((currentlyStreaming) =>
+            currentlyStreaming.map((stream) => {
+                if (stream.id === thisStream.id) {
+                    return thisStream;
+                }
+                else {
+                    return stream;
+                }
+            })
+        );
     }
 
     function volumeStreamClicked(event, streamId) {
@@ -145,6 +153,17 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
             }
         });
         setFolders(newFolders);
+        //Update currently streaming
+        setCurrentlyStreaming((currentlyStreaming) =>
+            currentlyStreaming.map((stream) => {
+                if (stream.id === thisStream.id) {
+                    return thisStream;
+                }
+                else {
+                    return stream;
+                }
+            })
+        );
     }
 
     function getRandomValue(array) {
@@ -189,6 +208,7 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
                 "streamFade": false,
                 "streamFadeTime": 0,
                 "id": getUniqueStreamId(),
+                "playing": false,
                 "streamData": [
                     {
                         "name": "",
@@ -249,6 +269,38 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
             });
             setFolders(newFolders);
             setOpenedPage("folder");
+            //Update this stream in streamables
+            //Find in streamables
+            const newStreamables = [...streamables];
+            //Create array of streamable links
+            let indexes = [];
+            for (let i = 0; i < newStreamables.length; i++) {
+                if (newStreamables[i].streamId === thisStream.id) {
+                    indexes.push(i);
+                }
+            }
+
+            for (let i = 0; i < indexes.length; i++) {
+                //Get this streamLink
+                let streamLink = {};
+                for (let j = 0; j < thisStream.streamData.length; j++) {
+                    if (thisStream.streamData[j].id === newStreamables[indexes[i]].linkId) {
+                        streamLink = thisStream.streamData[j];
+                    }
+                }
+                newStreamables[indexes[i]].playing = false;
+                newStreamables[indexes[i]].streamId = thisStream.id;
+                newStreamables[indexes[i]].linkId = streamLink.id;
+                newStreamables[indexes[i]].streamVolume = thisStream.streamVolume / 100;
+                newStreamables[indexes[i]].linkVolume = streamLink.volume / 100;
+                newStreamables[indexes[i]].mute = thisStream.mute || streamLink.mute;
+                newStreamables[indexes[i]].loop = streamLink.mute;
+                newStreamables[indexes[i]].fade = thisStream.streamFade;
+                newStreamables[indexes[i]].fadeTime = thisStream.streamFadeTime;
+                newStreamables[indexes[i]].playing = false;
+            }
+
+            setStreamables(newStreamables);
         }
     }
 
@@ -318,7 +370,7 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
     }
 
     return (
-        <div className="content">
+        <div className="content" onKeyDown={keyPressed} tabIndex="0">
             {showAddFolder && <NewEditFolderPopup popupClose={popupClose} popupType={"new"} folders={folders} updateFolders={updateFolders}/>}
             {showEditFolder && <NewEditFolderPopup popupClose={popupClose} popupType={"edit"} folderToEdit={folderToEdit} folders={folders} updateFolders={updateFolders}/>}
             <ContentHeader 

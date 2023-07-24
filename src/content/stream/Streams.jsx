@@ -8,13 +8,19 @@ import { ThemeProvider } from '@mui/material/styles';
 
 export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, currentlyStreaming, setCurrentlyStreaming, streamVolumeChangedFromFolder, volumeStreamClicked }) {
 
+    const deleteStream = React.useCallback((streamToDelete) => {
+        setCurrentlyStreaming((currentlyStreaming) =>
+            currentlyStreaming.filter((stream) => stream.id !== streamToDelete)
+        );
+    }, []);
+
     function streamClicked(event) {
         const streamId = parseInt(event.currentTarget.id)
         const thisFolderStreams = thisFolder.streams;
         const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0];
         const currentlyStreamingIds = currentlyStreaming.map(stream => stream.id);
         if (currentlyStreamingIds.includes(streamId)) {
-            setCurrentlyStreaming(currentlyStreaming.filter(stream => parseInt(stream.id) !== parseInt(streamId)))
+            deleteStream(streamId);
         }
         else {
             setCurrentlyStreaming([...currentlyStreaming, thisStream])

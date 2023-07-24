@@ -18,10 +18,7 @@ const muiTheme = createTheme({
 });
 
 
-export function Header({setFolders, saveButtonClicked}) {
-
-  const [masterVolumeMute, setMasterVolumeMute] = useState(false);
-  const [masterVolumeValue, setMasterVolumeValue] = useState(50);
+export function Header({setFolders, saveButtonClicked, setStreamables, masterVolumeMute, setMasterVolumeMute, setMasterVolumeValue }) {
 
   const buttonStyle = { 
     color: "#ffffff",
@@ -45,6 +42,27 @@ export function Header({setFolders, saveButtonClicked}) {
               const objects = JSON.parse(String(event.target.result));
               console.log(objects);
               setFolders(objects);
+              const newStreamables = [];
+              //Create array of streamable links
+              objects.forEach(folder => {
+                folder.streams.forEach(stream => {
+                  stream.streamData.forEach(streamLink => {
+                    newStreamables.push({
+                      "playing": false,
+                      "streamId": stream.id,
+                      "linkId": streamLink.id,
+                      "link": streamLink.link,
+                      "streamVolume": stream.streamVolume / 100,
+                      "linkVolume": streamLink.volume / 100,
+                      "mute": stream.streamMute || streamLink.mute,
+                      "loop": streamLink.loop,
+                      "fade": stream.streamFade,
+                      "fadeTime": stream.streamFadeTime
+                    })
+                  })
+                })
+              })
+              setStreamables(newStreamables);
             }
           }
         }
@@ -55,9 +73,6 @@ export function Header({setFolders, saveButtonClicked}) {
 
   function volumeToggleClicked() {
     setMasterVolumeMute(!masterVolumeMute);
-    if (masterVolumeMute) {
-      setMasterVolumeValue(0);
-    }
   }
 
   const volumeSliderChanged = (event, newValue) => {
