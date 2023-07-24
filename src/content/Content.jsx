@@ -208,6 +208,7 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
                 "streamFade": false,
                 "streamFadeTime": 0,
                 "id": getUniqueStreamId(),
+                "folderId": parseInt(openedFolder),
                 "playing": false,
                 "streamData": [
                     {

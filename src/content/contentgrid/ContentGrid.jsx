@@ -61,6 +61,7 @@ export function ContentGrid({
                 {showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"folder"}/>}
                 <SimpleBar style={{ height: '300px', paddingRight: "15px" }}>
                     <Folders 
+                        currentlyStreaming={currentlyStreaming}
                         sortByAlpha={sortByAlpha} 
                         openedPage={openedPage} 
                         folders={folders} 

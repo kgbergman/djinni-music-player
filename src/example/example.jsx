@@ -1,17 +1,18 @@
-[
+export const exampleFile = [
 	{
 		"folderName": "Beach",
 		"folderColor": "#00e7ff",
-		"id": 1,
+		"id": 123,
 		"streams": [
 			{
 				"streamName": "BG Noise",
 				"streamIcon": "🌊",
 				"streamMute": false,
-				"streamVolume": 10,
+				"streamVolume": 51,
 				"streamFade": true,
 				"streamFadeTime": 3,
-				"id": 1,
+				"folderId": 123,
+				"id": 345,
 				"playing": false,
 				"streamData": [
 					{
@@ -20,7 +21,7 @@
 						"link": "https://www.youtube.com/watch?v=B3ZbsOhNTas",
 						"mute": false,
 						"volume": 69,
-						"id": 4,
+						"id": 456,
 						"loop": true,
 						"loop1": 0,
 						"loop2": 0
@@ -30,8 +31,8 @@
 						"playing": false,
 						"link": "https://www.youtube.com/watch?v=t8AO7-17cxE",
 						"mute": false,
-						"volume": 66,
-						"id": 5,
+						"volume": 44,
+						"id": 567,
 						"loop": true,
 						"loop1": 20,
 						"loop2": 45
@@ -41,8 +42,8 @@
 						"playing": false,
 						"link": "https://www.youtube.com/watch?v=dcHN39mk8Nw",
 						"mute": false,
-						"volume": 36,
-						"id": 6,
+						"volume": 69,
+						"id": 678,
 						"loop": true,
 						"loop1": 40,
 						"loop2": 60
@@ -53,10 +54,11 @@
 				"streamName": "Calm Music",
 				"streamIcon": "🌞",
 				"streamMute": false,
-				"streamVolume": 100,
+				"streamVolume": 66,
 				"streamFade": true,
 				"streamFadeTime": 3,
-				"id": 2,
+				"folderId": 123,
+				"id": 210,
 				"playing": false,
 				"streamData": [
 					{
@@ -64,7 +66,7 @@
 						"link": "https://www.youtube.com/watch?v=SjVwkdsqECI",
 						"mute": false,
 						"volume": 100,
-						"id": 7,
+						"id": 789,
 						"loop": true,
 						"loop1": 0,
 						"loop2": 0
@@ -75,10 +77,11 @@
 				"streamName": "Combat Music",
 				"streamIcon": "⚔️",
 				"streamMute": false,
-				"streamVolume": 100,
+				"streamVolume": 87,
 				"streamFade": true,
 				"streamFadeTime": 5,
-				"id": 3,
+				"folderId": 123,
+				"id": 321,
 				"playing": false,
 				"streamData": [
 					{
@@ -103,21 +106,23 @@
 			{
 				"streamName": "Stealth Music",
 				"streamIcon": "🤫",
-				"streamVolume": 100,
+				"streamVolume": 19.140000000000114,
 				"streamFade": true,
 				"streamFadeTime": 7,
+				"folderId": 2,
 				"id": 2039,
 				"playing": false,
 				"streamData": [
 					{
 						"name": "Music",
 						"link": "https://www.youtube.com/watch?v=WW4bdFhcZgw",
-						"volume": 66,
+						"volume": 44,
 						"id": 1953,
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					},
 					{
 						"name": "Shh",
@@ -127,16 +132,40 @@
 						"id": 3576,
 						"loop": true,
 						"loop1": 45,
-						"loop2": 60
+						"loop2": 60,
+						"playing": false
+					},
+					{
+						"name": "Door Creak",
+						"link": "https://www.youtube.com/watch?v=rKLCEzF1XGo",
+						"mute": false,
+						"volume": 35,
+						"id": 6316,
+						"loop": true,
+						"loop1": 30,
+						"loop2": 60,
+						"playing": false
+					},
+					{
+						"name": "Chain",
+						"link": "https://www.youtube.com/watch?v=GSbT_Xt5fqI",
+						"mute": false,
+						"volume": 30,
+						"id": 8777,
+						"loop": true,
+						"loop1": 30,
+						"loop2": 45,
+						"playing": false
 					}
 				]
 			},
 			{
 				"streamName": "Combat Music",
 				"streamIcon": "⚔️",
-				"streamVolume": 83,
-				"streamFade": false,
-				"streamFadeTime": 0,
+				"streamVolume": 43,
+				"streamFade": true,
+				"streamFadeTime": 5,
+				"folderId": 2,
 				"id": 7717,
 				"playing": false,
 				"streamData": [
@@ -148,16 +177,18 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			},
 			{
 				"streamName": "Monster Roar",
 				"streamIcon": "🦖",
-				"streamVolume": 100,
+				"streamVolume": 49,
 				"streamFade": false,
 				"streamFadeTime": 0,
+				"folderId": 2,
 				"id": 6125,
 				"playing": false,
 				"streamData": [
@@ -169,16 +200,18 @@
 						"mute": false,
 						"loop": false,
 						"loop1": 20,
-						"loop2": 40
+						"loop2": 40,
+						"playing": false
 					}
 				]
 			},
 			{
 				"streamName": "BG Music",
 				"streamIcon": "🔊",
-				"streamVolume": 61,
+				"streamVolume": 26,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
+				"folderId": 2,
 				"id": 3181,
 				"playing": false,
 				"streamData": [
@@ -190,7 +223,8 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			}
@@ -206,7 +240,8 @@
 				"streamIcon": "🦊",
 				"streamVolume": 51,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 3,
+				"folderId": 3,
 				"id": 492,
 				"playing": false,
 				"streamData": [
@@ -218,17 +253,19 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			},
 			{
 				"streamName": "Forest",
 				"streamIcon": "🌲",
-				"streamVolume": 71,
+				"streamVolume": 36,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 3,
 				"id": 5872,
+				"folderId": 3,
 				"playing": false,
 				"streamData": [
 					{
@@ -237,9 +274,10 @@
 						"volume": 100,
 						"id": 4140,
 						"mute": false,
-						"loop": false,
-						"loop1": 20,
-						"loop2": 40
+						"loop": true,
+						"loop1": 10,
+						"loop2": 15,
+						"playing": false
 					},
 					{
 						"name": "Creaky Tree",
@@ -249,38 +287,42 @@
 						"id": 4730,
 						"loop": true,
 						"loop1": 55,
-						"loop2": 60
+						"loop2": 60,
+						"playing": false
 					}
 				]
 			},
 			{
 				"streamName": "Quiet Music",
 				"streamIcon": "🔉",
-				"streamVolume": 100,
-				"streamFade": false,
-				"streamFadeTime": 0,
+				"streamVolume": 43,
+				"streamFade": true,
+				"streamFadeTime": 5,
 				"id": 7168,
+				"folderId": 3,
 				"playing": false,
 				"streamData": [
 					{
-						"name": "",
-						"link": "",
+						"name": "Korok Forest",
+						"link": "https://www.youtube.com/watch?v=BOp78NqJ2Kw",
 						"volume": 100,
 						"id": 8813,
 						"mute": false,
-						"loop": false,
-						"loop1": 20,
-						"loop2": 40
+						"loop": true,
+						"loop1": 0,
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			},
 			{
 				"streamName": "Combat Music",
 				"streamIcon": "⚔️",
-				"streamVolume": 100,
+				"streamVolume": 22,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
 				"id": 5327,
+				"folderId": 3,
 				"playing": false,
 				"streamData": [
 					{
@@ -291,9 +333,11 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
-				]
+				],
+				"streamMute": true
 			}
 		]
 	},
@@ -307,8 +351,9 @@
 				"streamIcon": "🌋",
 				"streamVolume": 73,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
 				"id": 3511,
+				"folderId": 3471,
 				"playing": false,
 				"streamData": [
 					{
@@ -328,8 +373,9 @@
 				"streamIcon": "🔥",
 				"streamVolume": 100,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
 				"id": 5296,
+				"folderId": 3471,
 				"playing": false,
 				"streamData": [
 					{
@@ -349,8 +395,9 @@
 				"streamIcon": "⚔️",
 				"streamVolume": 91,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
 				"id": 1494,
+				"folderId": 3471,
 				"playing": false,
 				"streamData": [
 					{
@@ -370,8 +417,9 @@
 				"streamIcon": "🤫",
 				"streamVolume": 77,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
 				"id": 883,
+				"folderId": 3471,
 				"playing": false,
 				"streamData": [
 					{
@@ -398,8 +446,9 @@
 				"streamIcon": "🗣️",
 				"streamVolume": 100,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
 				"id": 5385,
+				"folderId": 9056,
 				"playing": false,
 				"streamData": [
 					{
@@ -439,13 +488,14 @@
 				"streamIcon": "🦜",
 				"streamVolume": 76,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
 				"id": 9161,
+				"folderId": 9056,
 				"playing": false,
 				"streamData": [
 					{
-						"name": "Drunken Sailor",
-						"link": "https://www.youtube.com/watch?v=dRgWEwyHRVg&list=PL1F9wpvVI3twCXdj-O9SDXO2tz0k2GlJ9&index=10",
+						"name": "Sea Shanty 2",
+						"link": "https://www.youtube.com/watch?v=VkYqzeb7WV4",
 						"volume": 100,
 						"id": 8940,
 						"mute": false,
@@ -460,13 +510,14 @@
 				"streamIcon": "🏴‍☠️",
 				"streamVolume": 76,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
 				"id": 2753,
+				"folderId": 9056,
 				"playing": false,
 				"streamData": [
 					{
 						"name": "Shanty",
-						"link": "https://www.youtube.com/watch?v=IpVcW1CpooU&list=PL1F9wpvVI3twCXdj-O9SDXO2tz0k2GlJ9&index=5",
+						"link": "https://www.youtube.com/watch?v=VkYqzeb7WV4",
 						"volume": 100,
 						"id": 8056,
 						"mute": false,
@@ -479,10 +530,11 @@
 			{
 				"streamName": "Stormy Weather",
 				"streamIcon": "⛈️",
-				"streamVolume": 100,
-				"streamFade": false,
-				"streamFadeTime": 0,
+				"streamVolume": 55,
+				"streamFade": true,
+				"streamFadeTime": 3,
 				"id": 3004,
+				"folderId": 9056,
 				"playing": false,
 				"streamData": [
 					{
@@ -532,8 +584,9 @@
 				"streamIcon": "🗡️",
 				"streamVolume": 100,
 				"streamFade": true,
-				"streamFadeTime": 0,
+				"streamFadeTime": 5,
 				"id": 8009,
+				"folderId": 9056,
 				"playing": false,
 				"streamData": [
 					{
@@ -550,4 +603,4 @@
 			}
 		]
 	}
-]
+];

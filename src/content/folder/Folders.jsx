@@ -5,7 +5,7 @@ import { Folder } from "./Folder";
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 
-export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, folderOpened, openDeletePopup, selectedFolder, setSelectedFolder }) {
+export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, folderOpened, openDeletePopup, selectedFolder, setSelectedFolder, currentlyStreaming }) {
 
     function folderClicked(event) {
         setSelectedFolder(parseInt(event.currentTarget.id));
@@ -34,6 +34,9 @@ export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, f
             return sorted.map(folder => {
                 return <Grid item xs={6} sm={3}>
                             <Folder 
+                                sortByAlpha={sortByAlpha}
+                                folders={folders}
+                                currentlyStreaming={currentlyStreaming}
                                 folderName={folder.folderName} 
                                 folderColor={folder.folderColor} 
                                 folderId={folder.id}
@@ -49,6 +52,9 @@ export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, f
             return folders.map(folder => {
                 return <Grid item xs={6} sm={3}>
                             <Folder 
+                                sortByAlpha={sortByAlpha}
+                                folders={folders}
+                                currentlyStreaming={currentlyStreaming}
                                 folderName={folder.folderName} 
                                 folderColor={folder.folderColor}
                                 folderId={folder.id} 

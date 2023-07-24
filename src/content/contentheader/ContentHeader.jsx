@@ -186,6 +186,7 @@ export function ContentHeader({
                 "streamFade": false,
                 "streamFadeTime": 0,
                 "id": 0,
+                "folderId": parseInt(openedFolder),
                 "playing": false,
                 "streamData": [
                     {

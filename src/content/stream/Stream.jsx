@@ -58,9 +58,16 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
     };
 
     let selectedOutline = {
-        outlineWidth: '0px'
+        outlineWidth: '2px',
+        outlineColor: "rgb(187, 153, 255)",
+        transition: `outline-color 0s`
     };
-    selectedOutline = selected ? { outlineWidth:'2px' } : selectedOutline;
+    let nonSelectedOutline = {
+        outlineWidth: '2px',
+        outlineColor: "rgb(34, 38, 57)",
+        transition: `outline-color ${stream.streamFade ? stream.streamFadeTime : 0}s`
+    };
+    const outline = selected ? selectedOutline : nonSelectedOutline;
 
     let selectedShow = {
         visibility: 'hidden'
@@ -68,7 +75,7 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
     selectedShow = selected ? { visibility:'visible' } : selectedShow;
 
     return (
-    <div className="stream" id={stream.id} onMouseDown={streamMouseDown} onMouseUp={selectStream} style={selectedOutline}>
+    <div className="stream" id={stream.id} onMouseDown={streamMouseDown} onMouseUp={selectStream} style={outline}>
         <div className="stream-fade"></div>
         <div className="stream-high-row" style={selectedShow}>
             <div className="stream-volume-button-container">

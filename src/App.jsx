@@ -4,11 +4,10 @@ import { Content } from "./content/Content";
 import { SavePopup } from './savepopup/SavePopup';
 import React, { useState, useEffect } from 'react';
 import ReactPlayer from 'react-player';
-import YoutubePlayer from 'react-youtube';
+import { exampleFile } from './example/example';
 
 function App() {
-
-  const [folders, setFolders] = useState([]);
+  const [folders, setFolders] = useState(exampleFile);
   const [streamables, setStreamables] = useState([]);
   const [currentlyStreaming, setCurrentlyStreaming] = useState([]);
   const [oldStreaming, setOldStreaming] = useState([]);
@@ -153,7 +152,16 @@ function App() {
   }
 
   function saveFolders(filename) {
-    const data = JSON.stringify(folders, null, '\t');
+    const saveFolders = [...folders];
+    saveFolders.forEach(folder => {
+      folder.streams.forEach(stream => {
+        stream.playing = false;
+        stream.streamData.forEach(streamLink => {
+          streamLink.playing = false;
+        })
+      })
+    })
+    const data = JSON.stringify(saveFolders, null, '\t');
     const fileName = `${filename}.djinni`;
     const type = 'text/plain';
     var file = new Blob([data], {type: type});
