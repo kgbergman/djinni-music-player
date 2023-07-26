@@ -98,8 +98,42 @@ export function ContentHeader({
         },
     };
 
+    function getRandomValue(array) {
+        let e;
+        do {
+            e = Math.trunc(Math.random() * 10000);
+        } while (array.includes(e) && e !== 0)
+        return e;
+    }
+
+    function getUniqueStreamId() {
+        const streamIds = [];
+        const folderKeys = Object.keys(folders);
+        for (let i = 0; i < folderKeys.length; i++) {
+            for (let j = 0; j < folders[folderKeys[i]].streams.length; j++) {
+                streamIds.push(folders[folderKeys[i]].streams[j].id);
+            }
+        }
+
+        return getRandomValue(streamIds);
+    }
+
+    function getUniqueEditStreamId() {
+        const editStreamIds = [];
+        const folderKeys = Object.keys(folders);
+        for (let i = 0; i < folderKeys.length; i++) {
+            for (let j = 0; j < folders[folderKeys[i]].streams.length; j++) {
+                for (let k = 0; k < folders[folderKeys[i]].streams[j].length; k++){
+                    editStreamIds.push(folders[folderKeys[i]].streams[j].id);
+                }
+            }
+        }
+
+        return getRandomValue(editStreamIds);
+    }
+
     if (openedPage === "folder") {
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+        const thisFolder = folders[openedFolder];
         return (
             <div className="contentheader">
                 <div className="buttons-container">
@@ -173,7 +207,7 @@ export function ContentHeader({
             thisClass = "contentheader-stream";
         }
 
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+        const thisFolder = folders[openedFolder]; //(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
         const thisFolderStreams = thisFolder.streams;
         let thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
 
@@ -181,18 +215,21 @@ export function ContentHeader({
             thisStream = {
                 "streamName": "New Stream",
                 "streamIcon": "😀",
-                "streamMute": false,
-                "streamVolume": 50,
+                "streamVolume": 100,
                 "streamFade": false,
+                "streamMute": false,
                 "streamFadeTime": 0,
-                "id": 0,
+                "id": getUniqueStreamId(),
                 "folderId": parseInt(openedFolder),
+                "interval": 0,
                 "playing": false,
                 "streamData": [
                     {
                         "name": "",
                         "link": "",
                         "volume": 100,
+                        "id": getUniqueEditStreamId(),
+                        "mute": false,
                         "loop": false,
                         "loop1": 20,
                         "loop2": 40

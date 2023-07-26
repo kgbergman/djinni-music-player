@@ -34,15 +34,16 @@ const muiTheme = createTheme({
     },
   });
 
-export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folders, updateFolders }) {
+export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folders, updateFolders, addFolderKey }) {
     let currentColor = "#000000";
     let currentName = "New Folder";
 
     function saveFolderClicked() {
-        for (let i = 0; i < folders.length; i++) {
-            if (parseInt(folders[i].id) === parseInt(folderToEdit)) {
-                folders[i].folderName = currentName;
-                folders[i].folderColor = currentColor;
+        const folderKeys = Object.keys(folders);
+        for (let i = 0; i < folderKeys.length; i++) {
+            if (parseInt(folders[folderKeys[i]].id) === parseInt(folderToEdit)) {
+                folders[folderKeys[i]].folderName = currentName;
+                folders[folderKeys[i]].folderColor = currentColor;
                 updateFolders(folders);
             }
         }
@@ -57,17 +58,17 @@ export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folder
     }
 
     function addFolderClicked() {
-        //Get new folder id
-        let folderIds = folders.map(folder => folder.id);
-        let currentId = getRandomValue(folderIds);
-
-        const newFolder = {
+        const date = new Date();
+        let currentId = date.getTime();
+        const newFolders = {...folders};
+        newFolders[currentId] = {
             "folderName": currentName,
             "folderColor": currentColor,
             "id": currentId,
             "streams": []
-        }
-        updateFolders([...folders, newFolder]);
+        };
+        addFolderKey(currentId);
+        updateFolders(newFolders);
     }
 
     function textChanged(event) {
@@ -185,7 +186,7 @@ export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folder
         );
     }
     else {
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(folderToEdit))[0];
+        const thisFolder = folders[folderToEdit]; //(folder => parseInt(folder.id) === parseInt(folderToEdit))[0];
         currentColor = thisFolder.folderColor;
         currentName = thisFolder.folderName;
         return (

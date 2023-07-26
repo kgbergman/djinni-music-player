@@ -118,10 +118,11 @@ export function EditStreams({ folders, openedFolder, openedStream, setCurrentStr
 
     function getUniqueEditStreamId() {
         const editStreamIds = [];
-        for (let i = 0; i < folders.length; i++) {
-            for (let j = 0; j < folders[i].streams.length; j++) {
-                for (let k = 0; k < folders[i].streams[j].length; k++){
-                    editStreamIds.push(folders[i].streams[j].id);
+        const folderKeys = Object.keys(folders);
+        for (let i = 0; i < folderKeys.length; i++) {
+            for (let j = 0; j < folders[folderKeys[i]].streams.length; j++) {
+                for (let k = 0; k < folders[folderKeys[i]].streams[j].length; k++){
+                    editStreamIds.push(folders[folderKeys[i]].streams[j].id);
                 }
             }
         }

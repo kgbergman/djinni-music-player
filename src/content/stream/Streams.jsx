@@ -18,6 +18,9 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
         const streamId = parseInt(event.currentTarget.id)
         const thisFolderStreams = thisFolder.streams;
         const thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0];
+        if (thisStream.interval && thisStream.interval !== 0) {
+            return;
+        }
         const currentlyStreamingIds = currentlyStreaming.map(stream => stream.id);
         if (currentlyStreamingIds.includes(streamId)) {
             deleteStream(streamId);
@@ -38,7 +41,7 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
         event.stopPropagation();
     }
 
-    const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+    const thisFolder = folders[openedFolder]; //(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
     const thisFolderStreams = thisFolder.streams;
 
     const theme = createTheme({

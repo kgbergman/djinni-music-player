@@ -4,7 +4,7 @@ import { ContentGrid } from "./contentgrid/ContentGrid";
 import { NewEditFolderPopup } from "./folder/NewEditFolderPopup";
 import './content.css'
 
-export function Content({ folders, setFolders, streamables, setStreamables, currentlyStreaming, setCurrentlyStreaming }) {
+export function Content({ folders, setFolders, streamables, setStreamables, currentlyStreaming, setCurrentlyStreaming, setFolderKeys, addFolderKey }) {
 
     const [showAddFolder, setShowAddFolder] = useState(false);
     const [showEditFolder, setShowEditFolder] = useState(false);
@@ -94,7 +94,7 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
 
     function streamVolumeChangedFromFolder(event, streamId) {
         //Update the folder
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+        const thisFolder = folders[openedFolder]; //.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
         const thisStream = thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0];
         thisStream.streamVolume = event.target.value;
         //Replace folder with new folder that contains the edited stream list
@@ -107,14 +107,8 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
             }
         });
         thisFolder.streams = newStreams;
-        const newFolders = folders.map(folder => {
-            if (folder.id === thisFolder.id) {
-                return thisFolder;
-            }
-            else {
-                return folder;
-            }
-        });
+        const newFolders = {...folders};
+        newFolders[thisFolder.id] = thisFolder;
         setFolders(newFolders);
         //Update currently streaming
         setCurrentlyStreaming((currentlyStreaming) =>
@@ -131,7 +125,7 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
 
     function volumeStreamClicked(event, streamId) {
         //Update the folder
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+        const thisFolder = folders[openedFolder]; //.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
         const thisStream = thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0];
         thisStream.streamMute = !thisStream.streamMute;
         //Replace folder with new folder that contains the edited stream list
@@ -144,14 +138,8 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
             }
         });
         thisFolder.streams = newStreams;
-        const newFolders = folders.map(folder => {
-            if (folder.id === thisFolder.id) {
-                return thisFolder;
-            }
-            else {
-                return folder;
-            }
-        });
+        const newFolders = {...folders};
+        newFolders[thisFolder.id] = thisFolder;
         setFolders(newFolders);
         //Update currently streaming
         setCurrentlyStreaming((currentlyStreaming) =>
@@ -176,9 +164,10 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
 
     function getUniqueStreamId() {
         const streamIds = [];
-        for (let i = 0; i < folders.length; i++) {
-            for (let j = 0; j < folders[i].streams.length; j++) {
-                streamIds.push(folders[i].streams[j].id);
+        const folderKeys = Object.keys(folders);
+        for (let i = 0; i < folderKeys.length; i++) {
+            for (let j = 0; j < folders[folderKeys[i]].streams.length; j++) {
+                streamIds.push(folders[folderKeys[i]].streams[j].id);
             }
         }
 
@@ -187,10 +176,11 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
 
     function getUniqueEditStreamId() {
         const editStreamIds = [];
-        for (let i = 0; i < folders.length; i++) {
-            for (let j = 0; j < folders[i].streams.length; j++) {
-                for (let k = 0; k < folders[i].streams[j].length; k++){
-                    editStreamIds.push(folders[i].streams[j].id);
+        const folderKeys = Object.keys(folders);
+        for (let i = 0; i < folderKeys.length; i++) {
+            for (let j = 0; j < folders[folderKeys[i]].streams.length; j++) {
+                for (let k = 0; k < folders[folderKeys[i]].streams[j].length; k++){
+                    editStreamIds.push(folders[folderKeys[i]].streams[j].id);
                 }
             }
         }
@@ -209,6 +199,7 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
                 "streamFadeTime": 0,
                 "id": getUniqueStreamId(),
                 "folderId": parseInt(openedFolder),
+                "interval": 0,
                 "playing": false,
                 "streamData": [
                     {
@@ -223,11 +214,11 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
                     }
                 ]
             }
-            const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+            const thisFolder = folders[openedFolder]; //(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
             thisFolder.streams = [...thisFolder.streams, newStream]
             streamId = newStream.id;
         }
-        const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+        const thisFolder = folders[openedFolder]; //(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
         const thisStream = thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0];
         setCurrentStreamObject(thisStream);
         setCurrentStreamMute(thisStream.streamMute);
@@ -244,11 +235,14 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
         }
         else {
             //Save the edited stream
-            const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(selectedFolder))[0];
+            const thisFolder = folders[openedFolder]; //(folder => parseInt(folder.id) === parseInt(selectedFolder))[0];
             const thisStream = thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
             thisStream.streamName = currentStreamObject.streamName;
+            thisStream.streamIcon = currentStreamObject.streamIcon;
+            thisStream.streamMute = currentStreamObject.streamMute;
             thisStream.streamVolume = currentStreamObject.streamVolume;
             thisStream.streamFade = currentStreamObject.streamFade;
+            thisStream.streamFadeTime = currentStreamObject.streamFadeTime;
             thisStream.streamData = currentStreamObject.streamData;
             //Replace folder with new folder that contains the edited stream list
             const newStreams = thisFolder.streams.map(stream => {
@@ -260,14 +254,8 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
                 }
             });
             thisFolder.streams = newStreams;
-            const newFolders = folders.map(folder => {
-                if (folder.id === thisFolder.id) {
-                    return thisFolder;
-                }
-                else {
-                    return folder;
-                }
-            });
+            const newFolders = {...folders};
+            newFolders[thisFolder.id] = thisFolder;
             setFolders(newFolders);
             setOpenedPage("folder");
             //Update this stream in streamables
@@ -334,36 +322,39 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
         setShowEditFolder(false);
     }
 
+    const deleteFolderKey = React.useCallback((folderKeyToDelete) => {
+        setFolderKeys((folderKeys) =>
+            folderKeys.filter((folderKey) => folderKeyToDelete !== folderKey)
+        );
+    }, []);
+
     function deleteClicked() {
         if (openedPage === "folder") {
             //Delete folder
-            const newFolders = folders.filter(folder => parseInt(folder.id) !== parseInt(openedFolder));
+            const newFolders = {...folders};
+            delete newFolders[parseInt(openedFolder)];
             setShowDeletePopup(false);
             setOpenedPage("folders");
+            deleteFolderKey(openedFolder);
             setFolders(newFolders);
         }
         else if (openedPage === "folders") {
             //Delete folder
-            console.log(selectedFolder);
-            const newFolders = folders.filter(folder => parseInt(folder.id) !== parseInt(selectedFolder));
+            const newFolders = {...folders};
+            delete newFolders[parseInt(selectedFolder)]; 
             setShowDeletePopup(false);
             setOpenedPage("folders");
+            deleteFolderKey(selectedFolder);
             setFolders(newFolders);
         }
         else {
             //Delete stream
-            const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(selectedFolder))[0];
+            const thisFolder = folders[openedFolder]; //(folder => parseInt(folder.id) === parseInt(selectedFolder))[0];
             const thisFolderStreams = thisFolder.streams.filter(stream => parseInt(stream.id) !== parseInt(openedStream));
             thisFolder.streams = thisFolderStreams;
             //Replace folder with new folder that contains the edited stream list
-            const newFolders = folders.map(folder => {
-                if (folder.id === thisFolder.id) {
-                    return thisFolder;
-                }
-                else {
-                    return folder;
-                }
-            });
+            const newFolders = {...folders};
+            newFolders[thisFolder.id] = thisFolder;
             setShowDeletePopup(false);
             setOpenedPage("folder");
             setFolders(newFolders);
@@ -372,7 +363,7 @@ export function Content({ folders, setFolders, streamables, setStreamables, curr
 
     return (
         <div className="content" onKeyDown={keyPressed} tabIndex="0">
-            {showAddFolder && <NewEditFolderPopup popupClose={popupClose} popupType={"new"} folders={folders} updateFolders={updateFolders}/>}
+            {showAddFolder && <NewEditFolderPopup popupClose={popupClose} popupType={"new"} folders={folders} updateFolders={updateFolders} addFolderKey={addFolderKey}/>}
             {showEditFolder && <NewEditFolderPopup popupClose={popupClose} popupType={"edit"} folderToEdit={folderToEdit} folders={folders} updateFolders={updateFolders}/>}
             <ContentHeader 
                 toggleSort={toggleSort} 

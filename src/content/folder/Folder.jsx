@@ -28,7 +28,7 @@ export function Folder({ sortByAlpha, folders, currentlyStreaming, folderName, f
             animationData: animation
         });
         return () => anim.destroy(); // optional clean up for unmounting
-    }, [sortByAlpha, folders])
+    }, [sortByAlpha, folders, selected])
 
     const folderAbbreviation = folderName.substring(0, 2);
     let selectedStyle = {

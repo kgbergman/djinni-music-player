@@ -1,9 +1,10 @@
 import React, { memo } from "react";
 import ReactPlayer from "react-player";
 
-export function Player({url, playing, loop, volume, muted, onEnded}) {
+export function Player({streamLinkId, url, playing, loop, volume, muted, onEnded}) {
     return (
         <ReactPlayer
+            key={streamLinkId}
             url={url}
             playing={playing}
             loop={loop}
@@ -14,11 +15,4 @@ export function Player({url, playing, loop, volume, muted, onEnded}) {
     );
 }
 
-function areEqual(prevPlayer, nextPlayer) {
-    console.log(prevPlayer, nextPlayer);
-    return prevPlayer.url === nextPlayer.url
-      && prevPlayer.playing === nextPlayer.playing
-      && prevPlayer.loop === nextPlayer.loop;
-  }  
-
-export const MemoizedPlayer = React.memo(Player, areEqual);
+export const MemoizedPlayer = memo(Player);

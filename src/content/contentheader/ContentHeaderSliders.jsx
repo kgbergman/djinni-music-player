@@ -8,7 +8,7 @@ import { ThemeProvider } from '@mui/material/styles';
 
 export function ContentHeaderSliders({ folders, openedFolder, openedStream, volumeToggleClicked, fadeToggleClicked, streamVolumeChanged, currentStreamFade, currentStreamFadeTime, currentStreamMute, streamFadeTimeChanged }) {
 
-    const thisFolder = folders.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
+    const thisFolder = folders[openedFolder]; //(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
     const thisFolderStreams = thisFolder.streams;
     let thisStream = thisFolderStreams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
 

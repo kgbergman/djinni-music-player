@@ -26,7 +26,14 @@ export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, f
       
     const renderFolders = () => {
         if (sortByAlpha) {
-            const sorted = [...folders].sort(function(a, b) {
+            let foldersArray = [];
+            const keys = Object.keys(folders);
+            keys.map(folderKey => {
+                if (folderKey !== "undefined") {
+                    foldersArray.push(folders[folderKey]);
+                }
+            });
+            const sorted = [...foldersArray].sort(function(a, b) {
                 var textA = a.folderName.toUpperCase();
                 var textB = b.folderName.toUpperCase();
                 return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
@@ -49,21 +56,25 @@ export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, f
             });
         }
         else {
-            return folders.map(folder => {
-                return <Grid item xs={6} sm={3}>
-                            <Folder 
-                                sortByAlpha={sortByAlpha}
-                                folders={folders}
-                                currentlyStreaming={currentlyStreaming}
-                                folderName={folder.folderName} 
-                                folderColor={folder.folderColor}
-                                folderId={folder.id} 
-                                folderClicked={folderClicked} 
-                                folderDoubleClicked={folderDoubleClicked} 
-                                editFolderClicked={editFolderClicked}
-                                selected={selectedFolder === folder.id}
-                            />
-                        </Grid>;
+            const keys = Object.keys(folders);
+            return keys.map(folderKey => {
+                if (folderKey !== "undefined") {
+                    const folder = folders[folderKey];
+                    return <Grid item xs={6} sm={3}>
+                                <Folder 
+                                    sortByAlpha={sortByAlpha}
+                                    folders={folders}
+                                    currentlyStreaming={currentlyStreaming}
+                                    folderName={folder.folderName} 
+                                    folderColor={folder.folderColor}
+                                    folderId={folder.id} 
+                                    folderClicked={folderClicked} 
+                                    folderDoubleClicked={folderDoubleClicked} 
+                                    editFolderClicked={editFolderClicked}
+                                    selected={selectedFolder === folder.id}
+                                />
+                            </Grid>;
+                }
             });
         }
     };

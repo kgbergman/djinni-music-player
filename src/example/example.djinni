@@ -1,8 +1,8 @@
-[
-	{
+{
+	"1": {
 		"folderName": "Beach",
 		"folderColor": "#00e7ff",
-		"id": 123,
+		"id": 1,
 		"streams": [
 			{
 				"streamName": "BG Noise",
@@ -11,7 +11,7 @@
 				"streamVolume": 51,
 				"streamFade": true,
 				"streamFadeTime": 3,
-				"folderId": 123,
+				"folderId": 1,
 				"id": 345,
 				"playing": false,
 				"streamData": [
@@ -57,7 +57,7 @@
 				"streamVolume": 66,
 				"streamFade": true,
 				"streamFadeTime": 3,
-				"folderId": 123,
+				"folderId": 1,
 				"id": 210,
 				"playing": false,
 				"streamData": [
@@ -69,7 +69,8 @@
 						"id": 789,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			},
@@ -80,7 +81,7 @@
 				"streamVolume": 87,
 				"streamFade": true,
 				"streamFadeTime": 5,
-				"folderId": 123,
+				"folderId": 1,
 				"id": 321,
 				"playing": false,
 				"streamData": [
@@ -92,13 +93,14 @@
 						"id": 8,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			}
 		]
 	},
-	{
+	"2": {
 		"folderName": "Dungeon",
 		"folderColor": "#4c4c4c",
 		"id": 2,
@@ -180,12 +182,13 @@
 						"loop2": 0,
 						"playing": false
 					}
-				]
+				],
+				"interval": 0
 			},
 			{
 				"streamName": "Monster Roar",
 				"streamIcon": "🦖",
-				"streamVolume": 49,
+				"streamVolume": 95,
 				"streamFade": false,
 				"streamFadeTime": 0,
 				"folderId": 2,
@@ -203,12 +206,13 @@
 						"loop2": 40,
 						"playing": false
 					}
-				]
+				],
+				"interval": 0
 			},
 			{
 				"streamName": "BG Music",
 				"streamIcon": "🔊",
-				"streamVolume": 26,
+				"streamVolume": 14,
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"folderId": 2,
@@ -226,11 +230,12 @@
 						"loop2": 0,
 						"playing": false
 					}
-				]
+				],
+				"interval": 0
 			}
 		]
 	},
-	{
+	"3": {
 		"folderName": "Forest",
 		"folderColor": "#35840d",
 		"id": 3,
@@ -256,12 +261,13 @@
 						"loop2": 0,
 						"playing": false
 					}
-				]
+				],
+				"interval": 0
 			},
 			{
 				"streamName": "Forest",
 				"streamIcon": "🌲",
-				"streamVolume": 36,
+				"streamVolume": 63,
 				"streamFade": true,
 				"streamFadeTime": 3,
 				"id": 5872,
@@ -290,12 +296,13 @@
 						"loop2": 60,
 						"playing": false
 					}
-				]
+				],
+				"interval": 0
 			},
 			{
 				"streamName": "Quiet Music",
 				"streamIcon": "🔉",
-				"streamVolume": 43,
+				"streamVolume": 26,
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"id": 7168,
@@ -313,7 +320,8 @@
 						"loop2": 0,
 						"playing": false
 					}
-				]
+				],
+				"interval": 0
 			},
 			{
 				"streamName": "Combat Music",
@@ -337,14 +345,15 @@
 						"playing": false
 					}
 				],
-				"streamMute": true
+				"streamMute": true,
+				"interval": 0
 			}
 		]
 	},
-	{
+	"4": {
 		"folderName": "Volcano",
 		"folderColor": "#ff3300",
-		"id": 3471,
+		"id": 4,
 		"streams": [
 			{
 				"streamName": "Volcano Sounds",
@@ -353,7 +362,7 @@
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"id": 3511,
-				"folderId": 3471,
+				"folderId": 4,
 				"playing": false,
 				"streamData": [
 					{
@@ -364,7 +373,8 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			},
@@ -375,7 +385,7 @@
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"id": 5296,
-				"folderId": 3471,
+				"folderId": 4,
 				"playing": false,
 				"streamData": [
 					{
@@ -386,7 +396,8 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			},
@@ -397,7 +408,7 @@
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"id": 1494,
-				"folderId": 3471,
+				"folderId": 4,
 				"playing": false,
 				"streamData": [
 					{
@@ -408,7 +419,8 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			},
@@ -419,7 +431,7 @@
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"id": 883,
-				"folderId": 3471,
+				"folderId": 4,
 				"playing": false,
 				"streamData": [
 					{
@@ -430,16 +442,17 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
 				]
 			}
 		]
 	},
-	{
+	"5": {
 		"folderName": "Pirate Ship",
 		"folderColor": "#846501",
-		"id": 9056,
+		"id": 5,
 		"streams": [
 			{
 				"streamName": "BG Sounds",
@@ -448,7 +461,7 @@
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"id": 5385,
-				"folderId": 9056,
+				"folderId": 5,
 				"playing": false,
 				"streamData": [
 					{
@@ -459,7 +472,8 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					},
 					{
 						"name": "Waves",
@@ -469,7 +483,8 @@
 						"id": 5695,
 						"loop": true,
 						"loop1": 10,
-						"loop2": 15
+						"loop2": 15,
+						"playing": false
 					},
 					{
 						"name": "Seagulls",
@@ -479,9 +494,11 @@
 						"id": 592,
 						"loop": true,
 						"loop1": 50,
-						"loop2": 60
+						"loop2": 60,
+						"playing": false
 					}
-				]
+				],
+				"interval": 0
 			},
 			{
 				"streamName": "Upbeat Shanty",
@@ -490,7 +507,7 @@
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"id": 9161,
-				"folderId": 9056,
+				"folderId": 5,
 				"playing": false,
 				"streamData": [
 					{
@@ -501,9 +518,11 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
-				]
+				],
+				"interval": 0
 			},
 			{
 				"streamName": "Slow Shanty",
@@ -512,20 +531,22 @@
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"id": 2753,
-				"folderId": 9056,
+				"folderId": 5,
 				"playing": false,
 				"streamData": [
 					{
 						"name": "Shanty",
-						"link": "https://www.youtube.com/watch?v=VkYqzeb7WV4",
+						"link": "https://www.youtube.com/watch?v=2QdUWawf2F4",
 						"volume": 100,
 						"id": 8056,
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					}
-				]
+				],
+				"interval": 0
 			},
 			{
 				"streamName": "Stormy Weather",
@@ -534,7 +555,7 @@
 				"streamFade": true,
 				"streamFadeTime": 3,
 				"id": 3004,
-				"folderId": 9056,
+				"folderId": 5,
 				"playing": false,
 				"streamData": [
 					{
@@ -545,7 +566,8 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					},
 					{
 						"name": "Wind",
@@ -555,7 +577,8 @@
 						"id": 9542,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					},
 					{
 						"name": "Rain",
@@ -565,7 +588,8 @@
 						"id": 998,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
 					},
 					{
 						"name": "Loud Thunder",
@@ -575,7 +599,8 @@
 						"id": 2435,
 						"loop": true,
 						"loop1": 40,
-						"loop2": 60
+						"loop2": 60,
+						"playing": false
 					}
 				]
 			},
@@ -586,7 +611,7 @@
 				"streamFade": true,
 				"streamFadeTime": 5,
 				"id": 8009,
-				"folderId": 9056,
+				"folderId": 5,
 				"playing": false,
 				"streamData": [
 					{
@@ -597,10 +622,147 @@
 						"mute": false,
 						"loop": true,
 						"loop1": 0,
-						"loop2": 0
+						"loop2": 0,
+						"playing": false
+					}
+				],
+				"interval": 0
+			}
+		]
+	},
+	"undefined": {
+		"folderName": "Dungeon",
+		"folderColor": "#4c4c4c",
+		"id": 2,
+		"streams": [
+			{
+				"streamName": "Stealth Music",
+				"streamIcon": "🤫",
+				"streamVolume": 19.140000000000114,
+				"streamFade": true,
+				"streamFadeTime": 7,
+				"folderId": 2,
+				"id": 2039,
+				"playing": false,
+				"streamData": [
+					{
+						"name": "Music",
+						"link": "https://www.youtube.com/watch?v=WW4bdFhcZgw",
+						"volume": 44,
+						"id": 1953,
+						"mute": false,
+						"loop": true,
+						"loop1": 0,
+						"loop2": 0,
+						"playing": false
+					},
+					{
+						"name": "Shh",
+						"link": "https://www.youtube.com/watch?v=XMVERmqlhx0",
+						"mute": false,
+						"volume": 51,
+						"id": 3576,
+						"loop": true,
+						"loop1": 45,
+						"loop2": 60,
+						"playing": false
+					},
+					{
+						"name": "Door Creak",
+						"link": "https://www.youtube.com/watch?v=rKLCEzF1XGo",
+						"mute": false,
+						"volume": 35,
+						"id": 6316,
+						"loop": true,
+						"loop1": 30,
+						"loop2": 60,
+						"playing": false
+					},
+					{
+						"name": "Chain",
+						"link": "https://www.youtube.com/watch?v=GSbT_Xt5fqI",
+						"mute": false,
+						"volume": 30,
+						"id": 8777,
+						"loop": true,
+						"loop1": 30,
+						"loop2": 45,
+						"playing": false
 					}
 				]
+			},
+			{
+				"streamName": "Combat Music",
+				"streamIcon": "⚔️",
+				"streamVolume": 43,
+				"streamFade": true,
+				"streamFadeTime": 5,
+				"folderId": 2,
+				"id": 7717,
+				"playing": false,
+				"streamData": [
+					{
+						"name": "Boss Music",
+						"link": "https://www.youtube.com/watch?v=tBI63CPbW9c",
+						"volume": 100,
+						"id": 9436,
+						"mute": false,
+						"loop": true,
+						"loop1": 0,
+						"loop2": 0,
+						"playing": false
+					}
+				],
+				"interval": 0
+			},
+			{
+				"streamName": "Monster Roar",
+				"streamIcon": "🦖",
+				"streamVolume": 95,
+				"streamFade": false,
+				"streamFadeTime": 0,
+				"folderId": 2,
+				"id": 6125,
+				"playing": false,
+				"streamData": [
+					{
+						"name": "Roar",
+						"link": "https://www.youtube.com/watch?v=D2RqYLJtbQw",
+						"volume": 62,
+						"id": 4783,
+						"mute": false,
+						"loop": false,
+						"loop1": 20,
+						"loop2": 40,
+						"playing": false
+					}
+				],
+				"interval": 0
+			},
+			{
+				"streamName": "BG Music",
+				"streamIcon": "🔊",
+				"streamVolume": 14,
+				"streamFade": true,
+				"streamFadeTime": 5,
+				"folderId": 2,
+				"id": 3181,
+				"playing": false,
+				"streamData": [
+					{
+						"name": "Dungeon",
+						"link": "https://www.youtube.com/watch?v=eklS7Vwzdp8",
+						"volume": 100,
+						"id": 1570,
+						"mute": false,
+						"loop": true,
+						"loop1": 0,
+						"loop2": 0,
+						"playing": false
+					}
+				],
+				"interval": 0
 			}
 		]
 	}
-]
+}
