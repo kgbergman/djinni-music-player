@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import OBR from '@owlbear-rodeo/sdk';
+import { MemoizedPlayer } from './player/Player';
+import{ getPluginId } from './getPluginId'
 window.ResizeObserver = ResizeObserver;
-
-function onYouTubeIframeAPIReady() {
-  'use strict';
-  console.log("uhhhh...");
-}
 
 /**
  * Main
@@ -36,8 +34,16 @@ function onYouTubeIframeAPIReady() {
 
 const htmlRoot = document.getElementById('root');
 const root = ReactDOM.createRoot(htmlRoot);
+
+let playerRole = "";
+
+OBR.onReady(async () => {
+  if (playerRole === "") {
+    const newPlayerRole = await OBR.player.getRole();
+    playerRole = newPlayerRole;
+  }
+});
+
 root.render(
-  <React.StrictMode>
-    <App/>
-  </React.StrictMode>
+  <App/>
 );

@@ -58,6 +58,8 @@ export function ContentHeaderSliders({ folders, openedFolder, openedStream, volu
         height: '3px',
         },
     };
+    const [defaultValue, setDefaultValue] = React.useState(thisStream.streamVolume);
+    const [defaultFadeValue, setDefaultFadeValue] = React.useState(thisStream.streamFadeTime);
 
     return (
         <div className="content-header-sliders">
@@ -70,7 +72,7 @@ export function ContentHeaderSliders({ folders, openedFolder, openedStream, volu
                 </div>
                 <div className="header-slider-container">
                     <ThemeProvider theme={muiTheme}>
-                        <Slider sx={sliderStyle} size="small" min={0} max={100} disabled={currentStreamMute} defaultValue={thisStream.streamVolume} onChange={streamVolumeChanged}/>
+                        <Slider sx={sliderStyle} size="small" min={0} max={100} disabled={currentStreamMute} defaultValue={defaultValue} onChange={streamVolumeChanged}/>
                     </ThemeProvider>
                 </div>
             </div>
@@ -103,7 +105,7 @@ export function ContentHeaderSliders({ folders, openedFolder, openedStream, volu
                     {!currentStreamFade && <span className="caption">No Fade Out</span>}
                     {currentStreamFade && <span className="caption">Fade out {currentStreamFadeTime}s</span>}
                     <ThemeProvider theme={muiTheme}>
-                        <Slider sx={sliderStyle} size="small" min={0} max={10} disabled={!currentStreamFade} defaultValue={thisStream.streamFadeTime} onChange={streamFadeTimeChanged}/>
+                        <Slider sx={sliderStyle} size="small" min={0} max={10} disabled={!currentStreamFade} defaultValue={defaultFadeValue} onChange={streamFadeTimeChanged}/>
                     </ThemeProvider>
                 </div>
             </div>

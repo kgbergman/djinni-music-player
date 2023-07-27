@@ -44,7 +44,6 @@ export function EditStreams({ folders, openedFolder, openedStream, setCurrentStr
     }
 
     function editStreamLoopChanged(value, editStreamId) {
-        console.log(value);
         const newStream = {...currentStreamObject};
         const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
         thisEditStream.loop1 = value[0];

@@ -37,7 +37,6 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
 
     function streamMouseDown(event) {
         setCurrentTgt("bg");
-        console.log(currentTgt);
     }
 
     function selectStream(event) {
@@ -74,6 +73,8 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
     };
     selectedShow = selected ? { visibility:'visible' } : selectedShow;
 
+    const [defaultValue, setDefaultValue] = React.useState(stream.streamVolume);
+
     return (
     <div className="stream" id={stream.id} onMouseDown={streamMouseDown} onMouseUp={selectStream} style={outline}>
         <div className="stream-fade"></div>
@@ -86,7 +87,7 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
             </div>
             <div className="stream-slider-container">
                 <ThemeProvider theme={muiTheme}>
-                    <Slider size="small" min={0} max={100} defaultValue={stream.streamVolume} disabled={stream.streamMute} onMouseDown={sliderMouseDown} onChange={(e) => sliderMoved(e, stream.id)}/>
+                    <Slider size="small" min={0} max={100} defaultValue={defaultValue} disabled={stream.streamMute} onMouseDown={sliderMouseDown} onChange={(e) => sliderMoved(e, stream.id)}/>
                 </ThemeProvider>
             </div>
         </div>

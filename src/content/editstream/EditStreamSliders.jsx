@@ -76,6 +76,8 @@ export function EditStreamSliders({ editStreamData, thisStreamMute, thisStreamLo
         }
     };
 
+    const [defaultValue, setDefaultValue] = React.useState(editStreamData.volume);
+
     return (
         <div className="edit-stream-sliders">
             <div className="edit-stream-volume-container">
@@ -87,7 +89,7 @@ export function EditStreamSliders({ editStreamData, thisStreamMute, thisStreamLo
                 </div>
                 <div className="edit-stream-slider-container">
                     <ThemeProvider theme={muiTheme}>
-                        <Slider sx={sliderStyle} size="small" min={0} max={100} disabled={editStreamData.mute} value={editStreamData.volume} onChange={handleVolumeChange}/>
+                        <Slider sx={sliderStyle} size="small" min={0} max={100} disabled={editStreamData.mute} defaultValue={defaultValue} onChange={handleVolumeChange}/>
                     </ThemeProvider>
                 </div>
             </div>
@@ -107,7 +109,7 @@ export function EditStreamSliders({ editStreamData, thisStreamMute, thisStreamLo
                         </SvgIcon>}
                         {thisStreamLoop && <SvgIcon>
                             <svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" fill="#FFFFFF" viewBox="0 0 24 24" xmlSpace="preserve">
-                                <path class="st2" d="M13.4,5.9c-3.4-0.8-6.8,1.3-7.6,4.6c-0.3,1.4-0.2,2.9,0.4,4.2l-1.5,1.5c-2.3-4-1-9.1,3-11.5c1.7-1,3.8-1.4,5.7-1V0.2l4.4,4.4L13.4,9L13.4,5.9L13.4,5.9z M10.5,18.1c3.4,0.8,6.8-1.3,7.6-4.6c0.3-1.4,0.2-2.9-0.4-4.2l1.5-1.5c2.3,4,1,9.1-3,11.5c-1.7,1-3.8,1.4-5.7,1v3.6L6,19.4l4.4-4.4L10.5,18.1z"/>
+                                <path d="M13.4,5.9c-3.4-0.8-6.8,1.3-7.6,4.6c-0.3,1.4-0.2,2.9,0.4,4.2l-1.5,1.5c-2.3-4-1-9.1,3-11.5c1.7-1,3.8-1.4,5.7-1V0.2l4.4,4.4L13.4,9L13.4,5.9L13.4,5.9z M10.5,18.1c3.4,0.8,6.8-1.3,7.6-4.6c0.3-1.4,0.2-2.9-0.4-4.2l1.5-1.5c2.3,4,1,9.1-3,11.5c-1.7,1-3.8,1.4-5.7,1v3.6L6,19.4l4.4-4.4L10.5,18.1z"/>
                             </svg>
                         </SvgIcon>}
                         

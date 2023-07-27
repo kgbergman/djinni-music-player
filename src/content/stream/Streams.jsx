@@ -23,7 +23,9 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
         }
         const currentlyStreamingIds = currentlyStreaming.map(stream => stream.id);
         if (currentlyStreamingIds.includes(streamId)) {
-            deleteStream(streamId);
+            let newCurrentlyStreaming = [...currentlyStreaming];
+            newCurrentlyStreaming = newCurrentlyStreaming.filter((stream) => stream.id !== streamId)
+            setCurrentlyStreaming(newCurrentlyStreaming)
         }
         else {
             setCurrentlyStreaming([...currentlyStreaming, thisStream])
@@ -31,7 +33,6 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
     }
 
     function editStreamClicked(event) {
-        console.log(event);
         streamOpened(event.currentTarget.id);
         event.stopPropagation();
     }

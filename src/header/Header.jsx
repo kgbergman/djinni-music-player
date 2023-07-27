@@ -18,7 +18,7 @@ const muiTheme = createTheme({
 });
 
 
-export function Header({setFolders, saveButtonClicked, setStreamables, masterVolumeMute, setMasterVolumeMute, setMasterVolumeValue, folderKeys, addFolderKey }) {
+export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVolume, folderKeys, addFolderKey }) {
 
   const buttonStyle = { 
     color: "#ffffff",
@@ -55,11 +55,15 @@ export function Header({setFolders, saveButtonClicked, setStreamables, masterVol
   }
 
   function volumeToggleClicked() {
-    setMasterVolumeMute(!masterVolumeMute);
+    const newMasterVolume = structuredClone(masterVolume);
+    newMasterVolume.mute = !newMasterVolume.mute;
+    setMasterVolume(newMasterVolume);
   }
 
   const volumeSliderChanged = (event, newValue) => {
-    setMasterVolumeValue(newValue);
+    const newMasterVolume = structuredClone(masterVolume);
+    newMasterVolume.volume = newValue;
+    setMasterVolume(newMasterVolume);
   };
 
   return (
@@ -77,13 +81,13 @@ export function Header({setFolders, saveButtonClicked, setStreamables, masterVol
           <div className="buttons-container">
             <div className="buttons">
               <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
-                {!masterVolumeMute && <VolumeUpIcon/>}
-                {masterVolumeMute && <VolumeOffIcon/>}
+                {!masterVolume.mute && <VolumeUpIcon/>}
+                {masterVolume.mute && <VolumeOffIcon/>}
               </IconButton>
             </div>
             <div className="slider-container">
               <ThemeProvider theme={muiTheme}>
-                <Slider min={0} max={100} defaultValue={50} disabled={masterVolumeMute} onChange={volumeSliderChanged}/>
+                <Slider min={0} max={100} defaultValue={50} disabled={masterVolume.mute} onChange={volumeSliderChanged}/>
               </ThemeProvider>
             </div>
           </div>

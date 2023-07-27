@@ -3,18 +3,45 @@ import { Header } from "./header/Header";
 import { Content } from "./content/Content";
 import { SavePopup } from './savepopup/SavePopup';
 import React, { useState, useEffect } from 'react';
-import ReactPlayer from 'react-player';
 import { exampleFile } from './example/example';
 import { MemoizedPlayer } from './player/Player';
+import OBR from '@owlbear-rodeo/sdk';
+import{ getPluginId } from './getPluginId'
 
 function App() {
   const [folders, setFolders] = useState(exampleFile);
-  const [streamables, setStreamables] = useState([]);
-  const [currentlyStreaming, setCurrentlyStreaming] = useState([]);
+  const [currentlyStreaming, setCurrentlyStreamingMetadata] = useState([]);
   const [oldStreaming, setOldStreaming] = useState([]);
   const [showSavePopup, setShowSavePopup] = useState(false);
-  const [masterVolumeMute, setMasterVolumeMute] = useState(false);
-  const [masterVolumeValue, setMasterVolumeValue] = useState(50);
+  const [masterVolume, setMasterVolume] = useState({volume: 50, mute: false});
+  const [playerRole, setPlayerRole] = useState("");
+
+  useEffect(() => {
+    OBR.onReady(async () => {
+      if (playerRole === "") {
+        const newPlayerRole = await OBR.player.getRole();
+        setPlayerRole(newPlayerRole);
+      }
+      OBR.room.onMetadataChange((metadata) => {
+        const currently = metadata[getPluginId("currently")][0];
+        //Extrapolate what functions to run based off of the new currently streaming data
+        console.log("received metadata", currently);
+        setCurrentlyStreamingMetadata(currently);
+      })
+    });
+  }, []);
+
+  function setCurrentlyStreaming(newCurrentlyStreaming) {
+    sendMetadata("currently", structuredClone(newCurrentlyStreaming), new Date().getTime());
+  }
+
+  function sendMetadata(command, parameter, cmdNum) {
+    if (OBR.isReady) {
+      OBR.room.setMetadata({
+        [getPluginId(command)]: [parameter, cmdNum]
+      });
+    }
+  }
 
   function saveButtonClicked() {
     setShowSavePopup(true);
@@ -38,13 +65,6 @@ function App() {
       endStream(endedStream);
     });
 
-    if (newStreams.length === 0 && endedStreams.length === 0) {
-      //Volume or mute update
-      for (let i = 0; i < currentlyStreaming.length; i++) {
-        updateVolumeAndMute(currentlyStreaming[i]);
-      }
-    }
-
     setOldStreaming(currentlyStreaming);
   },[currentlyStreaming]);
 
@@ -55,7 +75,7 @@ function App() {
   }
 
   function updateVolume(streamToChange, volume) {
-      //Find in folders
+    //Find in folders
     const newFolders = {...folders};
     const thisFolder = newFolders[streamToChange.folderId];
     thisFolder.streams.forEach(stream => {
@@ -65,32 +85,6 @@ function App() {
     })
     newFolders[thisFolder.id] = thisFolder;
     setFolders(newFolders);
-  }
-
-  function updateVolumeAndMute(stream) {
-    //Find in streamables
-    const newStreamables = [...streamables];
-    //Create array of streamable links
-    let indexes = [];
-    for (let i = 0; i < newStreamables.length; i++) {
-      if (newStreamables[i].streamId === stream.id) {
-        indexes.push(i);
-      }
-    }
-
-    for (let i = 0; i < indexes.length; i++) {
-      //Get this streamLink
-      let streamLink = {};
-      for (let j = 0; j < stream.streamData.length; j++) {
-        if (stream.streamData[j].id === newStreamables[indexes[i]].linkId) {
-          streamLink = stream.streamData[j];
-        }
-      }
-      newStreamables[indexes[i]].volume = stream.streamVolume / 100 * streamLink.volume / 100;
-      newStreamables[indexes[i]].mute = stream.streamMute || streamLink.mute;
-    }
-
-    setStreamables(newStreamables);
   }
 
   function startStream(streamToStart) {
@@ -111,7 +105,6 @@ function App() {
   }
 
   function stopStream(streamToStop) {
-    //Find in streamables
     const newFolders = {...folders};
     const thisFolder = newFolders[streamToStop.folderId];
     thisFolder.streams.forEach(stream => {
@@ -128,7 +121,6 @@ function App() {
   }
 
   function setStreamInterval(streamToAddTo, interval) {
-    //Find in streamables
     const newFolders = {...folders};
     const thisFolder = newFolders[streamToAddTo.folderId];
     thisFolder.streams.forEach(stream => {
@@ -142,7 +134,6 @@ function App() {
 
   function endStream(stream) {
     if (stream.streamFade) {
-      //Loop through the streamables for this object
       const originalVolume = stream.streamVolume;
       const fadeTime = parseInt(stream.streamFadeTime);
       const steps = 100;
@@ -196,7 +187,6 @@ function App() {
     }, 0); 
   }
 
-
   function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
@@ -239,12 +229,14 @@ function App() {
           newFolders[thisFolder.folderId] = thisFolder;
         }
       })
-    })    
+    })
     setFolders(newFolders);
   }
 
   function removeFromCurrentlyStreaming(streamToRemove) {
-    setCurrentlyStreaming((currentlyStreaming) => currentlyStreaming.filter((stream) => stream.id !== streamToRemove.id));
+    let newCurrentlyStreaming = [...currentlyStreaming];
+    newCurrentlyStreaming = newCurrentlyStreaming.filter((stream) => stream.id !== streamToRemove.id)
+    setCurrentlyStreaming(newCurrentlyStreaming)
   }
 
   function checkIfRemoveFromCurrentlyStreaming(endedStreamLink) {
@@ -292,8 +284,8 @@ function App() {
                     url={streamLink.link}
                     playing={true}
                     loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
-                    volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolumeValue / 100}
-                    muted={stream.streamMute || streamLink.mute || masterVolumeMute}
+                    volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolume.volume / 100}
+                    muted={stream.streamMute || streamLink.mute || masterVolume.mute}
                     onEnded={(event) => endFunction(event, streamLink)}
                   />
                 }
@@ -303,40 +295,63 @@ function App() {
     })
   }
 
+  
+  function renderVideosPlayer() {
+    return currentlyStreaming.map(stream => {
+      return stream.streamData.map(streamLink => {
+        return <MemoizedPlayer
+          streamLinkId={streamLink.id}
+          url={streamLink.link}
+          playing={true}
+          loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
+          volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolume.volume / 100}
+          muted={stream.streamMute || streamLink.mute || masterVolume.mute}
+          onEnded={(event) => endFunction(event, streamLink)}
+        />
+      })
+    })
+  }
+
   const addFolderKey = React.useCallback((folderKeyToAdd) => {
     setFolderKeys((folderKeys) => [...folderKeys, folderKeyToAdd]);
   }, []);
 
-  return (
-    <div className="App">
-      <div className="audio-streams" id="audio-streams">
-        {renderVideos()}
+  if (playerRole === "GM") {
+    return (
+      <div className="App">
+        <div className="audio-streams" id="audio-streams">
+          {renderVideos()}
+        </div>
+        {showSavePopup && <SavePopup savePopupClose={savePopupClose} savePopupClicked={saveFolders}/>}
+        <Header 
+          folderKeys={folderKeys} 
+          addFolderKey={addFolderKey} 
+          masterVolume={masterVolume} 
+          setMasterVolume={setMasterVolume} 
+          setFolders={setFolders} 
+          saveButtonClicked={saveButtonClicked} 
+        />
+        <Content 
+          folders={folders} 
+          addFolderKey={addFolderKey} 
+          setFolderKeys={setFolderKeys} 
+          folderKeys={folderKeys} 
+          setFolders={setFolders} 
+          currentlyStreaming={currentlyStreaming} 
+          setCurrentlyStreaming={setCurrentlyStreaming} 
+        />
       </div>
-      {showSavePopup && <SavePopup savePopupClose={savePopupClose} savePopupClicked={saveFolders}/>}
-      <Header 
-        folderKeys={folderKeys} 
-        addFolderKey={addFolderKey} 
-        masterVolumeMute={masterVolumeMute} 
-        setMasterVolumeMute={setMasterVolumeMute} 
-        masterVolumeValue={masterVolumeValue} 
-        setMasterVolumeValue={setMasterVolumeValue} 
-        setFolders={setFolders} 
-        saveButtonClicked={saveButtonClicked} 
-        setStreamables={setStreamables}
-      />
-      <Content 
-        folders={folders} 
-        addFolderKey={addFolderKey} 
-        setFolderKeys={setFolderKeys} 
-        folderKeys={folderKeys} 
-        setFolders={setFolders} 
-        streamables={streamables} 
-        setStreamables={setStreamables} 
-        currentlyStreaming={currentlyStreaming} 
-        setCurrentlyStreaming={setCurrentlyStreaming} 
-      />
-    </div>
-  );
+    );
+  }
+  else {
+    return (
+      <div className="App">
+        <div className="audio-streams" id="audio-streams">
+          {renderVideosPlayer()}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;

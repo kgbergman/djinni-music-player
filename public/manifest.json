@@ -1,9 +1,12 @@
 {
-  "name": "Music Player React",
+  "name": "DJinni Sound Mixer",
   "version": "1.0.0",
   "manifest_version": 1,
+  "author": "Keegan",
+  "icon": "/logo.png",
+  "description": "Mix sound effects and music with a variety of effects to provide an immersive experience!",
   "action": {
-    "title": "Music Player",
+    "title": "DJinni Sound Mixer",
     "icon": "/icon.svg",
     "popover": "/",
     "height": 400,
