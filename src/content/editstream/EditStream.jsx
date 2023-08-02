@@ -9,6 +9,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { EditStreamSliders } from "./EditStreamSliders";
+import Tooltip from '@mui/material/Tooltip';
 
 const muiTheme = createTheme({
   palette: {
@@ -182,9 +183,11 @@ export function EditStream({
                 }
                 <div className="remove-container">
                     <div className="buttons">
-                        <IconButton sx={buttonStyle} aria-label="delete" onClick={deleteEditStream}>
-                            <DeleteIcon/>
-                        </IconButton>
+                        <Tooltip title="Delete Link">
+                            <IconButton sx={buttonStyle} aria-label="delete" onClick={deleteEditStream}>
+                                <DeleteIcon/>
+                            </IconButton>
+                        </Tooltip>
                     </div>
                 </div>
             </div>

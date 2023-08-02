@@ -6,7 +6,7 @@ import { AddStream } from "./AddStream"
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 
-export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, currentlyStreaming, setCurrentlyStreaming, streamVolumeChangedFromFolder, volumeStreamClicked }) {
+export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, currentlyStreaming, setCurrentlyStreaming, streamClickedStart, streamClickedEnd, streamVolumeChangedFromFolder, volumeStreamClicked }) {
 
     const deleteStream = React.useCallback((streamToDelete) => {
         setCurrentlyStreaming((currentlyStreaming) =>
@@ -21,14 +21,27 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
         if (thisStream.interval && thisStream.interval !== 0) {
             return;
         }
-        const currentlyStreamingIds = currentlyStreaming.map(stream => stream.id);
-        if (currentlyStreamingIds.includes(streamId)) {
-            let newCurrentlyStreaming = [...currentlyStreaming];
-            newCurrentlyStreaming = newCurrentlyStreaming.filter((stream) => stream.id !== streamId)
-            setCurrentlyStreaming(newCurrentlyStreaming)
+
+        let foundStream = false;
+        for (let i = 0; i < currentlyStreaming.length; i++) {
+            const stream = currentlyStreaming[i];
+            if (parseInt(stream.id) === streamId) {
+                foundStream = true;
+                if (stream.fading) {
+                    //Do nothing
+                }
+                else if (stream.playing) {
+                    streamClickedEnd(thisStream);
+                }
+                else {
+                    streamClickedStart(thisStream);
+                }
+            }
         }
-        else {
-            setCurrentlyStreaming([...currentlyStreaming, thisStream])
+
+        if (!foundStream) {
+            console.log("didnt find stream");
+            streamClickedStart(thisStream);
         }
     }
 
@@ -70,7 +83,9 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
                                 editStreamClicked={editStreamClicked} 
                                 sliderChanged={streamVolumeChangedFromFolder}
                                 volumeStreamClicked={volumeStreamClicked}
-                                selected={currentlyStreaming.map(stream => stream.id).includes(parseInt(stream.id))}
+                                selected={
+                                    currentlyStreaming.map(stream => stream.id).includes(parseInt(stream.id)) && !stream.fading && stream.playing
+                                }
                             />
                         </Grid>;
             });
@@ -84,7 +99,9 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
                                 editStreamClicked={editStreamClicked} 
                                 sliderChanged={streamVolumeChangedFromFolder}
                                 volumeStreamClicked={volumeStreamClicked}
-                                selected={currentlyStreaming.map(stream => stream.id).includes(parseInt(stream.id))}
+                                selected={
+                                    currentlyStreaming.map(stream => stream.id).includes(parseInt(stream.id)) && !stream.fading && stream.playing
+                                }
                             />
                         </Grid>;
             });

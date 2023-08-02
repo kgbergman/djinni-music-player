@@ -7,6 +7,7 @@ import './stream.css'
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import { Slider } from "@mui/material";
+import Tooltip from '@mui/material/Tooltip';
 
 const muiTheme = createTheme({
   palette: {
@@ -80,10 +81,12 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
         <div className="stream-fade"></div>
         <div className="stream-high-row" style={selectedShow}>
             <div className="stream-volume-button-container">
-                <IconButton size="small" sx={buttonStyle} aria-label="volume toggle mute" onMouseDown={volumeStreamMouseDown} onClick={(e) => volumeStreamClicked(e, stream.id)}>
-                    {!stream.streamMute && <VolumeUpIcon fontSize="inherit"/>}
-                    {stream.streamMute && <VolumeOffIcon fontSize="inherit"/>}
-                </IconButton>
+                <Tooltip title="Toggle Stream Mute">
+                    <IconButton size="small" sx={buttonStyle} aria-label="volume toggle mute" onMouseDown={volumeStreamMouseDown} onClick={(e) => volumeStreamClicked(e, stream.id)}>
+                        {!stream.streamMute && <VolumeUpIcon fontSize="inherit"/>}
+                        {stream.streamMute && <VolumeOffIcon fontSize="inherit"/>}
+                    </IconButton>
+                </Tooltip>
             </div>
             <div className="stream-slider-container">
                 <ThemeProvider theme={muiTheme}>
@@ -99,9 +102,11 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
                 <span className="stream-name">{stream.streamName}</span>
             </div>
             <div className="stream-edit-button-container">
-                <IconButton id={stream.id} size="small" sx={buttonStyle} aria-label="edit" onMouseDown={editStreamMouseDown} onClick={editStreamClicked}>
-                    <EditIcon fontSize="small" sx={{ fontSize: "15px" }} />
-                </IconButton>
+                <Tooltip title="Edit Stream">
+                    <IconButton id={stream.id} size="small" sx={buttonStyle} aria-label="edit" onMouseDown={editStreamMouseDown} onClick={editStreamClicked}>
+                        <EditIcon fontSize="small" sx={{ fontSize: "15px" }} />
+                    </IconButton>
+                </Tooltip>
             </div>
         </div>
     </div>

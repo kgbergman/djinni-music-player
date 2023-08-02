@@ -6,6 +6,7 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import RangeSlider from "../../slider/RangeSlider";
+import Tooltip from '@mui/material/Tooltip';
 
 export function EditStreamSliders({ editStreamData, thisStreamMute, thisStreamLoop, setThisStreamMute, setThisStreamLoop, editStreamLoopChanged, editStreamLoopClicked, editStreamMuteClicked, editStreamVolumeChanged }) {
 
@@ -82,10 +83,12 @@ export function EditStreamSliders({ editStreamData, thisStreamMute, thisStreamLo
         <div className="edit-stream-sliders">
             <div className="edit-stream-volume-container">
                 <div className="buttons">
-                    <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={(e) => muteClicked(e, editStreamData.id)}>
-                        {!editStreamData.mute && <VolumeUpIcon/>}
-                        {editStreamData.mute && <VolumeOffIcon/>}
-                    </IconButton>
+                    <Tooltip title="Toggle Link Mute">
+                        <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={(e) => muteClicked(e, editStreamData.id)}>
+                            {!editStreamData.mute && <VolumeUpIcon/>}
+                            {editStreamData.mute && <VolumeOffIcon/>}
+                        </IconButton>
+                    </Tooltip>
                 </div>
                 <div className="edit-stream-slider-container">
                     <ThemeProvider theme={muiTheme}>
@@ -95,25 +98,27 @@ export function EditStreamSliders({ editStreamData, thisStreamMute, thisStreamLo
             </div>
             <div className="loop-container">
                 <div className="buttons">
-                    <IconButton sx={buttonStyle} aria-label="loop toggle" onClick={(e) => loopClicked(e, editStreamData.id)}>
-                        {!thisStreamLoop && <SvgIcon>
-                            <svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" fill="#FFFFFF" viewBox="0 0 24 24" xmlSpace="preserve">
-                                <g>
-                                    <path d="M13.4,5.9L13.4,5.9L13.4,5.9L13.4,5.9V9l4.4-4.4l-4.4-4.4v3.6c-1.8-0.3-3.6,0-5.3,0.8l1.6,1.6C10.9,5.7,12.2,5.6,13.4,5.9z"/>
-                                    <path d="M10.5,18.1V15L6,19.4l4.4,4.4v-3.6c2,0.4,4,0,5.7-1c0.8-0.5,1.5-1,2-1.7l-1.5-1.5C15.2,17.8,12.9,18.7,10.5,18.1z"/>
-                                    <path d="M19.2,7.8l-1.5,1.5c0.6,1.3,0.8,2.8,0.4,4.2c-0.1,0.2-0.1,0.5-0.2,0.7l1.6,1.6C20.7,13.3,20.7,10.3,19.2,7.8z"/>
-                                    <path d="M4.7,16.2l1.5-1.5c-0.6-1.3-0.8-2.8-0.4-4.2c0.3-1.3,1.1-2.5,2-3.3L6.4,5.7C3.5,8.3,2.7,12.7,4.7,16.2z"/>
-                                    <rect x="11" y="0.4" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -5.5066 12.222)" width="2.1" height="24.6"/>
-                                </g>
-                            </svg>
-                        </SvgIcon>}
-                        {thisStreamLoop && <SvgIcon>
-                            <svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" fill="#FFFFFF" viewBox="0 0 24 24" xmlSpace="preserve">
-                                <path d="M13.4,5.9c-3.4-0.8-6.8,1.3-7.6,4.6c-0.3,1.4-0.2,2.9,0.4,4.2l-1.5,1.5c-2.3-4-1-9.1,3-11.5c1.7-1,3.8-1.4,5.7-1V0.2l4.4,4.4L13.4,9L13.4,5.9L13.4,5.9z M10.5,18.1c3.4,0.8,6.8-1.3,7.6-4.6c0.3-1.4,0.2-2.9-0.4-4.2l1.5-1.5c2.3,4,1,9.1-3,11.5c-1.7,1-3.8,1.4-5.7,1v3.6L6,19.4l4.4-4.4L10.5,18.1z"/>
-                            </svg>
-                        </SvgIcon>}
-                        
-                    </IconButton>
+                    <Tooltip title="Toggle Loop">
+                        <IconButton sx={buttonStyle} aria-label="loop toggle" onClick={(e) => loopClicked(e, editStreamData.id)}>
+                            {!thisStreamLoop && <SvgIcon>
+                                <svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" fill="#FFFFFF" viewBox="0 0 24 24" xmlSpace="preserve">
+                                    <g>
+                                        <path d="M13.4,5.9L13.4,5.9L13.4,5.9L13.4,5.9V9l4.4-4.4l-4.4-4.4v3.6c-1.8-0.3-3.6,0-5.3,0.8l1.6,1.6C10.9,5.7,12.2,5.6,13.4,5.9z"/>
+                                        <path d="M10.5,18.1V15L6,19.4l4.4,4.4v-3.6c2,0.4,4,0,5.7-1c0.8-0.5,1.5-1,2-1.7l-1.5-1.5C15.2,17.8,12.9,18.7,10.5,18.1z"/>
+                                        <path d="M19.2,7.8l-1.5,1.5c0.6,1.3,0.8,2.8,0.4,4.2c-0.1,0.2-0.1,0.5-0.2,0.7l1.6,1.6C20.7,13.3,20.7,10.3,19.2,7.8z"/>
+                                        <path d="M4.7,16.2l1.5-1.5c-0.6-1.3-0.8-2.8-0.4-4.2c0.3-1.3,1.1-2.5,2-3.3L6.4,5.7C3.5,8.3,2.7,12.7,4.7,16.2z"/>
+                                        <rect x="11" y="0.4" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -5.5066 12.222)" width="2.1" height="24.6"/>
+                                    </g>
+                                </svg>
+                            </SvgIcon>}
+                            {thisStreamLoop && <SvgIcon>
+                                <svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px" fill="#FFFFFF" viewBox="0 0 24 24" xmlSpace="preserve">
+                                    <path d="M13.4,5.9c-3.4-0.8-6.8,1.3-7.6,4.6c-0.3,1.4-0.2,2.9,0.4,4.2l-1.5,1.5c-2.3-4-1-9.1,3-11.5c1.7-1,3.8-1.4,5.7-1V0.2l4.4,4.4L13.4,9L13.4,5.9L13.4,5.9z M10.5,18.1c3.4,0.8,6.8-1.3,7.6-4.6c0.3-1.4,0.2-2.9-0.4-4.2l1.5-1.5c2.3,4,1,9.1-3,11.5c-1.7,1-3.8,1.4-5.7,1v3.6L6,19.4l4.4-4.4L10.5,18.1z"/>
+                                </svg>
+                            </SvgIcon>}
+                            
+                        </IconButton>
+                    </Tooltip>
                 </div>
                 <div className="edit-stream-loop-slider-container">
                     {!editStreamData.loop && <span className="loop-caption-no-loop">No Loop</span>}

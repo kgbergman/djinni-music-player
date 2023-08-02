@@ -32,6 +32,8 @@ export function ContentGrid({
     updateEmoji,
     currentlyStreaming,
     setCurrentlyStreaming,
+    streamClickedStart,
+    streamClickedEnd,
     streamVolumeChangedFromFolder,
     volumeStreamClicked
 }) {
@@ -47,6 +49,8 @@ export function ContentGrid({
                         streamOpened={streamOpened}
                         currentlyStreaming={currentlyStreaming}
                         setCurrentlyStreaming={setCurrentlyStreaming}
+                        streamClickedStart={streamClickedStart}
+                        streamClickedEnd={streamClickedEnd}
                         streamVolumeChangedFromFolder={streamVolumeChangedFromFolder}
                         volumeStreamClicked={volumeStreamClicked}
                     />

@@ -5,6 +5,10 @@ import FolderIcon from '@mui/icons-material/Folder';
 import SaveIcon from '@mui/icons-material/Save';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
+import StopIcon from '@mui/icons-material/Stop';
+import Tooltip from '@mui/material/Tooltip';
 import './header.css'
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
@@ -18,7 +22,7 @@ const muiTheme = createTheme({
 });
 
 
-export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVolume, folderKeys, addFolderKey }) {
+export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVolume, masterPaused, folderKeys, addFolderKey, currentlyStreaming, togglePlayPauseStreams, stopAllStreams }) {
 
   const buttonStyle = { 
     color: "#ffffff",
@@ -70,20 +74,47 @@ export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVo
         <div className="header">
           <div className="buttons-container">
             <div className="buttons">
-              <IconButton sx={buttonStyle} aria-label="open" onClick={openButtonClicked}>
-                  <FolderIcon/>
-              </IconButton>
-              <IconButton sx={buttonStyle} aria-label="save" onClick={saveButtonClicked}>
-                  <SaveIcon/>
-              </IconButton>
+              <Tooltip title="Open File">
+                <IconButton sx={buttonStyle} aria-label="open" onClick={openButtonClicked}>
+                    <FolderIcon/>
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Save File">
+                <IconButton sx={buttonStyle} aria-label="save" onClick={saveButtonClicked}>
+                    <SaveIcon/>
+                </IconButton>
+              </Tooltip>
             </div>
           </div>
           <div className="buttons-container">
             <div className="buttons">
-              <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
-                {!masterVolume.mute && <VolumeUpIcon/>}
-                {masterVolume.mute && <VolumeOffIcon/>}
-              </IconButton>
+              {currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && !masterPaused && 
+              <Tooltip title="Pause All Streams">
+                <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
+                  <PauseIcon/>
+                </IconButton>
+              </Tooltip>
+              }
+              {currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && masterPaused && 
+                <Tooltip title="Play All Streams">
+                  <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
+                    <PlayArrowIcon/>
+                  </IconButton>
+                </Tooltip>
+                }
+              {currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) &&
+              <Tooltip title="Stop All Streams">
+                <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={stopAllStreams}>
+                  <StopIcon/>
+                </IconButton>
+              </Tooltip>
+              }
+              <Tooltip title="Toggle Master Volume Mute">
+                <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
+                  {!masterVolume.mute && <VolumeUpIcon/>}
+                  {masterVolume.mute && <VolumeOffIcon/>}
+                </IconButton>
+              </Tooltip>
             </div>
             <div className="slider-container">
               <ThemeProvider theme={muiTheme}>

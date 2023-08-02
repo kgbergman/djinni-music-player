@@ -7,6 +7,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Tooltip from '@mui/material/Tooltip';
 import { Slider } from "@mui/material";
 import './contentheader.css'
 import { createTheme } from '@mui/material/styles';
@@ -146,12 +147,16 @@ export function ContentHeader({
                 <span className="title">{thisFolder.folderName}</span>
                 <div className="buttons-container">
                     <div className="buttons">
-                        <IconButton sx={buttonStyle} aria-label="sort toggle" onClick={sortButtonClicked}>
-                            {sortByAlpha? <SortByAlphaIcon/>:<AccessTimeIcon/>}
-                        </IconButton>
-                        <IconButton sx={buttonStyle} aria-label="delete" onClick={deleteButtonClicked}>
-                            <DeleteIcon/>
-                        </IconButton>
+                        <Tooltip title="Toggle Sort">
+                            <IconButton sx={buttonStyle} aria-label="sort toggle" onClick={sortButtonClicked}>
+                                {sortByAlpha? <SortByAlphaIcon/>:<AccessTimeIcon/>}
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Delete this Folder">
+                            <IconButton sx={buttonStyle} aria-label="delete" onClick={deleteButtonClicked}>
+                                <DeleteIcon/>
+                            </IconButton>
+                        </Tooltip>
                     </div>
                 </div>
             </div>
@@ -163,12 +168,16 @@ export function ContentHeader({
                 <span className="title">All Folders</span>
                 <div className="buttons-container">
                     <div className="buttons">
-                        <IconButton sx={buttonStyle} aria-label="sort toggle" onClick={sortButtonClicked}>
-                            {sortByAlpha? <SortByAlphaIcon/>:<AccessTimeIcon/>}
-                        </IconButton>
-                        <IconButton sx={buttonStyle} aria-label="add" onClick={addFolderClicked}>
-                            <AddCircleIcon/>
-                        </IconButton>
+                        <Tooltip title="Toggle Sort">
+                            <IconButton sx={buttonStyle} aria-label="sort toggle" onClick={sortButtonClicked}>
+                                {sortByAlpha? <SortByAlphaIcon/>:<AccessTimeIcon/>}
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Add Folder">
+                            <IconButton sx={buttonStyle} aria-label="add" onClick={addFolderClicked}>
+                                <AddCircleIcon/>
+                            </IconButton>
+                        </Tooltip>
                     </div>
                 </div>
             </div>
@@ -247,9 +256,11 @@ export function ContentHeader({
                             </IconButton>
                         </div>
                     </div>
-                    <div className="emoji-button-container" onClick={emojiButtonClicked}>
-                        <span>{currentStreamIcon}</span>
-                    </div>
+                    <Tooltip title="Change Icon">
+                        <div className="emoji-button-container" onClick={emojiButtonClicked}>
+                            <span>{currentStreamIcon}</span>
+                        </div>
+                    </Tooltip>
                     <div className="stream-name-edit-container">
                         <ThemeProvider theme={muiTheme}>
                             <TextField 
@@ -306,9 +317,11 @@ export function ContentHeader({
                     />}
                     <div className="buttons-container">
                         <div className="buttons">
-                            <IconButton sx={buttonStyle} aria-label="delete" onClick={deleteButtonClicked}>
-                                <DeleteIcon/>
-                            </IconButton>
+                            <Tooltip title="Delete Stream">
+                                <IconButton sx={buttonStyle} aria-label="delete" onClick={deleteButtonClicked}>
+                                    <DeleteIcon/>
+                                </IconButton>
+                            </Tooltip>
                         </div>
                     </div>
                 </div>

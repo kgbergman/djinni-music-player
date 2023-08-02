@@ -4,7 +4,7 @@ import { ContentGrid } from "./contentgrid/ContentGrid";
 import { NewEditFolderPopup } from "./folder/NewEditFolderPopup";
 import './content.css'
 
-export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyStreaming, setFolderKeys, addFolderKey }) {
+export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyStreamingMetadata, streamClickedStart, streamClickedEnd, setCurrentlyStreaming, setFolderKeys, addFolderKey }) {
 
     const [showAddFolder, setShowAddFolder] = useState(false);
     const [showEditFolder, setShowEditFolder] = useState(false);
@@ -55,6 +55,17 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
 
     function folderOpened(folderId) {
         setOpenedFolder(folderId);
+        //Add all streams to currentlyStreaming if they are not already there so we can easily play them when clicked
+        const thisFolder = folders[folderId];
+        const thisFolderStreams = thisFolder.streams;
+        const newStreams = [];
+        for (let i = 0; i < thisFolderStreams.length; i++) {
+            if (!currentlyStreaming.some(stream => parseInt(stream.id) === parseInt(thisFolderStreams[i].id))) {
+                //Add to currently streaming
+                newStreams.push(thisFolderStreams[i]);
+            }
+        }
+        setCurrentlyStreamingMetadata([...currentlyStreaming, ...newStreams]);
         setOpenedPage("folder");
     }
 
@@ -65,6 +76,7 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
     }
 
     function streamMuteChanged(event) {
+        console.log("test");
         const newStream = currentStreamObject;
         newStream.streamMute = !newStream.streamMute;
         setCurrentStreamMute(newStream.streamMute);
@@ -109,17 +121,18 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
         const newFolders = {...folders};
         newFolders[thisFolder.id] = thisFolder;
         setFolders(newFolders);
+
         //Update currently streaming
         let newCurrentlyStreaming = [...currentlyStreaming];
-        newCurrentlyStreaming = newCurrentlyStreaming.map((stream) => {
-            if (stream.id === thisStream.id) {
-                return thisStream;
+        for(let i = 0; i < newCurrentlyStreaming.length; i++) {
+            const stream = newCurrentlyStreaming[i];
+            if (parseInt(streamId) === parseInt(stream.id)) {
+                stream.streamVolume = event.target.value;
+                newCurrentlyStreaming[i] = stream;
             }
-            else {
-                return stream;
-            }
-        })
-        setCurrentlyStreaming(newCurrentlyStreaming)
+        }
+        console.log(newCurrentlyStreaming);
+        setCurrentlyStreamingMetadata(newCurrentlyStreaming);
     }
 
     function volumeStreamClicked(event, streamId) {
@@ -140,17 +153,6 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
         const newFolders = {...folders};
         newFolders[thisFolder.id] = thisFolder;
         setFolders(newFolders);
-        //Update currently streaming
-        let newCurrentlyStreaming = [...currentlyStreaming];
-        newCurrentlyStreaming = newCurrentlyStreaming.map((stream) => {
-            if (stream.id === thisStream.id) {
-                return thisStream;
-            }
-            else {
-                return stream;
-            }
-        });
-        setCurrentlyStreaming(newCurrentlyStreaming)
     }
 
     function getRandomValue(array) {
@@ -375,6 +377,9 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
                 currentStreamObject={currentStreamObject}
                 currentlyStreaming={currentlyStreaming}
                 setCurrentlyStreaming={setCurrentlyStreaming}
+                setCurrentlyStreamingMetadata={setCurrentlyStreamingMetadata}
+                streamClickedStart={streamClickedStart}
+                streamClickedEnd={streamClickedEnd}
                 streamVolumeChangedFromFolder={streamVolumeChangedFromFolder}
                 volumeStreamClicked={volumeStreamClicked}
             />

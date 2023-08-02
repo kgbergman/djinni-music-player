@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { exampleFile } from './example/example';
 import { MemoizedPlayer } from './player/Player';
 import OBR from '@owlbear-rodeo/sdk';
-import{ getPluginId } from './getPluginId'
+import { getPluginId } from './getPluginId'
 
 function App() {
   const [folders, setFolders] = useState(exampleFile);
@@ -15,6 +15,7 @@ function App() {
   const [showSavePopup, setShowSavePopup] = useState(false);
   const [masterVolume, setMasterVolume] = useState({volume: 50, mute: false});
   const [playerRole, setPlayerRole] = useState("");
+  const [masterPaused, setMasterPaused] = useState(false);
 
   useEffect(() => {
     OBR.onReady(async () => {
@@ -23,10 +24,13 @@ function App() {
         setPlayerRole(newPlayerRole);
       }
       OBR.room.onMetadataChange((metadata) => {
-        const currently = metadata[getPluginId("currently")][0];
-        //Extrapolate what functions to run based off of the new currently streaming data
-        console.log("received metadata", currently);
-        setCurrentlyStreamingMetadata(currently);
+        const metadataArray = metadata[getPluginId("currently")];
+        if (metadataArray) {
+          const currently = metadataArray[0];
+          //Extrapolate what functions to run based off of the new currently streaming data
+          console.log("received metadata", currently);
+          //setCurrentlyStreamingMetadata(currently);
+        }
       })
     });
   }, []);
@@ -53,18 +57,17 @@ function App() {
 
   useEffect(() => {
     //Determine which streams are new or ending
-    let newStreams = currentlyStreaming.filter(x => !oldStreaming.includes(x));
-    let endedStreams = oldStreaming.filter(x => !currentlyStreaming.includes(x));
+    let newStreams = currentlyStreaming.filter(x => !oldStreaming.some(e => e.id === x.id));
+    let endedStreams = oldStreaming.filter(x => !currentlyStreaming.some(e => e.id === x.id));
 
     newStreams.forEach(newStream => {
-      startStream(newStream);
+      //startStream(newStream);
     });
 
     endedStreams.forEach(endedStream => {
       //Find the audio tag and pause it, then remove it
-      endStream(endedStream);
+      //endStream(endedStream);
     });
-
     setOldStreaming(currentlyStreaming);
   },[currentlyStreaming]);
 
@@ -75,49 +78,74 @@ function App() {
   }
 
   function updateVolume(streamToChange, volume) {
-    //Find in folders
-    const newFolders = {...folders};
-    const thisFolder = newFolders[streamToChange.folderId];
-    thisFolder.streams.forEach(stream => {
-      if (stream.id === streamToChange.id) {
-        streamToChange.streamVolume = volume;
+    let newCurrentlyStreaming = [...currentlyStreaming];
+    for(let i = 0; i < newCurrentlyStreaming.length; i++) {
+      const stream = newCurrentlyStreaming[i];
+      if (streamToChange.id === stream.id) {
+        stream.streamVolume = volume;
+        newCurrentlyStreaming[i] = stream;
       }
-    })
-    newFolders[thisFolder.id] = thisFolder;
-    setFolders(newFolders);
+    }
+    setCurrentlyStreamingMetadata(newCurrentlyStreaming);
+  }
+
+  function streamClickedStart(streamToStart){ 
+    startStream(streamToStart);
+  }
+
+  function streamClickedEnd(streamToEnd) {
+    endStream(streamToEnd);
   }
 
   function startStream(streamToStart) {
-    //Find in folders
-    const newFolders = {...folders};
-    const thisFolder = newFolders[streamToStart.folderId];
-    thisFolder.streams.forEach(stream => {
-      if (stream.id === streamToStart.id) {
-        stream.playing = true;
-        //Also turn on the streamLinks
-        stream.streamData.forEach(streamLink => {
-          streamLink.playing = true;
-        })
+    console.log("starting", streamToStart);
+    let newCurrentlyStreaming = [...currentlyStreaming];
+    if (newCurrentlyStreaming.some(stream => stream.id === streamToStart.id)) {
+      for(let i = 0; i < newCurrentlyStreaming.length; i++) {
+        let changed = false;
+        const stream = newCurrentlyStreaming[i];
+        if (stream.id === streamToStart.id) {
+          stream.playing = true;
+          stream.paused = masterPaused;
+          stream.streamData.forEach(streamLink => {
+              streamLink.playing = true;
+              changed = true;
+          })
+        }
+        if (changed) {
+          newCurrentlyStreaming[i] = stream;
+        }
       }
-    })
-    newFolders[thisFolder.id] = thisFolder;
-    setFolders(newFolders);
+    }
+    else {
+      newCurrentlyStreaming.push(streamToStart);
+      for(let i = 0; i < newCurrentlyStreaming.length; i++) {
+        let changed = false;
+        const stream = newCurrentlyStreaming[i];
+        if (stream.id === streamToStart.id) {
+          stream.playing = true;
+          stream.streamData.forEach(streamLink => {
+              streamLink.playing = true;
+              changed = true;
+          })
+        }
+        if (changed) {
+          newCurrentlyStreaming[i] = stream;
+        }
+      }
+    }
+    setCurrentlyStreamingMetadata(newCurrentlyStreaming);
   }
 
   function stopStream(streamToStop) {
-    const newFolders = {...folders};
-    const thisFolder = newFolders[streamToStop.folderId];
-    thisFolder.streams.forEach(stream => {
-      if (stream.id === streamToStop.id) {
-        stream.playing = false;
-        //Also turn off the streamLinks
-        stream.streamData.forEach(streamLink => {
-          streamLink.playing = false;
-        })
+    console.log("stopping", streamToStop);
+    let newCurrentlyStreaming = [...currentlyStreaming];
+    for (let i = 0; i < newCurrentlyStreaming.length; i++) {
+      if (streamToStop.id === newCurrentlyStreaming[i].id) {
+        newCurrentlyStreaming[i].playing = false;
       }
-    })
-    newFolders[thisFolder.id] = thisFolder;
-    setFolders(newFolders);
+    }
+    setCurrentlyStreamingMetadata(newCurrentlyStreaming);
   }
 
   function setStreamInterval(streamToAddTo, interval) {
@@ -133,7 +161,9 @@ function App() {
   }
 
   function endStream(stream) {
-    if (stream.streamFade) {
+    if (stream.streamFade && stream.streamFadeTime > 0) {
+      console.log("fading", stream);
+      setFading(stream, true);
       const originalVolume = stream.streamVolume;
       const fadeTime = parseInt(stream.streamFadeTime);
       const steps = 100;
@@ -143,15 +173,14 @@ function App() {
       const fadeOutInterval = setInterval(() => {
         currentVolume -= decrementStep;
         if (currentVolume <= 0) {
-          stopStream(stream);
-          setStreamInterval(stream, 0);
-          updateVolume(stream, originalVolume);
           clearInterval(fadeOutInterval);
+          setFading(stream, false);
+          updateVolume(stream, originalVolume);
+          stopStream(stream);
         } else {
           updateVolume(stream, currentVolume);
         }
       }, timeInterval);
-      setStreamInterval(stream, fadeOutInterval);
     }
     else {
       stopStream(stream);
@@ -191,13 +220,27 @@ function App() {
     return Math.floor(Math.random() * (max - min) + min);
   }
 
+  function setFading(streamToFade, fade) {
+    let newCurrentlyStreaming = [...currentlyStreaming];
+    for(let i = 0; i < newCurrentlyStreaming.length; i++) {
+      const stream = newCurrentlyStreaming[i];
+      if (streamToFade.id === stream.id) {
+        stream.fading = fade;
+        if (!fade) {
+          stream.playing = false;
+        }
+        newCurrentlyStreaming[i] = stream;
+      }
+    }
+    setCurrentlyStreamingMetadata(newCurrentlyStreaming);
+  }
+
   function endStreamLink(endedStreamLink) {
-    const newFolders = {...folders};
-    const keys = Object.keys(newFolders);
-    keys.forEach(key => {
-      const thisFolder = newFolders[key];
+    let newCurrentlyStreaming = [...currentlyStreaming];
+    for(let i = 0; i < newCurrentlyStreaming.length; i++) {
       let changed = false;
-      thisFolder.streams.forEach(stream => {
+      const stream = newCurrentlyStreaming[i];
+      if (!isEmpty(stream)) {
         stream.streamData.forEach(streamLink => {
           if (streamLink.id === endedStreamLink.id) {
             streamLink.playing = false;
@@ -205,20 +248,19 @@ function App() {
           }
         })
         if (changed) {
-          newFolders[thisFolder.folderId] = thisFolder;
+          newCurrentlyStreaming[i] = stream;
         }
-      })
-    })    
-    setFolders(newFolders);
+      }
+    }
+    setCurrentlyStreamingMetadata(newCurrentlyStreaming);
   }
 
   function addStreamLink(addedStreamLink) {
-    const newFolders = {...folders};
-    const keys = Object.keys(newFolders);
-    keys.forEach(key => {
-      const thisFolder = newFolders[key];
+    let newCurrentlyStreaming = [...currentlyStreaming];
+    for(let i = 0; i < newCurrentlyStreaming.length; i++) {
       let changed = false;
-      thisFolder.streams.forEach(stream => {
+      const stream = newCurrentlyStreaming[i];
+      if (!isEmpty(stream)) {
         stream.streamData.forEach(streamLink => {
           if (streamLink.id === addedStreamLink.id) {
             streamLink.playing = true;
@@ -226,17 +268,15 @@ function App() {
           }
         })
         if (changed) {
-          newFolders[thisFolder.folderId] = thisFolder;
+          newCurrentlyStreaming[i] = stream;
         }
-      })
-    })
-    setFolders(newFolders);
+      }
+    }
+    setCurrentlyStreamingMetadata(newCurrentlyStreaming);
   }
 
   function removeFromCurrentlyStreaming(streamToRemove) {
-    let newCurrentlyStreaming = [...currentlyStreaming];
-    newCurrentlyStreaming = newCurrentlyStreaming.filter((stream) => stream.id !== streamToRemove.id)
-    setCurrentlyStreaming(newCurrentlyStreaming)
+    endStream(streamToRemove);
   }
 
   function checkIfRemoveFromCurrentlyStreaming(endedStreamLink) {
@@ -260,7 +300,7 @@ function App() {
   function endFunction(event, endedStreamLink) {
     endStreamLink(endedStreamLink);
     //This function should only call if the stream doesn't already loop, but to be safe
-    if (!endStreamLink.loop) {
+    if (!endedStreamLink.loop) {
       checkIfRemoveFromCurrentlyStreaming(endedStreamLink);
     } 
     else {
@@ -271,9 +311,26 @@ function App() {
     }
   }
 
+  function stopAllStreams() {
+    for (let i = 0; i < currentlyStreaming.length; i++) {
+      if (currentlyStreaming[i].playing) {
+        endStream(currentlyStreaming[i]);
+      }
+    }
+  }
+
+  function togglePlayPauseStreams() {
+    if (masterPaused) {
+      setMasterPaused(false);
+    }
+    else {
+      setMasterPaused(true);
+    }
+  }
+
   const [folderKeys, setFolderKeys] = useState(Object.keys(folders));
 
-  function renderVideos() {
+  function renderVideosOld() {
     return folderKeys.map(folderKey => {
         if (folders.hasOwnProperty(folderKey)) {
           return folders[folderKey].streams.map(stream => {
@@ -282,7 +339,7 @@ function App() {
                   return <MemoizedPlayer
                     streamLinkId={streamLink.id}
                     url={streamLink.link}
-                    playing={true}
+                    playing={!masterPaused}
                     loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
                     volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolume.volume / 100}
                     muted={stream.streamMute || streamLink.mute || masterVolume.mute}
@@ -294,21 +351,34 @@ function App() {
         }
     })
   }
-
   
-  function renderVideosPlayer() {
+  function isEmpty(obj) {
+    for (const prop in obj) {
+      if (Object.hasOwn(obj, prop)) {
+        return false;
+      }
+    }
+  
+    return true;
+  }
+
+  function renderVideos() {
     return currentlyStreaming.map(stream => {
-      return stream.streamData.map(streamLink => {
-        return <MemoizedPlayer
-          streamLinkId={streamLink.id}
-          url={streamLink.link}
-          playing={true}
-          loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
-          volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolume.volume / 100}
-          muted={stream.streamMute || streamLink.mute || masterVolume.mute}
-          onEnded={(event) => endFunction(event, streamLink)}
-        />
-      })
+      if (!isEmpty(stream)) {
+        return stream.streamData.map(streamLink => {
+          if (stream.playing && streamLink.playing) {
+            return <MemoizedPlayer
+              streamLinkId={streamLink.id}
+              url={streamLink.link}
+              playing={!masterPaused}
+              loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
+              volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolume.volume / 100}
+              muted={stream.streamMute || streamLink.mute || masterVolume.mute}
+              onEnded={(event) => endFunction(event, streamLink)}
+            />
+          }
+        })
+      }
     })
   }
 
@@ -330,6 +400,10 @@ function App() {
           setMasterVolume={setMasterVolume} 
           setFolders={setFolders} 
           saveButtonClicked={saveButtonClicked} 
+          currentlyStreaming={currentlyStreaming}
+          togglePlayPauseStreams={togglePlayPauseStreams}
+          stopAllStreams={stopAllStreams}
+          masterPaused={masterPaused}
         />
         <Content 
           folders={folders} 
@@ -338,17 +412,27 @@ function App() {
           folderKeys={folderKeys} 
           setFolders={setFolders} 
           currentlyStreaming={currentlyStreaming} 
+          setCurrentlyStreamingMetadata={setCurrentlyStreamingMetadata} 
           setCurrentlyStreaming={setCurrentlyStreaming} 
+          streamClickedStart={streamClickedStart}
+          streamClickedEnd={streamClickedEnd}
         />
       </div>
     );
   }
-  else {
+  else if (playerRole === "PLAYER") {
     return (
       <div className="App">
         <div className="audio-streams" id="audio-streams">
-          {renderVideosPlayer()}
+          {renderVideos()}
         </div>
+      </div>
+    );
+  }
+  else if (playerRole === "PLAYER") {
+    return (
+      <div className="App">
+        Loading...
       </div>
     );
   }

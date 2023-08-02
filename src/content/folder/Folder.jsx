@@ -7,6 +7,7 @@ import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import './folder.css'
 import Lottie from "lottie-web";
 import animation from "../../animations/sound.json"
+import Tooltip from '@mui/material/Tooltip';
 
 export function Folder({ sortByAlpha, folders, currentlyStreaming, folderName, folderColor, folderId, folderClicked, folderDoubleClicked, editFolderClicked, selected }) {
     
@@ -49,17 +50,19 @@ export function Folder({ sortByAlpha, folders, currentlyStreaming, folderName, f
         <div className="folder-fade"></div>
         <div className="folder-icon-container">
             <FolderIcon sx={{ fontSize: "80px", color: folderColor, position: "absolute", pointerEvents: "none" }} />
-            {!currentlyStreaming.some(stream => stream.folderId === folderId) && <span className="folder-overlay">{folderAbbreviation}</span>}
-            {currentlyStreaming.some(stream => stream.folderId === folderId) && <div className="folder-playing-container" ref={animationContainer}></div>}
+            {!currentlyStreaming.some(stream => stream.folderId === folderId && stream.playing) && <span className="folder-overlay">{folderAbbreviation}</span>}
+            {currentlyStreaming.some(stream => stream.folderId === folderId && stream.playing) && <div className="folder-playing-container" ref={animationContainer}></div>}
         </div>
         <div className="folder-low-row">
             <div className="folder-name-container">
                 <span className="folder-name">{folderName}</span>
             </div>
             <div className="folder-edit-button-container">
-                <IconButton size="small" sx={buttonStyle} aria-label="edit"  onClick={(e) => editFolderClicked(e)}>
-                    <EditIcon fontSize="small" sx={{ fontSize: "15px" }}/>
-                </IconButton>
+                <Tooltip title="Edit Folder">
+                    <IconButton size="small" sx={buttonStyle} aria-label="edit"  onClick={(e) => editFolderClicked(e)}>
+                        <EditIcon fontSize="small" sx={{ fontSize: "15px" }}/>
+                    </IconButton>
+                </Tooltip>
             </div>
         </div>
     </div>
