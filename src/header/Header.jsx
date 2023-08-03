@@ -109,7 +109,7 @@ export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVo
                 </IconButton>
               </Tooltip>
               }
-              <Tooltip title="Toggle Master Volume Mute">
+              <Tooltip title="Toggle Local Volume Mute">
                 <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
                   {!masterVolume.mute && <VolumeUpIcon/>}
                   {masterVolume.mute && <VolumeOffIcon/>}

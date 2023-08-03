@@ -75,6 +75,12 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
                 return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
             });
             return sorted.map(stream => {
+                let streamSelected = false;
+                currentlyStreaming.forEach(targetStream => {
+                    if (stream.id === targetStream.id) {
+                        streamSelected = !targetStream.fading && targetStream.playing;
+                    }
+                })
                 return <Grid item xs={6} sm={3}>
                             <Stream 
                                 stream={stream} 
@@ -83,15 +89,19 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
                                 editStreamClicked={editStreamClicked} 
                                 sliderChanged={streamVolumeChangedFromFolder}
                                 volumeStreamClicked={volumeStreamClicked}
-                                selected={
-                                    currentlyStreaming.map(stream => stream.id).includes(parseInt(stream.id)) && !stream.fading && stream.playing
-                                }
+                                selected={streamSelected}
                             />
                         </Grid>;
             });
         }
         else {
             return thisFolderStreams.map(stream => {
+                let streamSelected = false;
+                currentlyStreaming.forEach(targetStream => {
+                    if (stream.id === targetStream.id) {
+                        streamSelected = !targetStream.fading && targetStream.playing;
+                    }
+                })
                 return <Grid item xs={6} sm={3}>
                             <Stream 
                                 stream={stream} 
@@ -99,9 +109,7 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
                                 editStreamClicked={editStreamClicked} 
                                 sliderChanged={streamVolumeChangedFromFolder}
                                 volumeStreamClicked={volumeStreamClicked}
-                                selected={
-                                    currentlyStreaming.map(stream => stream.id).includes(parseInt(stream.id)) && !stream.fading && stream.playing
-                                }
+                                selected={streamSelected}
                             />
                         </Grid>;
             });

@@ -65,7 +65,7 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
                 newStreams.push(thisFolderStreams[i]);
             }
         }
-        setCurrentlyStreamingMetadata([...currentlyStreaming, ...newStreams]);
+        //setCurrentlyStreamingMetadata([...currentlyStreaming, ...newStreams]);
         setOpenedPage("folder");
     }
 

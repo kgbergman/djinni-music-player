@@ -19,7 +19,7 @@ const muiTheme = createTheme({
 
 export function Stream({ stream, streamClicked, selected, editStreamClicked, sliderChanged, volumeStreamClicked }) {
 
-    let [currentTgt, setCurrentTgt] = useState("bg");
+    let [currentTgt, setCurrentTgt] = useState("");
 
     function editStreamMouseDown(event) {
         setCurrentTgt("edit");

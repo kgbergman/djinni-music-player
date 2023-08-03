@@ -10,12 +10,14 @@ import { getPluginId } from './getPluginId'
 
 function App() {
   const [folders, setFolders] = useState(exampleFile);
-  const [currentlyStreaming, setCurrentlyStreamingMetadata] = useState([]);
-  const [oldStreaming, setOldStreaming] = useState([]);
+  const [currentlyStreaming, setCurrentlyStreaming] = useState([]);
   const [showSavePopup, setShowSavePopup] = useState(false);
   const [masterVolume, setMasterVolume] = useState({volume: 50, mute: false});
   const [playerRole, setPlayerRole] = useState("");
   const [masterPaused, setMasterPaused] = useState(false);
+  const [fadeOutVolume, setFadeOutVolume] = useState(100);
+
+  let fadeOutInterval = 0;
 
   useEffect(() => {
     OBR.onReady(async () => {
@@ -23,28 +25,68 @@ function App() {
         const newPlayerRole = await OBR.player.getRole();
         setPlayerRole(newPlayerRole);
       }
+      const checkMetadataInterval = setInterval(() => {
+        const metadataArray = OBR.room.getMetadata();
+        metadataArray.then(values => {
+          if (values[getPluginId("currently")]) {
+            const currently = values[getPluginId("currently")];
+            console.log("received 1st metadata", currently);
+            setCurrentlyStreaming(currently);
+            clearInterval(checkMetadataInterval);
+          }
+        });
+      }, 1000);
       OBR.room.onMetadataChange((metadata) => {
         const metadataArray = metadata[getPluginId("currently")];
         if (metadataArray) {
-          const currently = metadataArray[0];
-          //Extrapolate what functions to run based off of the new currently streaming data
+          const currently = metadataArray;
           console.log("received metadata", currently);
-          //setCurrentlyStreamingMetadata(currently);
+          setCurrentlyStreaming(currently);
         }
       })
     });
   }, []);
 
-  function setCurrentlyStreaming(newCurrentlyStreaming) {
-    sendMetadata("currently", structuredClone(newCurrentlyStreaming), new Date().getTime());
+  function setCurrentlyStreamingMetadata(newCurrentlyStreaming) {
+    sendMetadata("currently", structuredClone(newCurrentlyStreaming));
   }
 
-  function sendMetadata(command, parameter, cmdNum) {
+  function sendMetadata(command, parameter) {
     if (OBR.isReady) {
       OBR.room.setMetadata({
-        [getPluginId(command)]: [parameter, cmdNum]
+        [getPluginId(command)]: parameter
       });
     }
+  }
+
+  useEffect(() => {
+    //Check for streams that are fading
+    for (let i = 0; i < currentlyStreaming.length; i++) {
+      const stream = currentlyStreaming[i];
+      if (stream.playing && stream.fading && fadeOutInterval === 0) {
+        const fadeTime = parseInt(stream.streamFadeTime);
+        const steps = 100;
+        const decrementStep = 1;
+        const timeInterval = fadeTime * 1000 / steps;
+        let currentVolume = 100;
+        updateVolumeLocally(stream, currentVolume);
+        fadeOutInterval = setInterval(() => {
+          currentVolume -= decrementStep;
+          if (currentVolume <= 0) {
+            clearInterval(fadeOutInterval);
+            stopAllFadingStreams(stream);
+            fadeOutInterval = 0;
+            updateVolumeLocally(stream, 100);
+          } else {
+            updateVolumeLocally(stream, currentVolume);
+          }
+        }, timeInterval);
+      }
+    }
+  },[currentlyStreaming]);
+
+  function updateVolumeLocally(stream, volume) {
+    setFadeOutVolume(volume); 
   }
 
   function saveButtonClicked() {
@@ -54,22 +96,6 @@ function App() {
   function savePopupClose() {
     setShowSavePopup(false);
   }
-
-  useEffect(() => {
-    //Determine which streams are new or ending
-    let newStreams = currentlyStreaming.filter(x => !oldStreaming.some(e => e.id === x.id));
-    let endedStreams = oldStreaming.filter(x => !currentlyStreaming.some(e => e.id === x.id));
-
-    newStreams.forEach(newStream => {
-      //startStream(newStream);
-    });
-
-    endedStreams.forEach(endedStream => {
-      //Find the audio tag and pause it, then remove it
-      //endStream(endedStream);
-    });
-    setOldStreaming(currentlyStreaming);
-  },[currentlyStreaming]);
 
   function parseVideoUrl(url) {
     var regex = /(?:https?:\/\/(?:www\.)?youtube\.com\/watch\?v=|https?:\/\/youtu\.be\/|https?:\/\/(?:www\.)?youtube\.com\/embed\/)([\w-]{11})(?:\S+)?/;
@@ -136,6 +162,17 @@ function App() {
     }
     setCurrentlyStreamingMetadata(newCurrentlyStreaming);
   }
+  
+  function stopAllFadingStreams() {
+    let newCurrentlyStreaming = [...currentlyStreaming];
+    for (let i = 0; i < newCurrentlyStreaming.length; i++) {
+      if (newCurrentlyStreaming[i].fading) {
+        newCurrentlyStreaming[i].fading = false;
+        newCurrentlyStreaming[i].playing = false;
+      }
+    }
+    setCurrentlyStreamingMetadata(newCurrentlyStreaming);
+  }
 
   function stopStream(streamToStop) {
     console.log("stopping", streamToStop);
@@ -148,39 +185,10 @@ function App() {
     setCurrentlyStreamingMetadata(newCurrentlyStreaming);
   }
 
-  function setStreamInterval(streamToAddTo, interval) {
-    const newFolders = {...folders};
-    const thisFolder = newFolders[streamToAddTo.folderId];
-    thisFolder.streams.forEach(stream => {
-      if (stream.id === streamToAddTo.id) {
-        stream.interval = interval;
-      }
-    })
-    newFolders[thisFolder.id] = thisFolder;
-    setFolders(newFolders);
-  }
-
   function endStream(stream) {
     if (stream.streamFade && stream.streamFadeTime > 0) {
-      console.log("fading", stream);
+      //Send command to fade out this stream
       setFading(stream, true);
-      const originalVolume = stream.streamVolume;
-      const fadeTime = parseInt(stream.streamFadeTime);
-      const steps = 100;
-      const decrementStep = originalVolume / steps;
-      const timeInterval = fadeTime * 1000 / steps;
-      let currentVolume = stream.streamVolume;
-      const fadeOutInterval = setInterval(() => {
-        currentVolume -= decrementStep;
-        if (currentVolume <= 0) {
-          clearInterval(fadeOutInterval);
-          setFading(stream, false);
-          updateVolume(stream, originalVolume);
-          stopStream(stream);
-        } else {
-          updateVolume(stream, currentVolume);
-        }
-      }, timeInterval);
     }
     else {
       stopStream(stream);
@@ -312,11 +320,24 @@ function App() {
   }
 
   function stopAllStreams() {
-    for (let i = 0; i < currentlyStreaming.length; i++) {
-      if (currentlyStreaming[i].playing) {
-        endStream(currentlyStreaming[i]);
+    let newCurrentlyStreaming = [...currentlyStreaming];
+    for(let i = 0; i < newCurrentlyStreaming.length; i++) {
+      const stream = newCurrentlyStreaming[i];
+      if (stream.streamFade && stream.streamFadeTime !== 0) {
+        stream.fading = true;
+        newCurrentlyStreaming[i] = stream;
+      }
+      else {
+        stream.playing = false;
+        if (!isEmpty(stream)) {
+          stream.streamData.forEach(streamLink => {
+              streamLink.playing = false;
+          })
+          newCurrentlyStreaming[i] = stream;
+        }
       }
     }
+    setCurrentlyStreamingMetadata(newCurrentlyStreaming);
   }
 
   function togglePlayPauseStreams() {
@@ -367,12 +388,16 @@ function App() {
       if (!isEmpty(stream)) {
         return stream.streamData.map(streamLink => {
           if (stream.playing && streamLink.playing) {
+            let fadeVolume = 100;
+            if (stream.fading) {
+              fadeVolume = fadeOutVolume;
+            }
             return <MemoizedPlayer
               streamLinkId={streamLink.id}
               url={streamLink.link}
               playing={!masterPaused}
               loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
-              volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolume.volume / 100}
+              volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolume.volume / 100 * fadeVolume / 100}
               muted={stream.streamMute || streamLink.mute || masterVolume.mute}
               onEnded={(event) => endFunction(event, streamLink)}
             />
