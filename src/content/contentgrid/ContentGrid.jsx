@@ -35,7 +35,8 @@ export function ContentGrid({
     streamClickedStart,
     streamClickedEnd,
     streamVolumeChangedFromFolder,
-    volumeStreamClicked
+    volumeStreamClicked,
+    paused
 }) {
     if (openedPage === "folder") {
         return (
@@ -74,6 +75,7 @@ export function ContentGrid({
                         folderOpened={folderOpened} 
                         selectedFolder={selectedFolder} 
                         setSelectedFolder={setSelectedFolder}
+                        paused={paused}
                     />
                     <div className="bottom-row"></div>
                 </SimpleBar>

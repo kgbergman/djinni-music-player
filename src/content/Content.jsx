@@ -4,7 +4,7 @@ import { ContentGrid } from "./contentgrid/ContentGrid";
 import { NewEditFolderPopup } from "./folder/NewEditFolderPopup";
 import './content.css'
 
-export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyStreamingMetadata, streamClickedStart, streamClickedEnd, setCurrentlyStreaming, setFolderKeys, addFolderKey }) {
+export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyStreamingMetadata, streamClickedStart, streamClickedEnd, setCurrentlyStreaming, setFolderKeys, addFolderKey, paused }) {
 
     const [showAddFolder, setShowAddFolder] = useState(false);
     const [showEditFolder, setShowEditFolder] = useState(false);
@@ -153,6 +153,17 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
         const newFolders = {...folders};
         newFolders[thisFolder.id] = thisFolder;
         setFolders(newFolders);
+
+        //Update currentlyStreaming
+        let newCurrentlyStreaming = [...currentlyStreaming];
+        for(let i = 0; i < newCurrentlyStreaming.length; i++) {
+            const stream = newCurrentlyStreaming[i];
+            if (parseInt(streamId) === parseInt(stream.id)) {
+                stream.streamMute = !stream.streamMute;
+            }
+        }
+        console.log(newCurrentlyStreaming);
+        setCurrentlyStreamingMetadata(newCurrentlyStreaming);
     }
 
     function getRandomValue(array) {
@@ -259,6 +270,22 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
             newFolders[thisFolder.id] = thisFolder;
             setFolders(newFolders);
             setOpenedPage("folder");
+
+            //Save in currentlyStreaming
+            let newCurrentlyStreaming = [...currentlyStreaming];
+            for(let i = 0; i < newCurrentlyStreaming.length; i++) {
+                const stream = newCurrentlyStreaming[i];
+                if (parseInt(openedStream) === parseInt(stream.id)) {
+                    stream.streamName = currentStreamObject.streamName;
+                    stream.streamIcon = currentStreamObject.streamIcon;
+                    stream.streamMute = currentStreamObject.streamMute;
+                    stream.streamVolume = currentStreamObject.streamVolume;
+                    stream.streamFade = currentStreamObject.streamFade;
+                    stream.streamFadeTime = currentStreamObject.streamFadeTime;
+                    stream.streamData = currentStreamObject.streamData;
+                }
+            }
+            setCurrentlyStreamingMetadata(newCurrentlyStreaming);
         }
     }
 
@@ -382,6 +409,7 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
                 streamClickedEnd={streamClickedEnd}
                 streamVolumeChangedFromFolder={streamVolumeChangedFromFolder}
                 volumeStreamClicked={volumeStreamClicked}
+                paused={paused}
             />
         </div>
     );

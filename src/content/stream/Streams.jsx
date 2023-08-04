@@ -76,9 +76,11 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
             });
             return sorted.map(stream => {
                 let streamSelected = false;
+                let streamMuted = false;
                 currentlyStreaming.forEach(targetStream => {
                     if (stream.id === targetStream.id) {
                         streamSelected = !targetStream.fading && targetStream.playing;
+                        streamMuted = targetStream.streamMute;
                     }
                 })
                 return <Grid item xs={6} sm={3}>
@@ -90,6 +92,7 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
                                 sliderChanged={streamVolumeChangedFromFolder}
                                 volumeStreamClicked={volumeStreamClicked}
                                 selected={streamSelected}
+                                streamMuted={streamMuted}
                             />
                         </Grid>;
             });
@@ -97,9 +100,11 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
         else {
             return thisFolderStreams.map(stream => {
                 let streamSelected = false;
+                let streamMuted = false;
                 currentlyStreaming.forEach(targetStream => {
                     if (stream.id === targetStream.id) {
                         streamSelected = !targetStream.fading && targetStream.playing;
+                        streamMuted = targetStream.streamMute;
                     }
                 })
                 return <Grid item xs={6} sm={3}>
@@ -110,6 +115,7 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
                                 sliderChanged={streamVolumeChangedFromFolder}
                                 volumeStreamClicked={volumeStreamClicked}
                                 selected={streamSelected}
+                                streamMuted={streamMuted}
                             />
                         </Grid>;
             });

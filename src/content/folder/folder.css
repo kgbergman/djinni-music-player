@@ -63,6 +63,16 @@
     width: 2em;
     padding-top: 0.25em;
 }
+
+.folder-paused-container {
+    position: absolute;
+    color: white;
+    pointer-events: none;
+    user-select: none;
+    height: 2em;
+    width: 2em;
+    padding-top: 0.3em;
+}
   
 .folder-low-row {
     margin: 0;

@@ -5,7 +5,7 @@ import { Folder } from "./Folder";
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 
-export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, folderOpened, openDeletePopup, selectedFolder, setSelectedFolder, currentlyStreaming }) {
+export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, folderOpened, openDeletePopup, selectedFolder, setSelectedFolder, currentlyStreaming, paused }) {
 
     function folderClicked(event) {
         setSelectedFolder(parseInt(event.currentTarget.id));
@@ -51,6 +51,7 @@ export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, f
                                 folderDoubleClicked={folderDoubleClicked} 
                                 editFolderClicked={editFolderClicked}
                                 selected={selectedFolder === folder.id}
+                                paused={paused}
                             />
                         </Grid>;
             });
@@ -72,6 +73,7 @@ export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, f
                                     folderDoubleClicked={folderDoubleClicked} 
                                     editFolderClicked={editFolderClicked}
                                     selected={selectedFolder === folder.id}
+                                    paused={paused}
                                 />
                             </Grid>;
                 }

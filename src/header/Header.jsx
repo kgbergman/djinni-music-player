@@ -22,7 +22,7 @@ const muiTheme = createTheme({
 });
 
 
-export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVolume, masterPaused, folderKeys, addFolderKey, currentlyStreaming, togglePlayPauseStreams, stopAllStreams }) {
+export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVolume, masterPaused, folderKeys, addFolderKey, currentlyStreaming, togglePlayPauseStreams, stopAllStreams, fadeOutVolume }) {
 
   const buttonStyle = { 
     color: "#ffffff",
@@ -86,7 +86,7 @@ export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVo
               </Tooltip>
             </div>
           </div>
-          <div className="buttons-container">
+          <div className="buttons-and-slider-container">
             <div className="buttons">
               {currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && !masterPaused && 
               <Tooltip title="Pause All Streams">

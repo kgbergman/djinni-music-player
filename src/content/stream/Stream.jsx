@@ -17,7 +17,7 @@ const muiTheme = createTheme({
   },
 });
 
-export function Stream({ stream, streamClicked, selected, editStreamClicked, sliderChanged, volumeStreamClicked }) {
+export function Stream({ stream, streamClicked, selected, editStreamClicked, sliderChanged, volumeStreamClicked, streamMuted }) {
 
     let [currentTgt, setCurrentTgt] = useState("");
 
@@ -83,14 +83,14 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
             <div className="stream-volume-button-container">
                 <Tooltip title="Toggle Stream Mute">
                     <IconButton size="small" sx={buttonStyle} aria-label="volume toggle mute" onMouseDown={volumeStreamMouseDown} onClick={(e) => volumeStreamClicked(e, stream.id)}>
-                        {!stream.streamMute && <VolumeUpIcon fontSize="inherit"/>}
-                        {stream.streamMute && <VolumeOffIcon fontSize="inherit"/>}
+                        {!streamMuted && <VolumeUpIcon fontSize="inherit"/>}
+                        {streamMuted && <VolumeOffIcon fontSize="inherit"/>}
                     </IconButton>
                 </Tooltip>
             </div>
             <div className="stream-slider-container">
                 <ThemeProvider theme={muiTheme}>
-                    <Slider size="small" min={0} max={100} defaultValue={defaultValue} disabled={stream.streamMute} onMouseDown={sliderMouseDown} onChange={(e) => sliderMoved(e, stream.id)}/>
+                    <Slider size="small" min={0} max={100} defaultValue={defaultValue} disabled={streamMuted} onMouseDown={sliderMouseDown} onChange={(e) => sliderMoved(e, stream.id)}/>
                 </ThemeProvider>
             </div>
         </div>

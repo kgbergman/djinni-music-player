@@ -5,7 +5,7 @@ export function Player({streamLinkId, url, playing, loop, volume, muted, onEnded
     return (
         <ReactPlayer
             key={streamLinkId}
-            url={url}
+            url={`${process.env.PUBLIC_URL}${url}`}
             playing={playing}
             loop={loop}
             volume={volume}

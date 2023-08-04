@@ -7,6 +7,7 @@ import { exampleFile } from './example/example';
 import { MemoizedPlayer } from './player/Player';
 import OBR from '@owlbear-rodeo/sdk';
 import { getPluginId } from './getPluginId'
+import { PlayerView } from "./playerview/PlayerView"
 
 function App() {
   const [folders, setFolders] = useState(exampleFile);
@@ -24,24 +25,37 @@ function App() {
       if (playerRole === "") {
         const newPlayerRole = await OBR.player.getRole();
         setPlayerRole(newPlayerRole);
+        if (newPlayerRole === "PLAYER") {
+          console.log(OBR.action.setWidth(205));
+          console.log(OBR.action.setHeight(110));
+        }
       }
       const checkMetadataInterval = setInterval(() => {
         const metadataArray = OBR.room.getMetadata();
         metadataArray.then(values => {
+          console.log(values);
           if (values[getPluginId("currently")]) {
             const currently = values[getPluginId("currently")];
             console.log("received 1st metadata", currently);
             setCurrentlyStreaming(currently);
             clearInterval(checkMetadataInterval);
           }
+          if (values[getPluginId("paused")]) {
+            setMasterPaused(values[getPluginId("paused")][0]);
+          }
         });
       }, 1000);
       OBR.room.onMetadataChange((metadata) => {
         const metadataArray = metadata[getPluginId("currently")];
+        const pausedArray = metadata[getPluginId("paused")];
+        console.log(metadata);
         if (metadataArray) {
           const currently = metadataArray;
           console.log("received metadata", currently);
           setCurrentlyStreaming(currently);
+        }
+        if (pausedArray) {
+          setMasterPaused(pausedArray[0]);
         }
       })
     });
@@ -320,33 +334,29 @@ function App() {
   }
 
   function stopAllStreams() {
-    let newCurrentlyStreaming = [...currentlyStreaming];
-    for(let i = 0; i < newCurrentlyStreaming.length; i++) {
-      const stream = newCurrentlyStreaming[i];
-      if (stream.streamFade && stream.streamFadeTime !== 0) {
-        stream.fading = true;
-        newCurrentlyStreaming[i] = stream;
-      }
-      else {
-        stream.playing = false;
-        if (!isEmpty(stream)) {
-          stream.streamData.forEach(streamLink => {
-              streamLink.playing = false;
-          })
-          newCurrentlyStreaming[i] = stream;
-        }
-      }
-    }
+    let newCurrentlyStreaming = [];
     setCurrentlyStreamingMetadata(newCurrentlyStreaming);
   }
 
   function togglePlayPauseStreams() {
     if (masterPaused) {
-      setMasterPaused(false);
+      sendMetadata("paused", [false, new Date().getTime()]);
     }
     else {
-      setMasterPaused(true);
+      sendMetadata("paused", [true, new Date().getTime()]);
     }
+  }
+
+  function playerVolumeSliderChanged(volume) {
+    const newMasterVolume = {...masterVolume};
+    newMasterVolume.volume = volume;
+    setMasterVolume(newMasterVolume);
+  }
+
+  function playerVolumeToggleClicked() {
+    const newMasterVolume = {...masterVolume};
+    newMasterVolume.mute = !newMasterVolume.mute;
+    setMasterVolume(newMasterVolume);
   }
 
   const [folderKeys, setFolderKeys] = useState(Object.keys(folders));
@@ -392,12 +402,13 @@ function App() {
             if (stream.fading) {
               fadeVolume = fadeOutVolume;
             }
+            let volume = masterVolume.volume / 100 * stream.streamVolume / 100 * streamLink.volume / 100 * fadeVolume / 100;
             return <MemoizedPlayer
               streamLinkId={streamLink.id}
               url={streamLink.link}
               playing={!masterPaused}
               loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
-              volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolume.volume / 100 * fadeVolume / 100}
+              volume={volume}
               muted={stream.streamMute || streamLink.mute || masterVolume.mute}
               onEnded={(event) => endFunction(event, streamLink)}
             />
@@ -429,6 +440,7 @@ function App() {
           togglePlayPauseStreams={togglePlayPauseStreams}
           stopAllStreams={stopAllStreams}
           masterPaused={masterPaused}
+          fadeOutVolume={fadeOutVolume}
         />
         <Content 
           folders={folders} 
@@ -441,6 +453,7 @@ function App() {
           setCurrentlyStreaming={setCurrentlyStreaming} 
           streamClickedStart={streamClickedStart}
           streamClickedEnd={streamClickedEnd}
+          paused={masterPaused}
         />
       </div>
     );
@@ -451,6 +464,7 @@ function App() {
         <div className="audio-streams" id="audio-streams">
           {renderVideos()}
         </div>
+          <PlayerView currentlyStreaming={currentlyStreaming} masterVolume={masterVolume} playerVolumeSliderChanged={playerVolumeSliderChanged} playerVolumeToggleClicked={playerVolumeToggleClicked}/>
       </div>
     );
   }
