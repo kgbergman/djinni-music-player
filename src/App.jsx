@@ -17,7 +17,7 @@ function App() {
   const [playerRole, setPlayerRole] = useState("");
   const [masterPaused, setMasterPaused] = useState(false);
   const [fadeOutVolume, setFadeOutVolume] = useState(100);
-
+  const [soundOutput, setSoundOutput] = useState("local");
   let fadeOutInterval = 0;
 
   useEffect(() => {
@@ -43,11 +43,15 @@ function App() {
           if (values[getPluginId("paused")]) {
             setMasterPaused(values[getPluginId("paused")][0]);
           }
+          if (values[getPluginId("soundOutput")]) {
+            setSoundOutput(values[getPluginId("soundOutput")][0]);
+          }
         });
       }, 1000);
       OBR.room.onMetadataChange((metadata) => {
         const metadataArray = metadata[getPluginId("currently")];
         const pausedArray = metadata[getPluginId("paused")];
+        const soundOutputArray = metadata[getPluginId("soundOutput")];
         console.log(metadata);
         if (metadataArray) {
           const currently = metadataArray;
@@ -56,6 +60,9 @@ function App() {
         }
         if (pausedArray) {
           setMasterPaused(pausedArray[0]);
+        }
+        if (soundOutputArray) {
+          setSoundOutput(soundOutputArray[0]);
         }
       })
     });
@@ -359,6 +366,15 @@ function App() {
     setMasterVolume(newMasterVolume);
   }
 
+  function toggleSoundOutput() {
+    if (soundOutput === "local") {
+      sendMetadata("soundOutput", ["global", new Date().getTime()]);
+    }
+    else {
+      sendMetadata("soundOutput", ["local", new Date().getTime()]);
+    }
+  }
+
   const [folderKeys, setFolderKeys] = useState(Object.keys(folders));
 
   function renderVideosOld() {
@@ -393,6 +409,10 @@ function App() {
     return true;
   }
 
+  function onReady() {
+    console.log("onReady");
+  }
+
   function renderVideos() {
     return currentlyStreaming.map(stream => {
       if (!isEmpty(stream)) {
@@ -406,7 +426,7 @@ function App() {
             return <MemoizedPlayer
               streamLinkId={streamLink.id}
               url={streamLink.link}
-              playing={!masterPaused}
+              playing={!masterPaused && !(playerRole !== "GM" && soundOutput === "local")}
               loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
               volume={volume}
               muted={stream.streamMute || streamLink.mute || masterVolume.mute}
@@ -441,6 +461,8 @@ function App() {
           stopAllStreams={stopAllStreams}
           masterPaused={masterPaused}
           fadeOutVolume={fadeOutVolume}
+          soundOutput={soundOutput}
+          toggleSoundOutput={toggleSoundOutput}
         />
         <Content 
           folders={folders} 
@@ -464,14 +486,7 @@ function App() {
         <div className="audio-streams" id="audio-streams">
           {renderVideos()}
         </div>
-          <PlayerView currentlyStreaming={currentlyStreaming} masterVolume={masterVolume} playerVolumeSliderChanged={playerVolumeSliderChanged} playerVolumeToggleClicked={playerVolumeToggleClicked}/>
-      </div>
-    );
-  }
-  else if (playerRole === "PLAYER") {
-    return (
-      <div className="App">
-        Loading...
+        <PlayerView masterPaused={masterPaused} soundOutput={soundOutput} currentlyStreaming={currentlyStreaming} masterVolume={masterVolume} playerVolumeSliderChanged={playerVolumeSliderChanged} playerVolumeToggleClicked={playerVolumeToggleClicked}/>
       </div>
     );
   }

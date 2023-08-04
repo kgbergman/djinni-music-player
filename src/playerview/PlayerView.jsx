@@ -7,6 +7,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import "./playerview.css"
+import { PlayArrow } from "@mui/icons-material";
 
 const muiTheme = createTheme({
     palette: {
@@ -16,13 +17,16 @@ const muiTheme = createTheme({
     },
   });
 
-export function PlayerView({ currentlyStreaming, masterVolume, playerVolumeToggleClicked, playerVolumeSliderChanged }) {
+export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, playerVolumeToggleClicked, playerVolumeSliderChanged, masterPaused }) {
     
     const buttonStyle = { 
         color: "#ffffff",
         '&:hover': {
             backgroundColor: 'rgb(62, 64, 80)',
         },
+        "&.Mui-disabled": {
+            color: "rgb(189, 189, 189)"
+        }
     };
 
     function volumeToggleClicked() {
@@ -133,12 +137,14 @@ export function PlayerView({ currentlyStreaming, masterVolume, playerVolumeToggl
 
     return (
         <div className="player-view-container">
-            <div className="playing-text">GM playing {countCurrentlyStreaming()}</div>
+            {soundOutput === "global" && !masterPaused && <div className="playing-text">GM playing {countCurrentlyStreaming()}</div>}
+            {soundOutput === "global" && masterPaused && <div className="playing-text">GM paused streams</div>}
+            {soundOutput !== "global" && <div className="playing-text">GM playing locally</div>}
             <div className="player-slider">
                 <div className="buttons-container">
                     <div className="buttons">
                         <Tooltip title="Toggle Mute">
-                        <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
+                        <IconButton sx={buttonStyle} aria-label="volume toggle mute" disabled={soundOutput !== "global"} onClick={volumeToggleClicked}>
                             {!masterVolume.mute && <VolumeUpIcon/>}
                             {masterVolume.mute && <VolumeOffIcon/>}
                         </IconButton>
@@ -146,7 +152,7 @@ export function PlayerView({ currentlyStreaming, masterVolume, playerVolumeToggl
                     </div>
                     <div className="player-slider-container">
                         <ThemeProvider theme={muiTheme}>
-                        <Slider min={1} max={1000} defaultValue={500} disabled={masterVolume.mute} onChange={volumeSliderChanged}/>
+                        <Slider min={1} max={1000} defaultValue={500} disabled={masterVolume.mute || soundOutput !== "global"} onChange={volumeSliderChanged}/>
                         </ThemeProvider>
                     </div>
                 </div>

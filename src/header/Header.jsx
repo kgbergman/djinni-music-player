@@ -9,6 +9,8 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import StopIcon from '@mui/icons-material/Stop';
 import Tooltip from '@mui/material/Tooltip';
+import GroupsIcon from '@mui/icons-material/Groups';
+import PersonIcon from '@mui/icons-material/Person';
 import './header.css'
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
@@ -22,7 +24,7 @@ const muiTheme = createTheme({
 });
 
 
-export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVolume, masterPaused, folderKeys, addFolderKey, currentlyStreaming, togglePlayPauseStreams, stopAllStreams, fadeOutVolume }) {
+export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVolume, soundOutput, toggleSoundOutput, masterPaused, folderKeys, addFolderKey, currentlyStreaming, togglePlayPauseStreams, stopAllStreams, fadeOutVolume }) {
 
   const buttonStyle = { 
     color: "#ffffff",
@@ -108,6 +110,20 @@ export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVo
                   <StopIcon/>
                 </IconButton>
               </Tooltip>
+              }
+              {soundOutput === "local" && 
+                <Tooltip title="Playing Locally">
+                  <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
+                      <PersonIcon/>
+                  </IconButton>
+                </Tooltip>
+              }
+              {soundOutput !== "local" &&
+                <Tooltip title="Playing for Everyone">
+                  <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
+                      <GroupsIcon/>
+                  </IconButton>
+                </Tooltip>
               }
               <Tooltip title="Toggle Local Volume Mute">
                 <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
