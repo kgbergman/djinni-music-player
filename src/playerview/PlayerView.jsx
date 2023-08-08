@@ -135,7 +135,12 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
         }
     }
 
-    var isChromium = !!window.chrome;
+    let isChromium = !!window.chrome;
+    let isMobile = false;
+    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
+        isMobile = true;
+    }
+    console.log("mobile", isMobile);
 
     return (
         <div className="player-view-container">
@@ -159,8 +164,15 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
                     </div>
                 </div>
             </div>
-            {isChromium && <div className="chromium-overlay">
+            {isChromium && !isMobile && <div className="chromium-overlay">
                 <div className="overlay-text">Sorry, your browser isn't supported. Please use either Firefox or Safari, or ask your GM to share their audio.</div>
+                <div className="overlay-images-container">
+                    <img className="overlay-image" src="../firefox.png"/>    
+                    <img className="overlay-image" src="../safari.png"/>    
+                </div>
+            </div>}
+            {isMobile && <div className="chromium-overlay">
+                <div className="overlay-text">Sorry, mobile isn't supported. Please use Firefox or Safari on desktop, or ask your GM to share their audio.</div>
                 <div className="overlay-images-container">
                     <img className="overlay-image" src="../firefox.png"/>    
                     <img className="overlay-image" src="../safari.png"/>    
