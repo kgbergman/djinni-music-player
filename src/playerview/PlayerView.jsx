@@ -135,6 +135,8 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
         }
     }
 
+    var isChromium = !!window.chrome;
+
     return (
         <div className="player-view-container">
             {soundOutput === "global" && !masterPaused && <div className="playing-text">GM playing {countCurrentlyStreaming()}</div>}
@@ -157,6 +159,13 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
                     </div>
                 </div>
             </div>
+            {isChromium && <div className="chromium-overlay">
+                <div className="overlay-text">Sorry, your browser isn't supported. Please use either Firefox or Safari.</div>
+                <div className="overlay-images-container">
+                    <img className="overlay-image" src="../firefox.png"/>    
+                    <img className="overlay-image" src="../safari.png"/>    
+                </div>
+            </div>}
         </div>
     );
 }
