@@ -160,7 +160,7 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
                 </div>
             </div>
             {isChromium && <div className="chromium-overlay">
-                <div className="overlay-text">Sorry, your browser isn't supported. Please use either Firefox or Safari.</div>
+                <div className="overlay-text">Sorry, your browser isn't supported. Please use either Firefox or Safari, or ask your GM to share their audio.</div>
                 <div className="overlay-images-container">
                     <img className="overlay-image" src="../firefox.png"/>    
                     <img className="overlay-image" src="../safari.png"/>    
