@@ -45,13 +45,13 @@ export function AutoplayOverlay() {
                         <div>• Follow <a className="instructions-link" onClick={openGithub}>these instructions</a> to allow autoplay on your browser</div>
                     </div>
                 </div>
-                <div className="gm-overlay-ignore" onClick={ignoreAutoplay}>Ignore and Continue</div>
+                <div className="gm-overlay-ignore" onClick={ignoreAutoplay}>Ignore and continue without audio</div>
             </div>}
             {!canAutoplay && isMobile && <div className="gm-chromium-overlay">
                 <div className="gm-overlay-text">
                         <div>Sorry, mobile browsers don't support autoplay. Please use Firefox or Safari on desktop to hear audio.</div>
                 </div>
-                <div className="gm-overlay-ignore" onClick={ignoreAutoplay}>Ignore and Continue</div>
+                <div className="gm-overlay-ignore" onClick={ignoreAutoplay}>Ignore and continue without audio</div>
             </div>}
         </div>
     );

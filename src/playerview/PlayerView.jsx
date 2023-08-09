@@ -151,7 +151,7 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
     })
 
     function openGithub() {
-        window.open("https://github.com/kgbergman/conditionmarkers", "_blank");
+        window.open("https://github.com/kgbergman/music-player/blob/main/public/autoplay.md", "_blank");
     }
 
     return (
