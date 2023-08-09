@@ -87,9 +87,7 @@ export function SavePopup({ savePopupClose, savePopupClicked, folders }) {
         saveFolders[key] = thisFolder;
         })
         const data = JSON.stringify(saveFolders, null, '\t');
-        const type = 'text/plain';
-        var file = new Blob([data], {type: type});
-        return URL.createObjectURL(file);
+        return 'data:text/plain;charset=utf-8,' + encodeURIComponent(data);
     }
 
     return (
