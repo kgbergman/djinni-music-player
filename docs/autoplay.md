@@ -4,9 +4,11 @@
 1. Right-click on the Chrome desktop icon and click Properties
 
 ![Chrome Icon](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/chrome_icon.png)
+
 2. Append `--autoplay-policy=no-user-gesture-required` to the target field
 
 ![Chrome Properties](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/chrome_properties.png)
+
 3. Apply and OK. 
 
 Starting Chrome **with this shortcut** will allow you to hear audio played by the GM.
