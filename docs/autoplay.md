@@ -22,6 +22,13 @@ Sadly, the above setting will not “stick”. The moment Chrome is closed and r
 
 
 # Microsoft Edge
-1. Enter `edge://settings/content/mediaAutoplay` in to the search bar
+1. Enter `edge://settings/content/mediaAutoplay` in to the search bar and hit enter
+
+![Edge Autoplay](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/edge_autoplay.png)
+
+
 2. Click "Add" next to Allow and enter `https://www.owlbear.rodeo`
+
+![Edge Add Owlbear](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/edge_add_owlbear.png)
+
 3. Click "Add" again, and refresh the page.
