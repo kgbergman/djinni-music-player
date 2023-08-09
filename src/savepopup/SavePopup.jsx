@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './savepopup.css'
 import TextField from '@mui/material/TextField';
 import { createTheme } from '@mui/material/styles';
@@ -33,12 +33,14 @@ const muiTheme = createTheme({
     },
   });
 
-export function SavePopup({ savePopupClose, savePopupClicked }) {
-    let currentName = "File";
+export function SavePopup({ savePopupClose, savePopupClicked, folders }) {
+    let [currentName, setCurrentName] = useState("File");
+    let [foldersText, setFoldersText] = useState(foldersData());
 
     function textChanged(event) {
         if (event && event.target && event.target.value) {
-            currentName = event.target.value;
+            setCurrentName(event.target.value);
+            setFoldersText(foldersData());
         }
     }
 
@@ -70,6 +72,25 @@ export function SavePopup({ savePopupClose, savePopupClicked }) {
         },
         borderRadius: "15px",
     };
+
+    function foldersData() {
+        const saveFolders = {...folders};
+        const keys = Object.keys(saveFolders);
+        keys.forEach(key => {
+        const thisFolder = saveFolders[key];
+        thisFolder.streams.forEach(stream => {
+            stream.playing = false;
+            stream.streamData.forEach(streamLink => {
+            streamLink.playing = false;
+            })
+        })
+        saveFolders[key] = thisFolder;
+        })
+        const data = JSON.stringify(saveFolders, null, '\t');
+        const type = 'text/plain';
+        var file = new Blob([data], {type: type});
+        return URL.createObjectURL(file);
+    }
 
     return (
         <div className="popup-background" onMouseDown={popupBackgroundMouseDown} onMouseUp={popupBackgroundMouseUp}>
@@ -120,11 +141,13 @@ export function SavePopup({ savePopupClose, savePopupClicked }) {
                     <span className="save-popup-extension">.djinni</span>
                 </div>
                 <div className="popup-buttons-container">
-                    <Button variant="text" sx= {buttonStyle} onClick={savePopupClose}>
+                    <Button variant="text" sx={buttonStyle} onClick={savePopupClose}>
                         Cancel
                     </Button>
-                    <Button variant="text" sx= {buttonStyle} onClick={saveButtonClicked}>
-                        Save
+                    <Button variant="text" sx={buttonStyle} onClick={savePopupClose}>
+                        <a href={foldersText} target="_blank" download={`${currentName}.djinni`}>
+                            Save
+                        </a>
                     </Button>
                 </div>
             </div>

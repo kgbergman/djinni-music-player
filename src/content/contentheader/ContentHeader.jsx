@@ -85,6 +85,7 @@ export function ContentHeader({
         '&:hover': {
         backgroundColor: 'rgb(62, 64, 80)',
         },
+        aspectRatio: "1"
     };
     const sliderStyle = { 
         '& .MuiSlider-thumb': {

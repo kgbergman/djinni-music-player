@@ -31,6 +31,7 @@ export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVo
     '&:hover': {
       backgroundColor: 'rgb(62, 64, 80)',
     },
+    aspectRatio: "1"
   };
   
   function openButtonClicked() {

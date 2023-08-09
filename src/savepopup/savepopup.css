@@ -20,3 +20,8 @@
     padding-bottom: 5px;
     padding-left: 3px;
 }
+
+a {
+    color: rgb(187, 153, 255);
+    text-decoration: none;
+}

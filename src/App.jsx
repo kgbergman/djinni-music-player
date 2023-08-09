@@ -449,7 +449,7 @@ function App() {
         <div className="audio-streams" id="audio-streams">
           {renderVideos()}
         </div>
-        {showSavePopup && <SavePopup savePopupClose={savePopupClose} savePopupClicked={saveFolders}/>}
+        {showSavePopup && <SavePopup savePopupClose={savePopupClose} savePopupClicked={saveFolders} folders={folders}/>}
         <Header 
           folderKeys={folderKeys} 
           addFolderKey={addFolderKey} 

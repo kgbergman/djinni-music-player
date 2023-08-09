@@ -21,6 +21,8 @@ Starting Chrome **with this shortcut** will allow you to hear audio played by th
 Sadly, the above setting will not “stick”. The moment Chrome is closed and reopened, it will revert back, so you would need to do these steps every time you open Chrome. 
 
 
+
+
 # Microsoft Edge
 1. Enter `edge://settings/content/mediaAutoplay` in to the search bar and hit enter
 

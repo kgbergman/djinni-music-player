@@ -1,70 +1,39 @@
-# Getting Started with Create React App
+# DJinni Music Player
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Mix sound effects and music with a variety of effects to provide an immersive experience!
 
-## Available Scripts
+**How it Works**
 
-In the project directory, you can run:
+Clicking the <img src="https://raw.githubusercontent.com/kgbergman/conditionmarkers/main/src/icon.svg" width=20 alt="Condition Marker Icon"> icon when selecting a character will display a popup with 16 icons.
+These 16 icons can be clicked, which will display a transparent white overlay to indicate they are currently selected. Hovering over them will display their name. 
 
-### `npm start`
+![Icon Name](https://raw.githubusercontent.com/kgbergman/conditionmarkers/main/docs/iconname.jpg)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+There are 4 pages of icons, which you can cycle through by clicking the left and right arrows on either side of the icons.
 
-### `npm test`
+![Page Left](https://raw.githubusercontent.com/kgbergman/conditionmarkers/main/docs/pageleft.jpg)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+You can also filter the icons by typing their name in the filter box. Clearing this box will bring you back to the page you were on.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Filter](https://raw.githubusercontent.com/kgbergman/conditionmarkers/main/docs/filter.jpg)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+As you select multiple icons, they will display in a grid-like fashion over the selected character starting at the top left, with a minimum of 5 on a side.
 
-### `npm run eject`
+![Icons](https://raw.githubusercontent.com/kgbergman/conditionmarkers/main/docs/icongrid.jpg)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If for any reason you need to move or edit the icon, you can double-click on it and unlock it like any other item in Owlbear Rodeo.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Move](https://raw.githubusercontent.com/kgbergman/conditionmarkers/main/docs/move.jpg)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+**Support**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+If you want to support me financially, you can [buy me a coffee](https://www.buymeacoffee.com/keegandev)!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Feel free to email me at keegan.developer@gmail.com with any questions about the extension and I will try to answer them!
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Copyright (C) 2023 Keegan Bergman

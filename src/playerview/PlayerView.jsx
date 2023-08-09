@@ -136,24 +136,6 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
         }
     }
 
-    let isChromium = !!window.chrome;
-    let isMobile = false;
-    if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
-        isMobile = true;
-    }
-
-    let [canAutoplay, setCanAutoplay] = useState(!isChromium && !isMobile);
-    canAutoPlay.video().then(({result}) => {
-        if (result === true) {
-            // Can autoplay
-            setCanAutoplay(true);
-        }
-    })
-
-    function openGithub() {
-        window.open("https://github.com/kgbergman/music-player/blob/main/public/autoplay.md", "_blank");
-    }
-
     return (
         <div className="player-view-container">
             {soundOutput === "global" && !masterPaused && <div className="playing-text">GM playing {countCurrentlyStreaming()}</div>}
