@@ -47,3 +47,11 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+.gm-overlay-ignore {
+    color: rgb(187, 153, 255);
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: underline;
+    margin-bottom: 25px;
+}
