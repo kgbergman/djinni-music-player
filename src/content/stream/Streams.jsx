@@ -83,7 +83,7 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
                         streamMuted = targetStream.streamMute;
                     }
                 })
-                return <Grid item xs={6} sm={3}>
+                return <Grid item xs={6} sm={3} key={stream.id}>
                             <Stream 
                                 stream={stream} 
                                 id={stream.id} 
@@ -107,7 +107,7 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
                         streamMuted = targetStream.streamMute;
                     }
                 })
-                return <Grid item xs={6} sm={3}>
+                return <Grid item xs={6} sm={3} key={stream.id}>
                             <Stream 
                                 stream={stream} 
                                 streamClicked={streamClicked} 

@@ -39,7 +39,7 @@ export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, f
                 return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
             });
             return sorted.map(folder => {
-                return <Grid item xs={6} sm={3}>
+                return <Grid item xs={6} sm={3} key={folder.id}>
                             <Folder 
                                 sortByAlpha={sortByAlpha}
                                 folders={folders}
@@ -61,7 +61,7 @@ export function Folders({ folders, openedPage, sortByAlpha, editFolderClicked, f
             return keys.map(folderKey => {
                 if (folderKey !== "undefined") {
                     const folder = folders[folderKey];
-                    return <Grid item xs={6} sm={3}>
+                    return <Grid item xs={6} sm={3} key={folder.id}>
                                 <Folder 
                                     sortByAlpha={sortByAlpha}
                                     folders={folders}

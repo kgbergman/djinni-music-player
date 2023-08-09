@@ -14,6 +14,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import './header.css'
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
+import AspectRatio from '@mui/joy/AspectRatio';
 
 const muiTheme = createTheme({
   palette: {
@@ -78,14 +79,18 @@ export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVo
           <div className="buttons-container">
             <div className="buttons">
               <Tooltip title="Open File">
-                <IconButton sx={buttonStyle} aria-label="open" onClick={openButtonClicked}>
-                    <FolderIcon/>
-                </IconButton>
+                <AspectRatio ratio="1/1">
+                  <IconButton sx={buttonStyle} aria-label="open" onClick={openButtonClicked}>
+                      <FolderIcon/>
+                  </IconButton>
+                </AspectRatio>
               </Tooltip>
               <Tooltip title="Save File">
-                <IconButton sx={buttonStyle} aria-label="save" onClick={saveButtonClicked}>
-                    <SaveIcon/>
-                </IconButton>
+                <AspectRatio ratio="1/1">
+                  <IconButton sx={buttonStyle} aria-label="save" onClick={saveButtonClicked}>
+                      <SaveIcon/>
+                  </IconButton>
+                </AspectRatio>
               </Tooltip>
             </div>
           </div>
@@ -93,44 +98,56 @@ export function Header({setFolders, saveButtonClicked, masterVolume, setMasterVo
             <div className="buttons">
               {currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && !masterPaused && 
               <Tooltip title="Pause All Streams">
-                <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
-                  <PauseIcon/>
-                </IconButton>
+                <AspectRatio ratio="1/1">
+                  <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
+                    <PauseIcon/>
+                  </IconButton>
+                </AspectRatio>
               </Tooltip>
               }
               {currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && masterPaused && 
                 <Tooltip title="Play All Streams">
-                  <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
-                    <PlayArrowIcon/>
-                  </IconButton>
+                  <AspectRatio ratio="1/1">
+                    <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
+                      <PlayArrowIcon/>
+                    </IconButton>
+                  </AspectRatio>
                 </Tooltip>
                 }
               {currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) &&
               <Tooltip title="Stop All Streams">
-                <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={stopAllStreams}>
-                  <StopIcon/>
-                </IconButton>
+                <AspectRatio ratio="1/1">
+                  <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={stopAllStreams}>
+                    <StopIcon/>
+                  </IconButton>
+                </AspectRatio>
               </Tooltip>
               }
               {soundOutput === "local" && 
                 <Tooltip title="Playing Locally">
-                  <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
-                      <PersonIcon/>
-                  </IconButton>
+                  <AspectRatio ratio="1/1">
+                    <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
+                        <PersonIcon/>
+                    </IconButton>
+                  </AspectRatio>
                 </Tooltip>
               }
               {soundOutput !== "local" &&
                 <Tooltip title="Playing for Everyone">
-                  <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
-                      <GroupsIcon/>
-                  </IconButton>
+                  <AspectRatio ratio="1/1">
+                    <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
+                        <GroupsIcon/>
+                    </IconButton>
+                  </AspectRatio>
                 </Tooltip>
               }
               <Tooltip title="Toggle Local Volume Mute">
-                <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
-                  {!masterVolume.mute && <VolumeUpIcon/>}
-                  {masterVolume.mute && <VolumeOffIcon/>}
-                </IconButton>
+                <AspectRatio ratio="1/1">
+                  <IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={volumeToggleClicked}>
+                    {!masterVolume.mute && <VolumeUpIcon/>}
+                    {masterVolume.mute && <VolumeOffIcon/>}
+                  </IconButton>
+                </AspectRatio>
               </Tooltip>
             </div>
             <div className="slider-container">

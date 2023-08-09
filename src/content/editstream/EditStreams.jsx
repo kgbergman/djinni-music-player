@@ -143,6 +143,7 @@ export function EditStreams({ folders, openedFolder, openedStream, setCurrentStr
         return (
             <div>
                 <EditStream 
+                    key={editStreamData.id}
                     editStreamData={editStreamData} 
                     editStreamDeleteClicked={editStreamDeleteClicked} 
                     editStreamLinkChanged={editStreamLinkChanged} 
@@ -161,6 +162,7 @@ export function EditStreams({ folders, openedFolder, openedStream, setCurrentStr
             //Find the stream by this id
             return currentStreamObject.streamData.map(editStreamData => {
                 return <EditStream 
+                    key={editStreamData.id}
                     editStreamData={editStreamData} 
                     editStreamDeleteClicked={editStreamDeleteClicked} 
                     editStreamLinkChanged={editStreamLinkChanged} 
