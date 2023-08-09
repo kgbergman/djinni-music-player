@@ -11,7 +11,7 @@ const muiTheme = createTheme({
     },
   });
 
-export function AutoplayOverlay() {
+export function AutoplayOverlay({isGM}) {
 
     let isChromium = !!window.chrome;
     let isMobile = false;
@@ -37,7 +37,7 @@ export function AutoplayOverlay() {
 
     return (
         <div className="autoplay-overlay">
-            {!canAutoplay && isChromium && !isMobile && <div className="gm-chromium-overlay">
+            {isGM && !canAutoplay && isChromium && !isMobile && <div className="chromium-overlay">
                 <div className="gm-overlay-text">
                     <div className="gm-overlay-top">Sorry, your browser doesn't support autoplay. Please either...</div>
                     <div>
@@ -47,12 +47,54 @@ export function AutoplayOverlay() {
                 </div>
                 <div className="gm-overlay-ignore" onClick={ignoreAutoplay}>Ignore and continue without audio</div>
             </div>}
-            {!canAutoplay && isMobile && <div className="gm-chromium-overlay">
+            {isGM && !canAutoplay && isMobile && <div className="chromium-overlay">
                 <div className="gm-overlay-text">
                         <div>Sorry, mobile browsers don't support autoplay. Please use Firefox or Safari on desktop to hear audio.</div>
                 </div>
                 <div className="gm-overlay-ignore" onClick={ignoreAutoplay}>Ignore and continue without audio</div>
             </div>}
+            {!isGM && !canAutoplay && isChromium && !isMobile && <div className="chromium-overlay">
+                <div className="overlay-text">
+                    <div>Sorry, your browser doesn't support autoplay. Please either...</div>
+                    <div>
+                        <div>• Use Firefox or Safari</div>
+                        <div>• Follow <a className="instructions-link" onClick={openGithub}>these instructions</a> to allow autoplay on your browser</div>
+                        <div>• Ask your GM to share their audio through Zoom, Discord, etc.</div>
+                    </div>
+                </div>
+            </div>}
+            {!isGM && !canAutoplay && isMobile && <div className="chromium-overlay">
+            <div className="overlay-text">
+                    <div>Sorry, mobile browsers don't support autoplay. Please either...</div>
+                    <div>
+                        <div>• Use Firefox or Safari on desktop</div>
+                        <div>• Ask your GM to share their audio through Zoom, Discord, etc.</div>
+                    </div>
+                </div>
+            </div>}
         </div>
     );
 }
+
+/*
+
+            {!canAutoplay && isChromium && !isMobile && <div className="chromium-overlay">
+                <div className="overlay-text">
+                    <div>Sorry, your browser doesn't support autoplay. Please either...</div>
+                    <div>
+                        <div>• Use Firefox or Safari</div>
+                        <div>• Follow <a className="instructions-link" onClick={openGithub}>these instructions</a> to allow autoplay on your browser</div>
+                        <div>• Ask your GM to share their audio through Zoom, Discord, etc.</div>
+                    </div>
+                </div>
+            </div>}
+            {!canAutoplay && isMobile && <div className="chromium-overlay">
+            <div className="overlay-text">
+                    <div>Sorry, mobile browsers don't support autoplay. Please either...</div>
+                    <div>
+                        <div>• Use Firefox or Safari on desktop</div>
+                        <div>• Ask your GM to share their audio through Zoom, Discord, etc.</div>
+                    </div>
+                </div>
+            </div>}
+            */

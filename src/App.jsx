@@ -446,7 +446,6 @@ function App() {
   if (playerRole === "GM") {
     return (
       <div className="App">
-        <AutoplayOverlay/>
         <div className="audio-streams" id="audio-streams">
           {renderVideos()}
         </div>
@@ -479,6 +478,7 @@ function App() {
           streamClickedEnd={streamClickedEnd}
           paused={masterPaused}
         />
+        <AutoplayOverlay isGM={playerRole === "GM"}/>
       </div>
     );
   }
@@ -489,6 +489,7 @@ function App() {
           {renderVideos()}
         </div>
         <PlayerView masterPaused={masterPaused} soundOutput={soundOutput} currentlyStreaming={currentlyStreaming} masterVolume={masterVolume} playerVolumeSliderChanged={playerVolumeSliderChanged} playerVolumeToggleClicked={playerVolumeToggleClicked}/>
+        <AutoplayOverlay isGM={playerRole === "GM"}/>
       </div>
     );
   }

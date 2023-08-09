@@ -176,25 +176,6 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
                     </div>
                 </div>
             </div>
-            {!canAutoplay && isChromium && !isMobile && <div className="chromium-overlay">
-                <div className="overlay-text">
-                    <div>Sorry, your browser doesn't support autoplay. Please either...</div>
-                    <div>
-                        <div>• Use Firefox or Safari</div>
-                        <div>• Follow <a className="instructions-link" onClick={openGithub}>these instructions</a> to allow autoplay on your browser</div>
-                        <div>• Ask your GM to share their audio through Zoom, Discord, etc.</div>
-                    </div>
-                </div>
-            </div>}
-            {!canAutoplay && isMobile && <div className="chromium-overlay">
-            <div className="overlay-text">
-                    <div>Sorry, mobile browsers don't support autoplay. Please either....</div>
-                    <div>
-                        <div>• Use Firefox or Safari on desktop</div>
-                        <div>• Ask your GM to share their audio through Zoom, Discord, etc.</div>
-                    </div>
-                </div>
-            </div>}
         </div>
     );
 }
