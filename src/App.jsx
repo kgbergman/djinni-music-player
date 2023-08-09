@@ -8,6 +8,7 @@ import { MemoizedPlayer } from './player/Player';
 import OBR from '@owlbear-rodeo/sdk';
 import { getPluginId } from './getPluginId'
 import { PlayerView } from "./playerview/PlayerView"
+import { AutoplayOverlay } from "./autoplayoverlay/AutoplayOverlay"
 
 function App() {
   const [folders, setFolders] = useState(exampleFile);
@@ -27,7 +28,7 @@ function App() {
         setPlayerRole(newPlayerRole);
         if (newPlayerRole === "PLAYER") {
           console.log(OBR.action.setWidth(205));
-          console.log(OBR.action.setHeight(110));
+          console.log(OBR.action.setHeight(106));
         }
       }
       const checkMetadataInterval = setInterval(() => {
@@ -445,6 +446,7 @@ function App() {
   if (playerRole === "GM") {
     return (
       <div className="App">
+        <AutoplayOverlay/>
         <div className="audio-streams" id="audio-streams">
           {renderVideos()}
         </div>

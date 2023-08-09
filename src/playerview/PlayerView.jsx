@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useState } from "react";
 import { IconButton } from "@mui/material";
 import { Slider } from "@mui/material";
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
@@ -8,6 +8,7 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import "./playerview.css"
 import { PlayArrow } from "@mui/icons-material";
+import canAutoPlay from 'can-autoplay';
 
 const muiTheme = createTheme({
     palette: {
@@ -140,7 +141,18 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
     if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)) {
         isMobile = true;
     }
-    console.log("mobile", isMobile);
+
+    let [canAutoplay, setCanAutoplay] = useState(!isChromium && !isMobile);
+    canAutoPlay.video().then(({result}) => {
+        if (result === true) {
+            // Can autoplay
+            setCanAutoplay(true);
+        }
+    })
+
+    function openGithub() {
+        window.open("https://github.com/kgbergman/conditionmarkers", "_blank");
+    }
 
     return (
         <div className="player-view-container">
@@ -164,18 +176,23 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
                     </div>
                 </div>
             </div>
-            {isChromium && !isMobile && <div className="chromium-overlay">
-                <div className="overlay-text">Sorry, your browser isn't supported. Please use either Firefox or Safari, or ask your GM to share their audio.</div>
-                <div className="overlay-images-container">
-                    <img className="overlay-image" src="../firefox.png"/>    
-                    <img className="overlay-image" src="../safari.png"/>    
+            {!canAutoplay && isChromium && !isMobile && <div className="chromium-overlay">
+                <div className="overlay-text">
+                    <div>Sorry, your browser doesn't support autoplay. Please either...</div>
+                    <div>
+                        <div>• Use Firefox or Safari</div>
+                        <div>• Follow <a className="instructions-link" onClick={openGithub}>these instructions</a> to allow autoplay on your browser</div>
+                        <div>• Ask your GM to share their audio through Zoom, Discord, etc.</div>
+                    </div>
                 </div>
             </div>}
-            {isMobile && <div className="chromium-overlay">
-                <div className="overlay-text">Sorry, mobile isn't supported. Please use Firefox or Safari on desktop, or ask your GM to share their audio.</div>
-                <div className="overlay-images-container">
-                    <img className="overlay-image" src="../firefox.png"/>    
-                    <img className="overlay-image" src="../safari.png"/>    
+            {!canAutoplay && isMobile && <div className="chromium-overlay">
+            <div className="overlay-text">
+                    <div>Sorry, mobile browsers don't support autoplay. Please either....</div>
+                    <div>
+                        <div>• Use Firefox or Safari on desktop</div>
+                        <div>• Ask your GM to share their audio through Zoom, Discord, etc.</div>
+                    </div>
                 </div>
             </div>}
         </div>
