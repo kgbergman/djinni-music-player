@@ -4,7 +4,7 @@
   "manifest_version": 1,
   "author": "Keegan",
   "icon": "/logo.png",
-  "description": "Mix sound effects and music with a variety of effects to provide an immersive experience!",
+  "description": "Mix sound effects and music with looping, fading, and more to provide an immersive experience!",
   "action": {
     "title": "DJinni Sound Mixer",
     "icon": "/icon.svg",

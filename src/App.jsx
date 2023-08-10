@@ -385,7 +385,6 @@ function App() {
     return true;
   }
   function renderVideos() {
-    return;
     return currentlyStreaming.map(stream => {
       if (!isEmpty(stream)) {
         return stream.streamData.map(streamLink => {

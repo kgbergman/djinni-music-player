@@ -1,6 +1,6 @@
 ---
 title: DJinni Music Player
-description: "Mix sound effects and music with a variety of effects to provide an immersive experience!"
+description: "Mix sound effects and music with looping, fading, and more to provide an immersive experience!"
 author: Keegan
 image: https://raw.githubusercontent.com/kgbergman/music-player/main/docs/header.jpg
 icon: https://raw.githubusercontent.com/kgbergman/music-player/main/public/logo.png
@@ -13,7 +13,7 @@ learn-more: https://github.com/kgbergman/music-player
 
 # DJinni Music Player
 
-Mix sound effects and music with a variety of effects to provide an immersive experience!
+Mix sound effects and music with a looping, fading, and more to provide an immersive experience!
 
 **How it Works**
 

@@ -9,16 +9,6 @@ window.ResizeObserver = ResizeObserver;
  */
 (function () {
   'use strict';
-
-  function init() {
-  }
-
-
-  if (window.addEventListener) {
-      window.addEventListener('load', init);
-  } else if (window.attachEvent) {
-      window.attachEvent('onload', init);
-  }
 }());
 
 const htmlRoot = document.getElementById('root');
