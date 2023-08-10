@@ -16,7 +16,7 @@ Clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/
 
 At the top is the header, with icons to open and save .djinni files. Whenever you load up Owlbear Rodeo, you will need to open your .djinni file. They are too big to store within Owlbear Rodeo as part of the extension.
 
-There is an icon that toggles between 3 persons and 1 person. This means that you are either playing these sounds to all of your player's browsers and yours, or just locally to your own. This toggle can be useful if you'd like to share your audio through a service like Zoom or Discord.
+There is an icon that toggles between <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/persons.png" width=20 alt="3 Person"> and <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/person.png" width=20 alt="1 Persons">. This means that you are either playing these sounds to all of your player's browsers and yours, or just locally to your own. This toggle can be useful if you'd like to share your audio through a service like Zoom or Discord.
 
 There is a volume slider along with a mute toggle. This is only local to your browser, and each player will have their own volume control slider on their browser.
 
@@ -49,7 +49,7 @@ You can play streams from any folder. Folders with streams playing will show an 
 
 ### Edit Streams
 
-To edit a stream, click its edit icon. Here you can change many things about the stream, like its icon, name, volume levels, etc.
+To edit a stream, click its <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editicon.png" width=20 alt="Edit Icon"> icon. Here you can change many things about the stream, like its icon, name, volume levels, etc.
 
 Each stream has a fade-out option. When you click on the stream to end it, it will either end instantly or you can choose to have it fade out from 1-10 seconds. 
 
@@ -76,7 +76,7 @@ If you are having trouble hearing the streams, please be sure you are either usi
 There is currently no way to autoplay streams on mobile browsers due to policies enacted from by Apple (iOS) and Google (Android). You can still use DJinni as a control-center on mobile devices, but you won't hear any audio.
 
 
-**Support**
+### Support
 
 If you want to support me financially, you can [buy me a coffee](https://www.buymeacoffee.com/keegandev)!
 
