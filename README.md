@@ -9,7 +9,7 @@ The DJinni Music Player allows the GM to curate YouTube links and play them for 
 Clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/public/icon.svg" width=20 alt="DJinni Icon"> icon at the top of the page will open the DJinni Music Player.
 
 
-**Header**
+### Header
 
 ![Header](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/djinniheader.png)
 
@@ -24,7 +24,7 @@ There is a volume slider along with a mute toggle. This is only local to your br
 Once you play any stream(s), a pause and stop icon will appear in the header. Clicking the pause icon will pause all streams, and turn into a play icon, which allows you to resume them. Clicking the stop icon will end all streams immediately with no fade-outs.
 
 
-**Folders**
+### Folders
 
 By default, a few preloaded folders will open with some self-describing names. Open a folder by double-clicking on it.
 
@@ -35,7 +35,7 @@ You can add a new folder by clicking the <img src="https://raw.githubusercontent
 Delete a folder by pressing the delete key while a folder is highlighted, or clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/deleteicon.png" width=20 alt="Delete Icon"> after opening the folder.
 
 
-**Playing Streams**
+### Playing Streams
 
 Within each folder are the playable streams. To play a stream, click on it once. Clicking on it again will stop it.  
 
@@ -43,12 +43,12 @@ Within each folder are the playable streams. To play a stream, click on it once.
 
 You can play streams from any folder. Folders with streams playing will show an animated icon on their folder. If you have the streams paused, folders with streams playing will show a paused icon over them to remind you.
 
-![Playing Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolders.png)
+![Playing Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolder.png)
 
-![Paused Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolders.png)
+![Paused Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolder.png)
 
 
-**Edit Streams**
+### Edit Streams
 
 To edit a stream, click its edit icon. Here you can change many things about the stream, like its icon, name, volume levels, etc.
 
@@ -63,7 +63,7 @@ For example, this stream has a few different sound effect links: waves, seagulls
 You can see that the waves are playing on a constant loop, but the seagulls and footsteps will loop with a slightly randomized delay in between each. This sounds more organic and won't just be the same repeating noises over and over. 
 
 
-**Player View**
+### Player View
 
 ![Player View](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playerview.png)
 
@@ -72,7 +72,7 @@ You can see that the waves are playing on a constant loop, but the seagulls and 
 A player can control their own local volume and mute options, as well as see how many streams the GM is playing at a time. It will also tell them if the GM is playing their sound locally, so they can know whether or not to expect sound to come out of Owlbear Rodeo.
 
 
-**Troubleshooting**
+### Troubleshooting
 
 If you are having trouble hearing the streams, please be sure you are either using Firefox or Safari on a desktop computer, or follow the instructions here: *link to autoplay guide.*
 
