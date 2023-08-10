@@ -43,9 +43,7 @@ Within each folder are the playable streams. To play a stream, click on it once.
 
 You can play streams from any folder. Folders with streams playing will show an animated icon on their folder. If you have the streams paused, folders with streams playing will show a paused icon over them to remind you.
 
-![Playing Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolder.png)
-
-![Paused Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolder.png)
+<img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolder.png" alt="Playing Folder"><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolder.png" alt="Paused Folder">
 
 
 ### Edit Streams
@@ -65,9 +63,7 @@ You can see that the waves are playing on a constant loop, but the seagulls and 
 
 ### Player View
 
-![Player View](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playerview.png)
-
-![Player View Local](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playerviewlocal.png)
+<img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playerview.png" alt="Player View"><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playerviewlocal.png" alt="Player View Local">
 
 A player can control their own local volume and mute options, as well as see how many streams the GM is playing at a time. It will also tell them if the GM is playing their sound locally, so they can know whether or not to expect sound to come out of Owlbear Rodeo.
 
