@@ -51,7 +51,6 @@ function App() {
         });
       }, 1000);
       OBR.room.onMetadataChange((metadata) => {
-        return; //TODO Remove
         const metadataArray = metadata[getPluginId("currently")];
         const pausedArray = metadata[getPluginId("paused")];
         const soundOutputArray = metadata[getPluginId("soundOutput")];
