@@ -9,6 +9,7 @@ import OBR from '@owlbear-rodeo/sdk';
 import { getPluginId } from './getPluginId'
 import { PlayerView } from "./playerview/PlayerView"
 import { AutoplayOverlay } from "./autoplayoverlay/AutoplayOverlay"
+import fileDownload from 'js-file-download';
 
 function App() {
   const [folders, setFolders] = useState(exampleFile);
@@ -31,8 +32,7 @@ function App() {
           console.log(OBR.action.setHeight(106));
         }
       }
-      const checkMetadataInterval = setInterval(() => {
-        return; //TODO Remove
+      const checkMetadataInterval = setTimeout(() => {
         const metadataArray = OBR.room.getMetadata();
         metadataArray.then(values => {
           console.log(values);
@@ -215,31 +215,8 @@ function App() {
     })
     const data = JSON.stringify(saveFolders, null, '\t');
     const fileName = `${filename}.djinni`;
-    var file = new Blob([data]);
-    var a = document.createElement("a"), url = URL.createObjectURL(file);
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    var newMouseEvent = new MouseEvent("click", {
-      bubbles: true,
-      cancelable: true,
-      view: window,
-      detail: 0,
-      screenX: 0,
-      screenY: 0,
-      clientX: 0,
-      clientY: 0,
-      ctrlKey: false,
-      altKey: false,
-      shiftKey: false,
-      metaKey: false,
-      button: 0,
-      relatedTarget: null
-    });
-    a.dispatchEvent(newMouseEvent);
+    fileDownload(data, fileName);
     setTimeout(function() {
-        document.body.removeChild(a);
-        window.URL.revokeObjectURL(url);  
         setShowSavePopup(false);
     }, 10);     
   }
