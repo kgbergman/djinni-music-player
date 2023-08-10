@@ -27,3 +27,7 @@
     align-items: center;
     flex: 1;
 }
+
+.button {
+    aspect-ratio: 1;
+}
