@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import './savepopup.css'
 import TextField from '@mui/material/TextField';
 import { createTheme } from '@mui/material/styles';
@@ -33,14 +33,12 @@ const muiTheme = createTheme({
     },
   });
 
-export function SavePopup({ savePopupClose, savePopupClicked, folders }) {
-    let [currentName, setCurrentName] = useState("File");
-    let [foldersText, setFoldersText] = useState(foldersData());
+export function SavePopup({ savePopupClose, savePopupClicked }) {
+    let currentName = "File";
 
     function textChanged(event) {
         if (event && event.target && event.target.value) {
-            setCurrentName(event.target.value);
-            setFoldersText(foldersData());
+            currentName = event.target.value;
         }
     }
 
@@ -72,23 +70,6 @@ export function SavePopup({ savePopupClose, savePopupClicked, folders }) {
         },
         borderRadius: "15px",
     };
-
-    function foldersData() {
-        const saveFolders = {...folders};
-        const keys = Object.keys(saveFolders);
-        keys.forEach(key => {
-        const thisFolder = saveFolders[key];
-        thisFolder.streams.forEach(stream => {
-            stream.playing = false;
-            stream.streamData.forEach(streamLink => {
-            streamLink.playing = false;
-            })
-        })
-        saveFolders[key] = thisFolder;
-        })
-        const data = JSON.stringify(saveFolders, null, '\t');
-        return 'data:text/plain;charset=utf-8,' + encodeURIComponent(data);
-    }
 
     return (
         <div className="popup-background" onMouseDown={popupBackgroundMouseDown} onMouseUp={popupBackgroundMouseUp}>
@@ -139,13 +120,11 @@ export function SavePopup({ savePopupClose, savePopupClicked, folders }) {
                     <span className="save-popup-extension">.djinni</span>
                 </div>
                 <div className="popup-buttons-container">
-                    <Button variant="text" sx={buttonStyle} onClick={savePopupClose}>
+                    <Button variant="text" sx= {buttonStyle} onClick={savePopupClose}>
                         Cancel
                     </Button>
-                    <Button variant="text" sx={buttonStyle} onClick={savePopupClose}>
-                        <a href={foldersText} target="_blank" download={`${currentName}.djinni`}>
-                            Save
-                        </a>
+                    <Button variant="text" sx= {buttonStyle} onClick={saveButtonClicked}>
+                        Save
                     </Button>
                 </div>
             </div>

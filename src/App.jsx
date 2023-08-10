@@ -119,24 +119,6 @@ function App() {
     setShowSavePopup(false);
   }
 
-  function parseVideoUrl(url) {
-    var regex = /(?:https?:\/\/(?:www\.)?youtube\.com\/watch\?v=|https?:\/\/youtu\.be\/|https?:\/\/(?:www\.)?youtube\.com\/embed\/)([\w-]{11})(?:\S+)?/;
-    var match = url.match(regex);
-    return match ? match[1] : null;
-  }
-
-  function updateVolume(streamToChange, volume) {
-    let newCurrentlyStreaming = [...currentlyStreaming];
-    for(let i = 0; i < newCurrentlyStreaming.length; i++) {
-      const stream = newCurrentlyStreaming[i];
-      if (streamToChange.id === stream.id) {
-        stream.streamVolume = volume;
-        newCurrentlyStreaming[i] = stream;
-      }
-    }
-    setCurrentlyStreamingMetadata(newCurrentlyStreaming);
-  }
-
   function streamClickedStart(streamToStart){ 
     startStream(streamToStart);
   }
@@ -238,12 +220,17 @@ function App() {
     a.href = url;
     a.download = fileName;
     document.body.appendChild(a);
-    a.click();
+    var event = document.createEvent("MouseEvents");
+        event.initMouseEvent(
+                "click", true, false, window, 0, 0, 0, 0, 0
+                , false, false, false, false, 0, null
+        );
+    a.dispatchEvent(event);
     setTimeout(function() {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);  
         setShowSavePopup(false);
-    }, 0); 
+    }, 10);     
   }
 
   function randomNumber(min, max) {
@@ -377,28 +364,6 @@ function App() {
   }
 
   const [folderKeys, setFolderKeys] = useState(Object.keys(folders));
-
-  function renderVideosOld() {
-    return folderKeys.map(folderKey => {
-        if (folders.hasOwnProperty(folderKey)) {
-          return folders[folderKey].streams.map(stream => {
-              return stream.streamData.map(streamLink => {
-                if (stream.playing && streamLink.playing) {
-                  return <MemoizedPlayer
-                    streamLinkId={streamLink.id}
-                    url={streamLink.link}
-                    playing={!masterPaused}
-                    loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
-                    volume={stream.streamVolume / 100 * streamLink.volume / 100 * masterVolume.volume / 100}
-                    muted={stream.streamMute || streamLink.mute || masterVolume.mute}
-                    onEnded={(event) => endFunction(event, streamLink)}
-                  />
-                }
-              })
-          })
-        }
-    })
-  }
   
   function isEmpty(obj) {
     for (const prop in obj) {
@@ -409,11 +374,6 @@ function App() {
   
     return true;
   }
-
-  function onReady() {
-    console.log("onReady");
-  }
-
   function renderVideos() {
     return currentlyStreaming.map(stream => {
       if (!isEmpty(stream)) {
