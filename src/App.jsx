@@ -214,18 +214,28 @@ function App() {
     })
     const data = JSON.stringify(saveFolders, null, '\t');
     const fileName = `${filename}.djinni`;
-    const type = 'text/plain';
-    var file = new Blob([data], {type: type});
+    var file = new Blob([data]);
     var a = document.createElement("a"), url = URL.createObjectURL(file);
     a.href = url;
     a.download = fileName;
     document.body.appendChild(a);
-    var event = document.createEvent("MouseEvents");
-        event.initMouseEvent(
-                "click", true, false, window, 0, 0, 0, 0, 0
-                , false, false, false, false, 0, null
-        );
-    a.dispatchEvent(event);
+    var newMouseEvent = new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+      detail: 0,
+      screenX: 0,
+      screenY: 0,
+      clientX: 0,
+      clientY: 0,
+      ctrlKey: false,
+      altKey: false,
+      shiftKey: false,
+      metaKey: false,
+      button: 0,
+      relatedTarget: null
+    });
+    a.dispatchEvent(newMouseEvent);
     setTimeout(function() {
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);  
