@@ -1,3 +1,4 @@
+![Header](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/header.jpg)
 # DJinni Music Player
 
 Mix sound effects and music with looping, fading, and more to provide an immersive experience!
@@ -70,7 +71,7 @@ A player can control their own local volume and mute options, as well as see how
 
 ### Troubleshooting
 
-If you are having trouble hearing the streams, please be sure you are either using Firefox or Safari on a desktop computer, or follow the instructions here: *link to autoplay guide.*
+If you are having trouble hearing the streams, please be sure you are either using Firefox or Safari on a desktop computer, or [follow the instructions here](https://github.com/kgbergman/music-player/blob/main/docs/autoplay.md) to allow autoplay on Google Chrome or Microsoft Edge.
 
 There is currently no way to autoplay streams on mobile browsers due to policies enacted from by Apple (iOS) and Google (Android). You can still use DJinni as a control-center on mobile devices, but you won't hear any audio.
 
