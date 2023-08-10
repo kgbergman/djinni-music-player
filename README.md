@@ -4,38 +4,72 @@ Mix sound effects and music with looping, fading, and more to provide an immersi
 
 **How it Works**
 
-The DJinni Music Player allows the GM to curate Youtube links and play them for their players. You can mix music, monster noises, weather sounds, swords clashing, whatever you think makes the experience the most immersive!
+The DJinni Music Player allows the GM to curate YouTube links and play them for their players. You can mix music, monster noises, weather sounds, swords clashing, etc. to make an immersive experience for you and your players!
 
 Clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/src/icon.svg" width=20 alt="DJinni Icon"> icon at the top of the page will open the DJinni Music Player.
-By default, a few preloaded folders will open with some self-describing names. Open one of these folders by double-clicking on it.
 
-![Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/folders.jpg)
 
+***Header***
 
 At the top there is a header, with icons to open and save .djinni files. Whenever you load up Owlbear Rodeo, you will need to open your .djinni file. They are too big to store within Owlbear Rodeo as part of the extension.
 
-There is an icon that toggles between 3 persons and 1 person. This means that you are either playing these sounds to all of your player's browsers, or just locally to your own. This toggle can be useful if you'd like to share your audio through a service like Zoom or Discord.
+There is an icon that toggles between 3 persons and 1 person. This means that you are either playing these sounds to all of your player's browsers and yours, or just locally to your own. This toggle can be useful if you'd like to share your audio through a service like Zoom or Discord.
 
 There is a volume slider along with a mute toggle. This is only local to your browser, and each player will have their own volume control slider on their browser.
 
+Once you play any stream(s), a pause and stop icon will appear in the header. Clicking the pause icon will pause all streams, and turn into a play icon, which allows you to resume them. Clicking the stop icon will end all streams immediately with no fade-outs.
 
-Within each folder are the playable streams. To play a stream, click on it once. Clicking on it again will stop it. Once you play a stream, a pause and stop icon will appear in the header. Clicking the pause icon will pause all streams, and turn into a play icon, which allows you to resume them. Clicking the stop icon will end all streams immediately with no fade-outs.
+
+***Folders***
+
+By default, a few preloaded folders will open with some self-describing names. Open a folder by double-clicking on it.
+
+![Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/folders.jpg)
+
+You can add a new folder by clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/src/icon.svg" width=20 alt="Plus Icon"> on this page. You can name a folder and assign it a color. Clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/src/icon.svg" width=20 alt="Edit Icon"> on a folder will open a similar dialog, where you can rename a folder and reassign its color. 
+
+Delete a folder by pressing the delete key while a folder is highlighted, or clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/src/icon.svg" width=20 alt="Delete Icon"> after opening the folder.
+
+
+***Playing Streams***
+
+Within each folder are the playable streams. To play a stream, click on it once. Clicking on it again will stop it.  
 
 ![Playing Streams](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingstreams.jpg)
 
+You can play streams from any folder. Folders with streams playing will show an animated icon on their folder. If you have the streams paused, folders with streams playing will show a paused icon over them to remind you.
+
+![Playing Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolders.jpg)
+![Paused Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolders.jpg)
+
+
+***Edit Streams***
 
 To edit a stream, click its edit icon. Here you can change many things about the stream, like its icon, name, volume levels, etc.
-The stream also has a fade-out option. When you click on the stream to end it, it will either end abruptly or you can choose to have it fade out from 1-10 seconds. 
+
+Each stream has a fade-out option. When you click on the stream to end it, it will either end instantly or you can choose to have it fade out from 1-10 seconds. 
 
 ![Edit Stream](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editstream.jpg)
 
+From this page, you can also add, edit, and delete links.
 
-From this page, you can add/edit/delete links. 
-For example, this stream has a few different sound effect links: waves, seagulls, and footsteps on sand. DJinni mixes these together to provide a "beach" sound effect. Each stream has a volume level, and each link has a volume level (relative to the other links within that stream). 
-You can see that the waves are playing on a loop, but the seagulls and footsteps will loop with a slightly randomized delay in between each. This sounds more organic and won't just be the same repeating noises over and over. 
+For example, this stream has a few different sound effect links: waves, seagulls, and footsteps on sand. DJinni mixes these together to provide a "beach" ambience. Each stream has a volume level, and each link has a volume level (relative to the other links within that stream). 
 
+You can see that the waves are playing on a constant loop, but the seagulls and footsteps will loop with a slightly randomized delay in between each. This sounds more organic and won't just be the same repeating noises over and over. 
+
+
+***Player View***
+
+![Player View](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playerview.jpg)
+![Player View Local](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playerviewlocal.jpg)
+
+A player can control their own local volume and mute options, as well as see how many streams the GM is playing at a time. It will also tell them if the GM is playing their sound locally, so they can know whether or not to expect sound to come out of Owlbear Rodeo.
+
+
+***Troubleshooting***
 
 If you are having trouble hearing the streams, please be sure you are either using Firefox or Safari on a desktop computer, or follow the instructions here: *link to autoplay guide.*
+
 There is currently no way to autoplay streams on mobile browsers due to policies enacted from by Apple (iOS) and Google (Android). You can still use DJinni as a control-center on mobile devices, but you won't hear any audio.
 
 
