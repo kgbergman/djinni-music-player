@@ -22,7 +22,7 @@ function App() {
   let fadeOutInterval = 0;
 
   function setFolders() {
-    console.log("disabling to test mobile bug fix");
+    console.log("disabling to test mobile bug fix"); //TODO Remove
   }
 
   useEffect(() => {
@@ -36,6 +36,7 @@ function App() {
         }
       }
       const checkMetadataInterval = setInterval(() => {
+        return; //TODO Remove
         const metadataArray = OBR.room.getMetadata();
         metadataArray.then(values => {
           console.log(values);
@@ -54,6 +55,7 @@ function App() {
         });
       }, 1000);
       OBR.room.onMetadataChange((metadata) => {
+        return; //TODO Remove
         const metadataArray = metadata[getPluginId("currently")];
         const pausedArray = metadata[getPluginId("paused")];
         const soundOutputArray = metadata[getPluginId("soundOutput")];
