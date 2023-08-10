@@ -11,7 +11,7 @@ import { PlayerView } from "./playerview/PlayerView"
 import { AutoplayOverlay } from "./autoplayoverlay/AutoplayOverlay"
 
 function App() {
-  const [folders, setFolders] = useState(exampleFile);
+  const [folders, setFoldersDisabled] = useState(exampleFile);
   const [currentlyStreaming, setCurrentlyStreaming] = useState([]);
   const [showSavePopup, setShowSavePopup] = useState(false);
   const [masterVolume, setMasterVolume] = useState({volume: 50, mute: false});
@@ -20,6 +20,10 @@ function App() {
   const [fadeOutVolume, setFadeOutVolume] = useState(100);
   const [soundOutput, setSoundOutput] = useState("local");
   let fadeOutInterval = 0;
+
+  function setFolders() {
+    console.log("disabling to test mobile bug fix");
+  }
 
   useEffect(() => {
     OBR.onReady(async () => {
@@ -385,6 +389,7 @@ function App() {
     return true;
   }
   function renderVideos() {
+    return;
     return currentlyStreaming.map(stream => {
       if (!isEmpty(stream)) {
         return stream.streamData.map(streamLink => {
