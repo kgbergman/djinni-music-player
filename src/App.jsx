@@ -68,7 +68,7 @@ function App() {
         }
       })
     });
-  }, []);
+  }, [playerRole]);
 
   function setCurrentlyStreamingMetadata(newCurrentlyStreaming) {
     sendMetadata("currently", structuredClone(newCurrentlyStreaming));
@@ -363,7 +363,6 @@ function App() {
     return true;
   }
   function renderVideos() {
-    return;
     return currentlyStreaming.map(stream => {
       if (!isEmpty(stream)) {
         return stream.streamData.map(streamLink => {

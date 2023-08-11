@@ -22,12 +22,12 @@ There is a volume slider along with a mute toggle. This is only local to your br
 
 ![Header Pause Play](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/headerpauseplay.png)
 
-Once you play any stream(s), a pause and stop icon will appear in the header. Clicking the pause icon will pause all streams, and turn into a play icon, which allows you to resume them. Clicking the stop icon will end all streams immediately with no fade-outs.
+Once you play any stream(s), a pause and stop icon will appear in the header. Clicking the pause icon will pause all streams and turn into a play icon, which allows you to resume them. Clicking the stop icon will end all streams immediately with no fade-outs.
 
 
 ### Folders
 
-By default, a few preloaded folders will open with some self-describing names. Open a folder by double-clicking on it.
+By default, a few preloaded folders will open with names that describe their scenes. Open a folder by double-clicking on it.
 
 ![Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/folders.png)
 
