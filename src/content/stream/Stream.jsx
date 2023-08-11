@@ -74,7 +74,7 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
     };
     selectedShow = selected ? { visibility:'visible' } : selectedShow;
 
-    const [defaultValue, setDefaultValue] = React.useState(stream.streamVolume);
+    const [defaultValue] = React.useState(stream.streamVolume);
 
     return (
     <div className="stream" id={stream.id} onMouseDown={streamMouseDown} onMouseUp={selectStream} style={outline}>

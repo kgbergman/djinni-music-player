@@ -8,7 +8,6 @@ window.ResizeObserver = ResizeObserver;
  * Main
  */
 (function () {
-  'use strict';
 }());
 
 const htmlRoot = document.getElementById('root');

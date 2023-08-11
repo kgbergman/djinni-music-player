@@ -5,7 +5,6 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import { inputLabelClasses } from "@mui/material/InputLabel";
 import Button from '@mui/material/Button';
-import CsvDownload from "react-csv-downloader";
 
 const muiTheme = createTheme({
     palette: {
