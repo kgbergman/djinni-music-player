@@ -2,7 +2,7 @@ import './App.css';
 import { Header } from "./header/Header";
 import { Content } from "./content/Content";
 import { SavePopup } from './savepopup/SavePopup';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { exampleFile } from './example/example';
 import { MemoizedPlayer } from './player/Player';
 import OBR from '@owlbear-rodeo/sdk';
@@ -20,7 +20,7 @@ function App() {
   const [masterPaused, setMasterPaused] = useState(false);
   const [fadeOutVolume, setFadeOutVolume] = useState(100);
   const [soundOutput, setSoundOutput] = useState("local");
-  let fadeOutInterval = 0;
+  let fadeOutInterval = useRef(0);
 
   useEffect(() => {
     OBR.onReady(async () => {
@@ -86,19 +86,19 @@ function App() {
     //Check for streams that are fading
     for (let i = 0; i < currentlyStreaming.length; i++) {
       const stream = currentlyStreaming[i];
-      if (stream.playing && stream.fading && fadeOutInterval === 0) {
+      if (stream.playing && stream.fading && fadeOutInterval.current === 0) {
         const fadeTime = parseInt(stream.streamFadeTime);
         const steps = 100;
         const decrementStep = 1;
         const timeInterval = fadeTime * 1000 / steps;
         let currentVolume = 100;
         updateVolumeLocally(stream, currentVolume);
-        fadeOutInterval = setInterval(() => {
+        fadeOutInterval.current = setInterval(() => {
           currentVolume -= decrementStep;
           if (currentVolume <= 0) {
-            clearInterval(fadeOutInterval);
+            clearInterval(fadeOutInterval.current);
             stopAllFadingStreams(stream);
-            fadeOutInterval = 0;
+            fadeOutInterval.current = 0;
             updateVolumeLocally(stream, 100);
           } else {
             updateVolumeLocally(stream, currentVolume);
@@ -106,7 +106,7 @@ function App() {
         }, timeInterval);
       }
     }
-  },[currentlyStreaming]);
+  });
 
   function updateVolumeLocally(stream, volume) {
     setFadeOutVolume(volume); 
