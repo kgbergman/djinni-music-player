@@ -382,8 +382,10 @@ function App() {
               onEnded={(event) => endFunction(event, streamLink)}
             />
           }
+          return "";
         })
       }
+      return "";
     })
   }
 
