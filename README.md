@@ -7,7 +7,7 @@ Mix sound effects and music with looping, fading, and more to provide an immersi
 
 The DJinni Music Player allows the GM to curate YouTube links and play them for their players. You can mix music, monster noises, weather sounds, swords clashing, etc. Anything you find on YouTube can be added to DJinni.
 
-Clicking the ![DJinni Icon Dark](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/djinnidark.png#gh-dark-mode-only)![DJinni Icon](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/djinni.png#gh-light-mode-only) icon at the top of the page will open the DJinni Music Player.
+Clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/djinni.png#gh-light-mode-only" width=20 alt="DJinni Icon"><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/djinnidark.png#gh-dark-mode-only" width=20 alt="DJinni Icon Dark"> icon at the top of the page will open the DJinni Music Player.
 
 
 ### Header
@@ -31,9 +31,9 @@ By default, a few preloaded folders will open with names that describe their sce
 
 ![Folders](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/folders.png)
 
-You can add a new folder by clicking the ![Plus Icon Dark](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/plusicondark.png#gh-dark-mode-only)![Plus Icon](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/plusicon.png#gh-light-mode-only) on this page. You can name a folder and assign it a color. Clicking the ![Edit Icon Dark](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editicondark.png#gh-dark-mode-only)![Edit Icon](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editicon.png#gh-light-mode-only) on a folder will open a similar dialog, where you can rename a folder and reassign its color. 
+You can add a new folder by clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/plusicon.png#gh-light-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/plusicondark.png#gh-dark-mode-only" width=20> on this page. You can name a folder and assign it a color. Clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editicon.png#gh-light-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editicondark.png#gh-dark-mode-only" width=20> on a folder will open a similar dialog, where you can rename a folder and reassign its color. 
 
-Delete a folder by pressing the delete key while a folder is highlighted, or clicking the ![Delete Icon Dark](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/deleteicondark.png#gh-dark-mode-only)![Delete Icon](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/deleteicon.png#gh-light-mode-only) after opening the folder.
+Delete a folder by pressing the delete key while a folder is highlighted, or clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/deleteicon.png#gh-light-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/deleteicondark.png#gh-dark-mode-only" width=20> after opening the folder.
 
 
 ### Playing Streams
@@ -44,12 +44,12 @@ Within each folder are the playable streams. To play a stream, click on it once.
 
 You can play streams from any folder. Folders with streams playing will show an animated icon on their folder. If you have the streams paused, folders with streams playing will show a paused icon over them to remind you.
 
-![Playing Folder Dark](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolderdark.png#gh-dark-mode-only)![Playing Folder](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolder.png#gh-light-mode-only)![Paused Folder Dark](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolderdark.png#gh-dark-mode-only)![Paused Folder](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolder.png#gh-light-mode-only)
+<img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolder.png#gh-light-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolderdark.png#gh-dark-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolder.png#gh-light-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolderdark.png#gh-dark-mode-only" width=20>
 
 
 ### Edit Streams
 
-To edit a stream, click its ![Edit Icon Dark](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editicondark.png#gh-dark-mode-only)![Edit Icon](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editicon.png#gh-light-mode-only) icon. Here you can change many things about the stream, like its icon, name, volume levels, etc.
+To edit a stream, click its <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editicon.png#gh-light-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/editicondark.png#gh-dark-mode-only" width=20> icon. Here you can change many things about the stream, like its icon, name, volume levels, etc.
 
 Each stream has a fade-out option. When you click on the stream to end it, it will either end instantly or you can choose to have it fade out from 1-10 seconds. 
 
