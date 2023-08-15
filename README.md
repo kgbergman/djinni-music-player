@@ -44,7 +44,7 @@ Within each folder are the playable streams. To play a stream, click on it once.
 
 You can play streams from any folder. Folders with streams playing will show an animated icon on their folder. If you have the streams paused, folders with streams playing will show a paused icon over them to remind you.
 
-<img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolder.png#gh-light-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolderdark.png#gh-dark-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolder.png#gh-light-mode-only" width=20><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolderdark.png#gh-dark-mode-only" width=20>
+<img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolder.png#gh-light-mode-only" width=100><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/playingfolderdark.png#gh-dark-mode-only" width=100><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolder.png#gh-light-mode-only" width=100><img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/pausedfolderdark.png#gh-dark-mode-only" width=100>
 
 
 ### Edit Streams
