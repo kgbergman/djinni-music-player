@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
 window.ResizeObserver = ResizeObserver;
 
 /**
@@ -10,9 +10,9 @@ window.ResizeObserver = ResizeObserver;
 (function () {
 }());
 
-const htmlRoot = document.getElementById('root');
+const htmlRoot = document.getElementById("root");
 const root = ReactDOM.createRoot(htmlRoot);
 
 root.render(
-  <App/>
+	<App/>
 );

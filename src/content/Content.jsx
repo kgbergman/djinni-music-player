@@ -4,7 +4,18 @@ import { ContentGrid } from "./contentgrid/ContentGrid";
 import { NewEditFolderPopup } from "./folder/NewEditFolderPopup";
 import './content.css'
 
-export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyStreamingMetadata, streamClickedStart, streamClickedEnd, setCurrentlyStreaming, setFolderKeys, addFolderKey, paused }) {
+export function Content({ 
+    folders, 
+    setFolders, 
+    currentlyStreaming, 
+    setCurrentlyStreamingMetadata, 
+    streamClickedStart, 
+    streamClickedEnd, 
+    setCurrentlyStreaming, 
+    setFolderKeys, 
+    addFolderKey, 
+    paused 
+}) {
 
     const [showAddFolder, setShowAddFolder] = useState(false);
     const [showEditFolder, setShowEditFolder] = useState(false);
@@ -76,7 +87,6 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
     }
 
     function streamMuteChanged(event) {
-        console.log("test");
         const newStream = currentStreamObject;
         newStream.streamMute = !newStream.streamMute;
         setCurrentStreamMute(newStream.streamMute);
@@ -359,8 +369,22 @@ export function Content({ folders, setFolders, currentlyStreaming, setCurrentlyS
 
     return (
         <div className="content" onKeyDown={keyPressed} tabIndex="0">
-            {showAddFolder && <NewEditFolderPopup popupClose={popupClose} popupType={"new"} folders={folders} updateFolders={updateFolders} addFolderKey={addFolderKey}/>}
-            {showEditFolder && <NewEditFolderPopup popupClose={popupClose} popupType={"edit"} folderToEdit={folderToEdit} folders={folders} updateFolders={updateFolders}/>}
+            {showAddFolder && 
+            <NewEditFolderPopup 
+                popupClose={popupClose} 
+                popupType={"new"} 
+                folders={folders} 
+                updateFolders={updateFolders} 
+                addFolderKey={addFolderKey}
+            />}
+            {showEditFolder && 
+            <NewEditFolderPopup 
+                popupClose={popupClose} 
+                popupType={"edit"} 
+                folderToEdit={folderToEdit} 
+                folders={folders} 
+                updateFolders={updateFolders}
+            />}
             <ContentHeader 
                 toggleSort={toggleSort} 
                 sortByAlpha={sortByAlpha} 
