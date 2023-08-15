@@ -44,7 +44,7 @@ export function SavePopup({ savePopupClose, savePopupClicked }) {
 
 	let mouseOrigin = "bg";
 
-	function popupBackgroundMouseUp(event) {
+	function popupBackgroundMouseUp() {
 		if (mouseOrigin === "bg") {
 			savePopupClose();
 		}
@@ -55,7 +55,7 @@ export function SavePopup({ savePopupClose, savePopupClicked }) {
 		mouseOrigin = "popup";
 	}
 
-	function popupBackgroundMouseDown(event) {
+	function popupBackgroundMouseDown() {
 		mouseOrigin = "bg";
 	}
 

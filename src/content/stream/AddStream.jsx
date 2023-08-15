@@ -1,13 +1,13 @@
-import React, { useState, useEffect }  from "react";
-import { getImage } from "../../images";
-import './stream.css'
+import React from "react";
+import "./stream.css";
+import AddIcon from "@mui/icons-material/Add";
 
 export function AddStream({ addStreamClicked }) {
-    return (
-        <div className="add-stream" onClick={addStreamClicked}>
-            <div className="add-stream-icon">
-                <img src={getImage("add_no_circle")}/>
-            </div>
-        </div>
-    );
+	return (
+		<div className="add-stream" onClick={addStreamClicked}>
+			<div className="add-stream-icon">
+				<AddIcon sx={{ fontSize: 40 }}/>
+			</div>
+		</div>
+	);
 }

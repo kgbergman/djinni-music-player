@@ -28,12 +28,15 @@ module.exports = {
 		"react"
 	],
 	"rules": {
+		"react/prop-types": 0,
 		"indent": [
 			"error",
-			"tab"
+			"tab",
+			{ "SwitchCase": 1 } 
 		],
 		"linebreak-style": [
-			"windows",
+			"off",
+			"windows"
 		],
 		"quotes": [
 			"error",

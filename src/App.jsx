@@ -401,11 +401,12 @@ function App () {
 					{renderVideos()}
 				</div>
 				{showSavePopup && 
-        <SavePopup 
-          savePopupClose={savePopupClose} 
-          savePopupClicked={saveFolders} 
-          folders={folders}
-        />}
+				<SavePopup 
+					savePopupClose={savePopupClose} 
+					savePopupClicked={saveFolders} 
+					folders={folders}
+				/>
+				}
 				<Header 
 					folderKeys={folderKeys} 
 					addFolderKey={addFolderKey} 

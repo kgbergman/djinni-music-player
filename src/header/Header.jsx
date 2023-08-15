@@ -25,18 +25,18 @@ const muiTheme = createTheme({
 
 
 export function Header({
-  setFolders, 
-  saveButtonClicked,
-  masterVolume, 
-  setMasterVolume, 
-  soundOutput, 
-  toggleSoundOutput, 
-  masterPaused, 
-  folderKeys, 
-  addFolderKey, 
-  currentlyStreaming, 
-  togglePlayPauseStreams, 
-  stopAllStreams 
+	setFolders, 
+	saveButtonClicked,
+	masterVolume, 
+	setMasterVolume, 
+	soundOutput, 
+	toggleSoundOutput, 
+	masterPaused, 
+	folderKeys, 
+	addFolderKey, 
+	currentlyStreaming, 
+	togglePlayPauseStreams, 
+	stopAllStreams 
 }) {
 
 	const buttonStyle = { 
@@ -49,7 +49,7 @@ export function Header({
 	function openButtonClicked() {
 		let input = document.createElement("input");
 		input.type = "file";
-		input.onchange = _ => {
+		input.onchange = function(){
 			// you can use this method to get file and perform respective operations
 			if (input.files) {
 				const file = input.files[0];
@@ -108,49 +108,49 @@ export function Header({
 			<div className="buttons-and-slider-container">
 				<div className="buttons">
 					{currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && !masterPaused && 
-                <div className="button">
-                	<Tooltip title="Pause All Streams">
-                		<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
-                			<PauseIcon/>
-                		</IconButton>
-                	</Tooltip>
-                </div>
+					<div className="button">
+						<Tooltip title="Pause All Streams">
+							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
+								<PauseIcon/>
+							</IconButton>
+						</Tooltip>
+					</div>
 					}
 					{currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && masterPaused && 
-                <div className="button">
-                	<Tooltip title="Play All Streams">
-                		<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
-                			<PlayArrowIcon/>
-                		</IconButton>
-                	</Tooltip>
-                </div>
+					<div className="button">
+						<Tooltip title="Play All Streams">
+							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
+								<PlayArrowIcon/>
+							</IconButton>
+						</Tooltip>
+					</div>
 					}
 					{currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) &&
-                <div className="button">
-                	<Tooltip title="Stop All Streams">
-                		<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={stopAllStreams}>
-                			<StopIcon/>
-                		</IconButton>
-                	</Tooltip>
-                </div>
+					<div className="button">
+						<Tooltip title="Stop All Streams">
+							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={stopAllStreams}>
+								<StopIcon/>
+							</IconButton>
+						</Tooltip>
+					</div>
 					}
 					{soundOutput === "local" && 
-                <div className="button">
-                	<Tooltip title="Playing Locally">
-                		<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
-                			<PersonIcon/>
-                		</IconButton>
-                	</Tooltip>
-                </div>
+					<div className="button">
+						<Tooltip title="Playing Locally">
+							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
+								<PersonIcon/>
+							</IconButton>
+						</Tooltip>
+					</div>
 					}
 					{soundOutput !== "local" &&
-                <div className="button">
-                	<Tooltip title="Playing for Everyone">
-                		<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
-                			<GroupsIcon/>
-                		</IconButton>
-                	</Tooltip>
-                </div>
+					<div className="button">
+						<Tooltip title="Playing for Everyone">
+							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
+								<GroupsIcon/>
+							</IconButton>
+						</Tooltip>
+					</div>
 					}
 					<div className="button">
 						<Tooltip title="Toggle Local Volume Mute">

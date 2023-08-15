@@ -36,7 +36,7 @@ export function Stream({ stream, streamClicked, selected, editStreamClicked, sli
 		event.stopPropagation();
 	}
 
-	function streamMouseDown(event) {
+	function streamMouseDown() {
 		setCurrentTgt("bg");
 	}
 
