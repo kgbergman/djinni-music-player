@@ -26,17 +26,18 @@ const muiTheme = createTheme({
 
 export function Header({
 	setFolders, 
+	setOpenedPage,
 	saveButtonClicked,
 	masterVolume, 
 	setMasterVolume, 
 	soundOutput, 
-	toggleSoundOutput, 
+	toggleOutput, 
 	masterPaused, 
 	folderKeys, 
 	addFolderKey, 
 	currentlyStreaming, 
 	togglePlayPauseStreams, 
-	stopAllStreams 
+	stopAllStreams,
 }) {
 
 	const buttonStyle = { 
@@ -60,6 +61,7 @@ export function Header({
 						if (event && event.target && event.target.result) {
 							const objects = JSON.parse(String(event.target.result));
 							setFolders(objects);
+							setOpenedPage("folders");
 							Object.keys(objects).forEach(key => {
 								if (!folderKeys.includes(key)) {
 									addFolderKey(key);
@@ -107,7 +109,7 @@ export function Header({
 			</div>
 			<div className="buttons-and-slider-container">
 				<div className="buttons">
-					{currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && !masterPaused && 
+					{currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && masterPaused === "playing" && 
 					<div className="button">
 						<Tooltip title="Pause All Streams">
 							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
@@ -116,7 +118,7 @@ export function Header({
 						</Tooltip>
 					</div>
 					}
-					{currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && masterPaused && 
+					{currentlyStreaming.length > 0 && currentlyStreaming.some(stream => stream.playing) && masterPaused === "paused" && 
 					<div className="button">
 						<Tooltip title="Play All Streams">
 							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={togglePlayPauseStreams}>
@@ -137,7 +139,7 @@ export function Header({
 					{soundOutput === "local" && 
 					<div className="button">
 						<Tooltip title="Playing Locally">
-							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
+							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleOutput}>
 								<PersonIcon/>
 							</IconButton>
 						</Tooltip>
@@ -146,7 +148,7 @@ export function Header({
 					{soundOutput !== "local" &&
 					<div className="button">
 						<Tooltip title="Playing for Everyone">
-							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleSoundOutput}>
+							<IconButton sx={buttonStyle} aria-label="volume toggle mute" onClick={toggleOutput}>
 								<GroupsIcon/>
 							</IconButton>
 						</Tooltip>

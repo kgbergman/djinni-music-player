@@ -32,7 +32,7 @@ export function EditStreams({ folders, openedStream, setCurrentStreamObject, cur
 
 	function editStreamVolumeChanged(newValue, editStreamId) {
 		const newStream = {...currentStreamObject};
-		const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+		const thisEditStream = JSON.parse(JSON.stringify(newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0]));
 		thisEditStream.volume = newValue;
 		newStream.streamData = newStream.streamData.map(editStream => {
 			if (parseInt(editStream.id) === parseInt(editStreamId)) {
@@ -45,7 +45,7 @@ export function EditStreams({ folders, openedStream, setCurrentStreamObject, cur
 
 	function editStreamLoopChanged(value, editStreamId) {
 		const newStream = {...currentStreamObject};
-		const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+		const thisEditStream = JSON.parse(JSON.stringify(newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0]));
 		thisEditStream.loop1 = value[0];
 		thisEditStream.loop2 = value[1];
 		newStream.streamData = newStream.streamData.map(editStream => {
@@ -59,7 +59,7 @@ export function EditStreams({ folders, openedStream, setCurrentStreamObject, cur
 
 	function editStreamMuteClicked(event, editStreamId) {
 		const newStream = {...currentStreamObject};
-		const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+		const thisEditStream = JSON.parse(JSON.stringify(newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0]));
 		thisEditStream.mute = !thisEditStream.mute;
 		newStream.streamData = newStream.streamData.map(editStream => {
 			if (parseInt(editStream.id) === parseInt(editStreamId)) {
@@ -72,7 +72,7 @@ export function EditStreams({ folders, openedStream, setCurrentStreamObject, cur
 
 	function editStreamLoopClicked(event, editStreamId) {
 		const newStream = {...currentStreamObject};
-		const thisEditStream = newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0];
+		const thisEditStream = JSON.parse(JSON.stringify(newStream.streamData.filter(editStream => parseInt(editStream.id) === parseInt(editStreamId))[0]));
 		thisEditStream.loop = !thisEditStream.loop;
 		newStream.streamData = newStream.streamData.map(editStream => {
 			if (parseInt(editStream.id) === parseInt(editStreamId)) {
@@ -84,14 +84,14 @@ export function EditStreams({ folders, openedStream, setCurrentStreamObject, cur
 	}
 
 	function editStreamDeleteClicked(editStreamId) {
-		const newStreamData = currentStreamObject.streamData.map(l => Object.assign({}, l)).filter(editStream => parseInt(editStream.id) !== parseInt(editStreamId));
+		const newStreamData = JSON.parse(JSON.stringify(currentStreamObject.streamData.map(l => Object.assign({}, l)).filter(editStream => parseInt(editStream.id) !== parseInt(editStreamId))));
 		const newStreamObject = {...currentStreamObject};
 		newStreamObject.streamData = newStreamData;
 		setCurrentStreamObject(newStreamObject);
 	}
 
 	function addEditStreamClicked() {
-		const newStreamData = currentStreamObject.streamData.map(l => Object.assign({}, l));
+		const newStreamData = JSON.parse(JSON.stringify(currentStreamObject.streamData.map(l => Object.assign({}, l))));
 		newStreamData.push({
 			"name": "",
 			"link": "",

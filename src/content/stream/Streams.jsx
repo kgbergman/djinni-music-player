@@ -34,7 +34,6 @@ export function Streams({ sortByAlpha, folders, openedFolder, streamOpened, curr
 		}
 
 		if (!foundStream) {
-			console.log("didnt find stream");
 			streamClickedStart(thisStream);
 		}
 	}

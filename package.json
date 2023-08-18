@@ -28,7 +28,8 @@
     "react-youtube": "^10.1.0",
     "simplebar-react": "^3.2.4",
     "typescript": "^5.1.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zustand": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

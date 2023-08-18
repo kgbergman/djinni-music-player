@@ -7,6 +7,8 @@ import "./content.css";
 export function Content({ 
 	folders, 
 	setFolders, 
+	setOpenedPage,
+	openedPage,
 	currentlyStreaming, 
 	setCurrentlyStreamingMetadata, 
 	streamClickedStart, 
@@ -22,7 +24,6 @@ export function Content({
 	const [folderToEdit, setFolderToEdit] = useState(0);
 	const [sortByAlpha, setSortByAlpha] = useState(true);
 	const [openedFolder, setOpenedFolder] = useState(0);
-	const [openedPage, setOpenedPage] = useState("folders");
 	const [showEmojiPopup, setShowEmojiPopup] = useState(false);
 	const [openedStream, setOpenedStream] = useState(0);
 	const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -115,8 +116,8 @@ export function Content({
 
 	function streamVolumeChangedFromFolder(event, streamId) {
 		//Update the folder
-		const thisFolder = folders[openedFolder]; //.filter(folder => parseInt(folder.id) === parseInt(openedFolder))[0];
-		const thisStream = thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0];
+		const thisFolder = folders[openedFolder];
+		const thisStream = JSON.parse(JSON.stringify(thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(streamId))[0]));
 		thisStream.streamVolume = event.target.value;
 		//Replace folder with new folder that contains the edited stream list
 		const newStreams = thisFolder.streams.map(stream => {
@@ -135,7 +136,7 @@ export function Content({
 		//Update currently streaming
 		let newCurrentlyStreaming = [...currentlyStreaming];
 		for(let i = 0; i < newCurrentlyStreaming.length; i++) {
-			const stream = newCurrentlyStreaming[i];
+			const stream = JSON.parse(JSON.stringify(newCurrentlyStreaming[i]));
 			if (parseInt(streamId) === parseInt(stream.id)) {
 				stream.streamVolume = event.target.value;
 				newCurrentlyStreaming[i] = stream;
@@ -258,7 +259,7 @@ export function Content({
 		else {
 			//Save the edited stream
 			const thisFolder = folders[openedFolder]; //(folder => parseInt(folder.id) === parseInt(selectedFolder))[0];
-			const thisStream = thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0];
+			const thisStream = JSON.parse(JSON.stringify(thisFolder.streams.filter(stream => parseInt(stream.id) === parseInt(openedStream))[0]));
 			thisStream.streamName = currentStreamObject.streamName;
 			thisStream.streamIcon = currentStreamObject.streamIcon;
 			thisStream.streamMute = currentStreamObject.streamMute;
@@ -281,18 +282,32 @@ export function Content({
 			setFolders(newFolders);
 			setOpenedPage("folder");
 
-			//Save in currentlyStreaming
+			//Save in currentlyStreaming			
 			let newCurrentlyStreaming = [...currentlyStreaming];
 			for(let i = 0; i < newCurrentlyStreaming.length; i++) {
-				const stream = newCurrentlyStreaming[i];
-				if (parseInt(openedStream) === parseInt(stream.id)) {
+				const stream = JSON.parse(JSON.stringify(newCurrentlyStreaming[i]));
+				if (parseInt(thisStream.id) === parseInt(stream.id)) {
+					stream.streamVolume = currentStreamObject.streamVolume;
 					stream.streamName = currentStreamObject.streamName;
 					stream.streamIcon = currentStreamObject.streamIcon;
 					stream.streamMute = currentStreamObject.streamMute;
-					stream.streamVolume = currentStreamObject.streamVolume;
 					stream.streamFade = currentStreamObject.streamFade;
 					stream.streamFadeTime = currentStreamObject.streamFadeTime;
-					stream.streamData = currentStreamObject.streamData;
+					//TODO Fix, should not re-render when streamdata changes
+					for(let j = 0; j < stream.streamData.length; j++) {
+						const streamLink = stream.streamData[j];
+						const thisStreamLinkId = parseInt(streamLink.id);
+						const newStreamLink = currentStreamObject.streamData.filter(currentStreamLink => parseInt(currentStreamLink.id) === thisStreamLinkId)[0];
+						streamLink.name = newStreamLink.name;
+						streamLink.link = newStreamLink.link;
+						streamLink.mute = newStreamLink.mute;
+						streamLink.volume = newStreamLink.volume;
+						streamLink.loop = newStreamLink.loop;
+						streamLink.loop1 = newStreamLink.loop1;
+						streamLink.loop2 = newStreamLink.loop2;
+						stream.streamData[j] = streamLink;
+					}
+					newCurrentlyStreaming[i] = stream;
 				}
 			}
 			setCurrentlyStreamingMetadata(newCurrentlyStreaming);
@@ -370,9 +385,9 @@ export function Content({
 	return (
 		<div className="content" onKeyDown={keyPressed} tabIndex="0">
 			{showAddFolder && 
-            <NewEditFolderPopup popupClose={popupClose} popupType={"new"} folders={folders} updateFolders={updateFolders} addFolderKey={addFolderKey}/>}
+            <NewEditFolderPopup popupClose={popupClose} popupType={"new"} folders={folders} updateFolders={updateFolders} addFolderKey={addFolderKey} currentColor={"#000000"} currentName={"New Folder"}/>}
 			{showEditFolder && 
-            <NewEditFolderPopup popupClose={popupClose} popupType={"edit"} folderToEdit={folderToEdit} folders={folders} updateFolders={updateFolders}/>}
+            <NewEditFolderPopup popupClose={popupClose} popupType={"edit"} folderToEdit={folderToEdit} folders={folders} updateFolders={updateFolders} currentColor={folders[folderToEdit].folderColor} currentName={folders[folderToEdit].folderName}/>}
 			<ContentHeader 
 				toggleSort={toggleSort} 
 				sortByAlpha={sortByAlpha} 

@@ -2,7 +2,7 @@ import "./App.css";
 import { Header } from "./header/Header";
 import { Content } from "./content/Content";
 import { SavePopup } from "./savepopup/SavePopup";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { exampleFile } from "./example/example";
 import { MemoizedPlayer } from "./player/Player";
 import OBR from "@owlbear-rodeo/sdk";
@@ -10,17 +10,22 @@ import { getPluginId } from "./getPluginId";
 import { PlayerView } from "./playerview/PlayerView";
 import { AutoplayOverlay } from "./autoplayoverlay/AutoplayOverlay";
 import fileDownload from "js-file-download";
+import { MetadataSync } from "./MetadataSync";
+import { useMetadataStore } from "./metadataStore";
 
 function App () {
 	const [folders, setFolders] = useState(exampleFile);
+	const [openedPage, setOpenedPage] = useState("folders");
 	const [currentlyStreaming, setCurrentlyStreaming] = useState([]);
 	const [showSavePopup, setShowSavePopup] = useState(false);
 	const [masterVolume, setMasterVolume] = useState({ volume: 50, mute: false });
 	const [playerRole, setPlayerRole] = useState("");
-	const [masterPaused, setMasterPaused] = useState(false);
-	const [fadeOutVolume, setFadeOutVolume] = useState(100);
-	const [soundOutput, setSoundOutput] = useState("local");
-	const fadeOutInterval = useRef(0);
+	const [masterPaused, setMasterPaused] = useState("playing");
+	const [soundOutput, setSoundOutput] = useState("global");
+	const togglePaused = useMetadataStore((state) => state.togglePaused);
+	const toggleSoundOutput = useMetadataStore((state) => state.toggleSoundOutput);
+	const setNewCurrentlyStreaming = useMetadataStore((state) => state.setCurrentlyStreaming);
+	const setFirstState = useMetadataStore((state) => state.setFirstState);
 
 	useEffect(() => {
 		OBR.onReady(async () => {
@@ -32,84 +37,46 @@ function App () {
 					console.log(OBR.action.setHeight(106));
 				}
 			}
-			const checkMetadataInterval = setTimeout(() => {
-				const metadataArray = OBR.room.getMetadata();
-				metadataArray.then(values => {
-					console.log(values);
-					if (values[getPluginId("currently")]) {
-						const currently = values[getPluginId("currently")];
-						console.log("received 1st metadata", currently);
-						setCurrentlyStreaming(currently);
-						clearInterval(checkMetadataInterval);
-					}
-					if (values[getPluginId("paused")]) {
-						setMasterPaused(values[getPluginId("paused")][0]);
-					}
-					if (values[getPluginId("soundOutput")]) {
-						setSoundOutput(values[getPluginId("soundOutput")][0]);
-					}
-				});
-			}, 1000);
-			OBR.room.onMetadataChange((metadata) => {
-				const metadataArray = metadata[getPluginId("currently")];
-				const pausedArray = metadata[getPluginId("paused")];
-				const soundOutputArray = metadata[getPluginId("soundOutput")];
-				console.log(metadata);
-				if (metadataArray) {
-					const currently = metadataArray;
-					console.log("received metadata", currently);
+			const metadataArray = OBR.room.getMetadata();
+			metadataArray.then(values => {
+				let currently = [];
+				let newPaused = "playing";
+				let newSoundOutput = "global";
+				if (values[getPluginId("currently")]) {
+					currently = values[getPluginId("currently")];
 					setCurrentlyStreaming(currently);
 				}
-				if (pausedArray) {
-					setMasterPaused(pausedArray[0]);
+				if (values[getPluginId("paused")]) {
+					newPaused = (values[getPluginId("paused")]);
+					setMasterPaused(newPaused);
 				}
-				if (soundOutputArray) {
-					setSoundOutput(soundOutputArray[0]);
+				if (values[getPluginId("soundOutput")]) {
+					newSoundOutput = values[getPluginId("soundOutput")];
+					setSoundOutput(newSoundOutput);
+				}
+				setFirstState(currently, newPaused, newSoundOutput);
+			});
+			OBR.room.onMetadataChange((metadata) => {
+				if (metadata[getPluginId("paused")]) {
+					const newPaused = metadata[getPluginId("paused")];
+					setMasterPaused(newPaused);
+				}
+
+				if (metadata[getPluginId("soundOutput")]) {
+					const newSoundOutput = metadata[getPluginId("soundOutput")];
+					setSoundOutput(newSoundOutput);
+				}
+
+				if (metadata[getPluginId("currently")]) {
+					const currentlyArray = metadata[getPluginId("currently")];
+					setCurrentlyStreaming(currentlyArray);
 				}
 			});
 		});
-	}, [playerRole]);
+	}, []);
 
 	function setCurrentlyStreamingMetadata(newCurrentlyStreaming) {
-		sendMetadata("currently", structuredClone(newCurrentlyStreaming));
-	}
-
-	function sendMetadata(command, parameter) {
-		if (OBR.isReady) {
-			OBR.room.setMetadata({
-				[getPluginId(command)]: parameter
-			});
-		}
-	}
-
-	useEffect(() => {
-		//Check for streams that are fading
-		for (let i = 0; i < currentlyStreaming.length; i++) {
-			const stream = currentlyStreaming[i];
-			if (stream.playing && stream.fading && fadeOutInterval.current === 0) {
-				const fadeTime = parseInt(stream.streamFadeTime);
-				const steps = 100;
-				const decrementStep = 1;
-				const timeInterval = fadeTime * 1000 / steps;
-				let currentVolume = 100;
-				updateVolumeLocally(stream, currentVolume);
-				fadeOutInterval.current = setInterval(() => {
-					currentVolume -= decrementStep;
-					if (currentVolume <= 0) {
-						clearInterval(fadeOutInterval.current);
-						stopAllFadingStreams(stream);
-						fadeOutInterval.current = 0;
-						updateVolumeLocally(stream, 100);
-					} else {
-						updateVolumeLocally(stream, currentVolume);
-					}
-				}, timeInterval);
-			}
-		}
-	});
-
-	function updateVolumeLocally(stream, volume) {
-		setFadeOutVolume(volume); 
+		setNewCurrentlyStreaming(newCurrentlyStreaming);
 	}
 
 	function saveButtonClicked() {
@@ -129,22 +96,22 @@ function App () {
 	}
 
 	function startStream(streamToStart) {
-		console.log("starting", streamToStart);
 		let newCurrentlyStreaming = [...currentlyStreaming];
 		if (newCurrentlyStreaming.some(stream => stream.id === streamToStart.id)) {
 			for(let i = 0; i < newCurrentlyStreaming.length; i++) {
-				let changed = false;
-				const stream = newCurrentlyStreaming[i];
+				const stream = JSON.parse(JSON.stringify(newCurrentlyStreaming[i]));
 				if (stream.id === streamToStart.id) {
+					stream.fading = false;
 					stream.playing = true;
 					stream.paused = masterPaused;
 					stream.streamData.forEach(streamLink => {
 						streamLink.playing = true;
-						changed = true;
 					});
-				}
-				if (changed) {
 					newCurrentlyStreaming[i] = stream;
+					setStreamFadeVolumes({
+						...streamFadeVolumes,
+						[stream.id]: 100
+					});
 				}
 			}
 		}
@@ -152,7 +119,7 @@ function App () {
 			newCurrentlyStreaming.push(streamToStart);
 			for(let i = 0; i < newCurrentlyStreaming.length; i++) {
 				let changed = false;
-				const stream = newCurrentlyStreaming[i];
+				const stream = JSON.parse(JSON.stringify(newCurrentlyStreaming[i]));
 				if (stream.id === streamToStart.id) {
 					stream.playing = true;
 					stream.streamData.forEach(streamLink => {
@@ -162,29 +129,24 @@ function App () {
 				}
 				if (changed) {
 					newCurrentlyStreaming[i] = stream;
+					setStreamFadeVolumes({
+						...streamFadeVolumes,
+						[stream.id]: 100
+					});
 				}
-			}
-		}
-		setCurrentlyStreamingMetadata(newCurrentlyStreaming);
-	}
-  
-	function stopAllFadingStreams() {
-		let newCurrentlyStreaming = [...currentlyStreaming];
-		for (let i = 0; i < newCurrentlyStreaming.length; i++) {
-			if (newCurrentlyStreaming[i].fading) {
-				newCurrentlyStreaming[i].fading = false;
-				newCurrentlyStreaming[i].playing = false;
 			}
 		}
 		setCurrentlyStreamingMetadata(newCurrentlyStreaming);
 	}
 
 	function stopStream(streamToStop) {
-		console.log("stopping", streamToStop);
 		let newCurrentlyStreaming = [...currentlyStreaming];
 		for (let i = 0; i < newCurrentlyStreaming.length; i++) {
-			if (streamToStop.id === newCurrentlyStreaming[i].id) {
-				newCurrentlyStreaming[i].playing = false;
+			let thisStream = JSON.parse(JSON.stringify(newCurrentlyStreaming[i]));
+			if (streamToStop.id === thisStream.id) {
+				thisStream.playing = false;
+				thisStream.fading = false;
+				newCurrentlyStreaming[i] = thisStream;
 			}
 		}
 		setCurrentlyStreamingMetadata(newCurrentlyStreaming);
@@ -193,7 +155,7 @@ function App () {
 	function endStream(stream) {
 		if (stream.streamFade && stream.streamFadeTime > 0) {
 			//Send command to fade out this stream
-			setFading(stream, true);
+			setFading(stream);
 		}
 		else {
 			stopStream(stream);
@@ -225,36 +187,56 @@ function App () {
 		return Math.floor(Math.random() * (max - min) + min);
 	}
 
-	function setFading(streamToFade, fade) {
+	function setFading(stream) {
 		let newCurrentlyStreaming = [...currentlyStreaming];
 		for(let i = 0; i < newCurrentlyStreaming.length; i++) {
-			const stream = newCurrentlyStreaming[i];
-			if (streamToFade.id === stream.id) {
-				stream.fading = fade;
-				if (!fade) {
-					stream.playing = false;
-				}
-				newCurrentlyStreaming[i] = stream;
+			const thisStream = JSON.parse(JSON.stringify(newCurrentlyStreaming[i]));
+			if (parseInt(stream.id) === parseInt(thisStream.id)) {
+				thisStream.fading = true;
+				newCurrentlyStreaming[i] = thisStream;
 			}
 		}
 		setCurrentlyStreamingMetadata(newCurrentlyStreaming);
 	}
 
+	const [streamFadeVolumes, setStreamFadeVolumes] = useState({});
+	useEffect(() => {
+		const stepTime = 200;
+		const interval = setInterval(() => {
+			const newStreamFadeVolumes = {...streamFadeVolumes};
+			currentlyStreaming.forEach(stream => {
+				if (stream.fading) {
+					const midVal = stream.streamFadeTime * 1000 / stepTime;
+					const minusVal = 100 / midVal * 1.5; //This 1.5x makes it a little more accurate... for some reason :)
+					const setVal = streamFadeVolumes[stream.id] - minusVal;
+					newStreamFadeVolumes[stream.id] = setVal;
+					if (setVal <= 0) {
+						stopStream(stream);
+					}
+				}
+			});
+			setStreamFadeVolumes(newStreamFadeVolumes);
+		}, stepTime);
+		return () => clearInterval(interval);
+	}, [currentlyStreaming, streamFadeVolumes]);
+
 	function endStreamLink(endedStreamLink) {
 		let newCurrentlyStreaming = [...currentlyStreaming];
 		for(let i = 0; i < newCurrentlyStreaming.length; i++) {
 			let changed = false;
-			const stream = newCurrentlyStreaming[i];
+			const stream = JSON.parse(JSON.stringify(newCurrentlyStreaming[i]));
 			if (!isEmpty(stream)) {
-				stream.streamData.forEach(streamLink => {
+				for(let j = 0; j < stream.streamData.length; j++) {
+					const streamLink = JSON.parse(JSON.stringify(stream.streamData[j]));
 					if (streamLink.id === endedStreamLink.id) {
 						streamLink.playing = false;
+						stream.streamData[j] = streamLink;
 						changed = true;
 					}
-				});
-				if (changed) {
-					newCurrentlyStreaming[i] = stream;
 				}
+			}
+			if (changed) {
+				newCurrentlyStreaming[i] = stream;
 			}
 		}
 		setCurrentlyStreamingMetadata(newCurrentlyStreaming);
@@ -264,7 +246,7 @@ function App () {
 		let newCurrentlyStreaming = [...currentlyStreaming];
 		for(let i = 0; i < newCurrentlyStreaming.length; i++) {
 			let changed = false;
-			const stream = newCurrentlyStreaming[i];
+			const stream = JSON.parse(JSON.stringify(newCurrentlyStreaming[i]));
 			if (!isEmpty(stream)) {
 				stream.streamData.forEach(streamLink => {
 					if (streamLink.id === addedStreamLink.id) {
@@ -281,17 +263,19 @@ function App () {
 	}
 
 	function removeFromCurrentlyStreaming(streamToRemove) {
+		console.log("ending", streamToRemove);
 		endStream(streamToRemove);
 	}
 
 	function checkIfRemoveFromCurrentlyStreaming(endedStreamLink) {
+		console.log(currentlyStreaming);
 		//Find the stream that holds this streamlink
 		currentlyStreaming.forEach(stream => {
 			if (stream.streamData.some(streamLink => streamLink.id === endedStreamLink.id)) {
 				//Check if all of the streams are not playing and don't loop
 				let remove = true;
 				stream.streamData.forEach(streamLink => {
-					if (streamLink.playing || streamLink.loop) {
+					if (streamLink.loop || (streamLink.id !== endedStreamLink.id && streamLink.playing)) {
 						remove = false;
 					}
 				});
@@ -302,17 +286,35 @@ function App () {
 		});
 	}
 
+	async function repeat(endedStreamLink) {
+		let streaming = OBR.room.getMetadata();
+		streaming.then(values => {
+			if (values[getPluginId("currently")]) {
+				let stillPlaying = false;
+				values[getPluginId("currently")].forEach(stream => {
+					if (stream.streamData.some(streamLink => streamLink.id === endedStreamLink.id)) {
+						if (stream.playing) {
+							stillPlaying = true;
+						}
+					}
+				});
+				if (stillPlaying) {
+					addStreamLink(endedStreamLink);
+				}
+			}
+		});
+	}
+
 	function endFunction(event, endedStreamLink) {
 		endStreamLink(endedStreamLink);
+
 		//This function should only call if the stream doesn't already loop, but to be safe
 		if (!endedStreamLink.loop) {
 			checkIfRemoveFromCurrentlyStreaming(endedStreamLink);
 		} 
 		else {
 			const repeatIn = randomNumber(endedStreamLink.loop1, endedStreamLink.loop2);
-			setTimeout(() => {
-				addStreamLink(endedStreamLink);
-			}, repeatIn * 1000);  
+			setTimeout(repeat, repeatIn * 1000, endedStreamLink);  
 		}
 	}
 
@@ -322,12 +324,11 @@ function App () {
 	}
 
 	function togglePlayPauseStreams() {
-		if (masterPaused) {
-			sendMetadata("paused", [false, new Date().getTime()]);
-		}
-		else {
-			sendMetadata("paused", [true, new Date().getTime()]);
-		}
+		togglePaused();
+	}
+
+	function toggleOutput() {
+		toggleSoundOutput();
 	}
 
 	function playerVolumeSliderChanged(volume) {
@@ -340,15 +341,6 @@ function App () {
 		const newMasterVolume = {...masterVolume};
 		newMasterVolume.mute = !newMasterVolume.mute;
 		setMasterVolume(newMasterVolume);
-	}
-
-	function toggleSoundOutput() {
-		if (soundOutput === "local") {
-			sendMetadata("soundOutput", ["global", new Date().getTime()]);
-		}
-		else {
-			sendMetadata("soundOutput", ["local", new Date().getTime()]);
-		}
 	}
 
 	const [folderKeys, setFolderKeys] = useState(Object.keys(folders));
@@ -367,16 +359,16 @@ function App () {
 			if (!isEmpty(stream)) {
 				return stream.streamData.map(streamLink => {
 					if (stream.playing && streamLink.playing) {
-						let fadeVolume = 100;
-						if (stream.fading) {
-							fadeVolume = fadeOutVolume;
+						let streamFadeVol = 100; 
+						if (streamFadeVolumes[stream.id]) {
+							streamFadeVol = streamFadeVolumes[stream.id];
 						}
-						let volume = masterVolume.volume / 100 * stream.streamVolume / 100 * streamLink.volume / 100 * fadeVolume / 100;
+						const volume = masterVolume.volume / 100 * stream.streamVolume / 100 * streamLink.volume / 100 * streamFadeVol / 100;
 						return <MemoizedPlayer
 							key={streamLink.id}
 							streamLinkId={streamLink.id}
 							url={streamLink.link}
-							playing={!masterPaused && !(playerRole !== "GM" && soundOutput === "local")}
+							playing={masterPaused === "playing" && !(playerRole !== "GM" && soundOutput === "local")}
 							loop={streamLink.loop && streamLink.loop1 === 0 && streamLink.loop2 === 0}
 							volume={volume}
 							muted={stream.streamMute || streamLink.mute || masterVolume.mute}
@@ -400,6 +392,7 @@ function App () {
 				<div className="audio-streams" id="audio-streams">
 					{renderVideos()}
 				</div>
+				<MetadataSync/>
 				{showSavePopup && 
 				<SavePopup 
 					savePopupClose={savePopupClose} 
@@ -409,6 +402,7 @@ function App () {
 				}
 				<Header 
 					folderKeys={folderKeys} 
+					setOpenedPage={setOpenedPage}
 					addFolderKey={addFolderKey} 
 					masterVolume={masterVolume} 
 					setMasterVolume={setMasterVolume} 
@@ -418,12 +412,13 @@ function App () {
 					togglePlayPauseStreams={togglePlayPauseStreams}
 					stopAllStreams={stopAllStreams}
 					masterPaused={masterPaused}
-					fadeOutVolume={fadeOutVolume}
 					soundOutput={soundOutput}
-					toggleSoundOutput={toggleSoundOutput}
+					toggleOutput={toggleOutput}
 				/>
 				<Content 
 					folders={folders} 
+					setOpenedPage={setOpenedPage}
+					openedPage={openedPage}
 					addFolderKey={addFolderKey} 
 					setFolderKeys={setFolderKeys} 
 					folderKeys={folderKeys} 

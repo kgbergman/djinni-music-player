@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./savepopup.css";
 import TextField from "@mui/material/TextField";
 import { createTheme } from "@mui/material/styles";
@@ -35,6 +35,7 @@ const muiTheme = createTheme({
 
 export function SavePopup({ savePopupClose, savePopupClicked }) {
 	let [currentName, setCurrentName] = useState("File");
+	let mouseOrigin = useRef("bg");
 
 	function textChanged(event) {
 		if (event && event.target && event.target.value) {
@@ -42,21 +43,19 @@ export function SavePopup({ savePopupClose, savePopupClicked }) {
 		}
 	}
 
-	let mouseOrigin = "bg";
-
 	function popupBackgroundMouseUp() {
-		if (mouseOrigin === "bg") {
+		if (mouseOrigin.current === "bg") {
 			savePopupClose();
 		}
 	}
 
 	function popupClicked(event) {
 		event.stopPropagation();
-		mouseOrigin = "popup";
+		mouseOrigin.current = "popup";
 	}
 
 	function popupBackgroundMouseDown() {
-		mouseOrigin = "bg";
+		mouseOrigin.current = "bg";
 	}
 
 	function saveButtonClicked() {

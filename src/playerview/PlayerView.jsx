@@ -136,8 +136,8 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
 
 	return (
 		<div className="player-view-container">
-			{soundOutput === "global" && !masterPaused && <div className="playing-text">GM playing {countCurrentlyStreaming()}</div>}
-			{soundOutput === "global" && masterPaused && <div className="playing-text">GM paused streams</div>}
+			{soundOutput === "global" && masterPaused === "playing" && <div className="playing-text">GM playing {countCurrentlyStreaming()}</div>}
+			{soundOutput === "global" && masterPaused === "paused" && <div className="playing-text">GM paused streams</div>}
 			{soundOutput !== "global" && <div className="playing-text">GM playing locally</div>}
 			<div className="player-slider">
 				<div className="buttons-container">

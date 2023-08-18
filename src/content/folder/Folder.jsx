@@ -50,8 +50,8 @@ export function Folder({ sortByAlpha, folders, currentlyStreaming, folderName, f
 			<div className="folder-icon-container">
 				<FolderIcon sx={{ fontSize: "80px", color: folderColor, position: "absolute", pointerEvents: "none" }} />
 				{!currentlyStreaming.some(stream => stream.folderId === folderId && stream.playing) && <span className="folder-overlay">{folderAbbreviation}</span>}
-				{!paused && currentlyStreaming.some(stream => stream.folderId === folderId && stream.playing) && <div className="folder-playing-container" ref={animationContainer}></div>}
-				{paused && currentlyStreaming.some(stream => stream.folderId === folderId && stream.playing) && <div className="folder-paused-container"><PauseIcon sx={{ fontSize: 30 }} /></div>}
+				{paused === "playing" && currentlyStreaming.some(stream => stream.folderId === folderId && stream.playing) && <div className="folder-playing-container" ref={animationContainer}></div>}
+				{paused === "paused" && currentlyStreaming.some(stream => stream.folderId === folderId && stream.playing) && <div className="folder-paused-container"><PauseIcon sx={{ fontSize: 30 }} /></div>}
 			</div>
 			<div className="folder-low-row">
 				<div className="folder-name-container">

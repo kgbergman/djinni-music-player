@@ -3,6 +3,12 @@
 
 Mix sound effects and music with looping, fading, and more to provide an immersive experience!
 
+## Installing
+
+Copy and add `https://music-player-adrf.onrender.com/manifest.json` to your extensions in your Owlbear Rodeo profile.
+
+![Extensions](https://extensions.owlbear.rodeo/add-extension.jpg)
+
 ## How it Works
 
 The DJinni Music Player allows the GM to curate YouTube links and play them for their players. You can mix music, monster noises, weather sounds, swords clashing, etc. Anything you find on YouTube can be added to DJinni.

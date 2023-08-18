@@ -110,7 +110,7 @@ export function ContentHeaderSliders({ folders, openedFolder, openedStream, volu
 					{!currentStreamFade && <span className="caption">No Fade Out</span>}
 					{currentStreamFade && <span className="caption">Fade out {currentStreamFadeTime}s</span>}
 					<ThemeProvider theme={muiTheme}>
-						<Slider sx={sliderStyle} size="small" min={0} max={10} disabled={!currentStreamFade} defaultValue={defaultFadeValue} onChange={streamFadeTimeChanged}/>
+						<Slider sx={sliderStyle} size="small" min={1} max={10} disabled={!currentStreamFade} defaultValue={defaultFadeValue} onChange={streamFadeTimeChanged}/>
 					</ThemeProvider>
 				</div>
 			</div>
