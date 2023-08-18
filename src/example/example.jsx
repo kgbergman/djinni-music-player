@@ -456,7 +456,7 @@ export const exampleFile = {
 		"streams": [
 			{
 				"streamName": "BG Sounds",
-				"streamIcon": "🗣️",
+				"streamIcon": "⛵",
 				"streamVolume": 100,
 				"streamFade": true,
 				"streamFadeTime": 5,

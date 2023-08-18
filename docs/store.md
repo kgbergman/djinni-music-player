@@ -29,13 +29,13 @@ Clicking the <img src="https://raw.githubusercontent.com/kgbergman/music-player/
 
 At the top is the header, with icons to open and save .djinni files. Whenever you load up Owlbear Rodeo, you will need to open your .djinni file. They are too big to store within Owlbear Rodeo as part of the extension.
 
-There is an icon that toggles between <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/persons.png" width=20 alt="3 Person"> and <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/person.png" width=20 alt="1 Persons">. This means that you are either playing these sounds to all of your player's browsers and yours, or just locally to your own. This toggle can be useful if you'd like to share your audio through a service like Zoom or Discord.
+There is a button that toggles between <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/persons.png" width=20 alt="3 Person"> and <img src="https://raw.githubusercontent.com/kgbergman/music-player/main/docs/person.png" width=20 alt="1 Persons">. This means that you are either playing these sounds to all of your player's browsers and yours, or just locally to your own. This toggle can be useful if you'd like to share your audio through a service like Zoom or Discord.
 
-There is a volume slider along with a mute toggle. This is only local to your browser, and each player will have their own volume control slider on their browser.
+There is a volume slider along with a mute toggle. This is only local to your browser, and each player will have their own volume controls on their browser.
 
 ![Header Pause Play](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/headerpauseplay.png)
 
-Once you play any stream(s), a pause and stop icon will appear in the header. Clicking the pause icon will pause all streams and turn into a play icon, which allows you to resume them. Clicking the stop icon will end all streams immediately with no fade-outs.
+Once you play any stream(s), a pause and stop icon will appear in the header. Clicking the pause icon will pause all streams and turn into a play icon, which allows you to resume them. Clicking the stop icon will end all streams immediately without fading out.
 
 
 ### Folders
