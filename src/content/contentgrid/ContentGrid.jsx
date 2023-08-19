@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./contentgrid.css";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
@@ -38,11 +38,23 @@ export function ContentGrid({
 	volumeStreamClicked,
 	paused
 }) {
+	let simpleBarHeight = window.innerHeight - 100;
+	const [width, setWidth] = useState(window.innerWidth);
+	function handleWindowSizeChange() {
+		setWidth(window.innerWidth);
+	}
+	useEffect(() => {
+		window.addEventListener("resize", handleWindowSizeChange);
+		return () => {
+			window.removeEventListener("resize", handleWindowSizeChange);
+		};
+	}, []);
+
 	if (openedPage === "folder") {
 		return (
 			<div className="contentgrid">
 				{showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"folder"}/>}
-				<SimpleBar style={{ height: `${window.innerHeight - 100}px`, paddingRight: "15px" }}>
+				<SimpleBar style={{ height: `${simpleBarHeight}px`, paddingRight: "15px" }}>
 					<Streams 
 						sortByAlpha={sortByAlpha} 
 						folders={folders} 
@@ -64,7 +76,7 @@ export function ContentGrid({
 		return (
 			<div className="contentgrid">
 				{showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"folder"}/>}
-				<SimpleBar style={{ height: `${window.innerHeight - 100}px`, paddingRight: "15px" }}>
+				<SimpleBar style={{ height: `${simpleBarHeight}px`, paddingRight: "15px" }}>
 					<Folders 
 						currentlyStreaming={currentlyStreaming}
 						sortByAlpha={sortByAlpha} 
@@ -83,11 +95,15 @@ export function ContentGrid({
 		);
 	}
 	else if (openedPage === "stream") {
+		const isMobile = width < 580;
+		if (isMobile) {
+			simpleBarHeight -= 65;
+		}
 		return (
 			<div className="contentgrid">
 				{showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"stream"}/>}
 				{showEmojiPopup && <EmojiPopup closeEmojiPopup={closeEmojiPopup} updateEmoji={updateEmoji}/>}
-				<SimpleBar style={{ height: `${window.innerHeight - 100}px`, paddingRight: "15px" }}>
+				<SimpleBar style={{ height: `${simpleBarHeight}px`, paddingRight: "15px" }}>
 					<EditStreams 
 						openedFolder={openedFolder} 
 						openedStream={openedStream} 
