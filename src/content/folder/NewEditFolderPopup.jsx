@@ -82,18 +82,17 @@ export function NewEditFolderPopup({ popupClose, popupType, folderToEdit, folder
 		if (mouseOrigin.current === "bg") {
 			popupClose();
 		}
-		console.log(event, mouseOrigin.current);
+		event.stopPropagation();
 	}
 
 	function popupClicked(event) {
 		event.stopPropagation();
 		mouseOrigin.current = "popup";
-		console.log(mouseOrigin.current);
 	}
 
 	function popupBackgroundMouseDown(event) {
 		mouseOrigin.current = "bg";
-		console.log(event, mouseOrigin.current);
+		event.stopPropagation();
 	}
 
 	const buttonStyle = { 

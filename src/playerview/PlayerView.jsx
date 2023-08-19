@@ -111,7 +111,6 @@ export function PlayerView({ soundOutput, currentlyStreaming, masterVolume, play
 		//We are using a made up scale to be more granular at the smaller values.
 		//This is because players are much more likely to be using those values, 
 		//as this is intended to be background music.
-		console.log(convertVolume(event.target.value));
 		playerVolumeSliderChanged(convertVolume(event.target.value));
 	}
 

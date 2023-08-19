@@ -38,7 +38,6 @@ export function ContentGrid({
 	volumeStreamClicked,
 	paused
 }) {
-	console.log(window.innerHeight);
 	if (openedPage === "folder") {
 		return (
 			<div className="contentgrid">
