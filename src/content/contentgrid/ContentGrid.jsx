@@ -38,11 +38,12 @@ export function ContentGrid({
 	volumeStreamClicked,
 	paused
 }) {
+	console.log(window.innerHeight);
 	if (openedPage === "folder") {
 		return (
 			<div className="contentgrid">
 				{showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"folder"}/>}
-				<SimpleBar style={{ height: "300px", paddingRight: "15px" }}>
+				<SimpleBar style={{ height: `${window.innerHeight - 100}px`, paddingRight: "15px" }}>
 					<Streams 
 						sortByAlpha={sortByAlpha} 
 						folders={folders} 
@@ -64,7 +65,7 @@ export function ContentGrid({
 		return (
 			<div className="contentgrid">
 				{showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"folder"}/>}
-				<SimpleBar style={{ height: "300px", paddingRight: "15px" }}>
+				<SimpleBar style={{ height: `${window.innerHeight - 100}px`, paddingRight: "15px" }}>
 					<Folders 
 						currentlyStreaming={currentlyStreaming}
 						sortByAlpha={sortByAlpha} 
@@ -87,7 +88,7 @@ export function ContentGrid({
 			<div className="contentgrid">
 				{showDeletePopup && <DeletePopup closeDeletePopup={closeDeletePopup} deleteClicked={deleteClicked} type={"stream"}/>}
 				{showEmojiPopup && <EmojiPopup closeEmojiPopup={closeEmojiPopup} updateEmoji={updateEmoji}/>}
-				<SimpleBar style={{ height: "300px", paddingRight: "15px" }}>
+				<SimpleBar style={{ height: `${window.innerHeight - 100}px`, paddingRight: "15px" }}>
 					<EditStreams 
 						openedFolder={openedFolder} 
 						openedStream={openedStream} 
