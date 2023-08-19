@@ -33,8 +33,8 @@ function App () {
 				const newPlayerRole = await OBR.player.getRole();
 				setPlayerRole(newPlayerRole);
 				if (newPlayerRole === "PLAYER") {
-					console.log(OBR.action.setWidth(205));
-					console.log(OBR.action.setHeight(106));
+					OBR.action.setWidth(205);
+					OBR.action.setHeight(106);
 				}
 			}
 			const metadataArray = OBR.room.getMetadata();
@@ -263,12 +263,10 @@ function App () {
 	}
 
 	function removeFromCurrentlyStreaming(streamToRemove) {
-		console.log("ending", streamToRemove);
 		endStream(streamToRemove);
 	}
 
 	function checkIfRemoveFromCurrentlyStreaming(endedStreamLink) {
-		console.log(currentlyStreaming);
 		//Find the stream that holds this streamlink
 		currentlyStreaming.forEach(stream => {
 			if (stream.streamData.some(streamLink => streamLink.id === endedStreamLink.id)) {

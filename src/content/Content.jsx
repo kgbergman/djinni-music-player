@@ -142,7 +142,6 @@ export function Content({
 				newCurrentlyStreaming[i] = stream;
 			}
 		}
-		console.log(newCurrentlyStreaming);
 		setCurrentlyStreamingMetadata(newCurrentlyStreaming);
 	}
 
@@ -173,7 +172,6 @@ export function Content({
 				stream.streamMute = !stream.streamMute;
 			}
 		}
-		console.log(newCurrentlyStreaming);
 		setCurrentlyStreamingMetadata(newCurrentlyStreaming);
 	}
 

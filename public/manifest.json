@@ -1,12 +1,12 @@
 {
-  "name": "DJinni Sound Mixer",
+  "name": "DJinni Music Player",
   "version": "1.0.0",
   "manifest_version": 1,
   "author": "Keegan",
   "icon": "/logo.png",
   "description": "Mix sound effects and music with looping, fading, and more to provide an immersive experience!",
   "action": {
-    "title": "DJinni Sound Mixer",
+    "title": "DJinni Music Player",
     "icon": "/icon.svg",
     "popover": "/",
     "height": 400,
