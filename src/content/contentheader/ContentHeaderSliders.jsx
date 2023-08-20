@@ -88,18 +88,18 @@ export function ContentHeaderSliders({ folders, openedFolder, openedStream, volu
 									x="0px" y="0px" viewBox="0 0 24 24" fill="#FFFFFF" xmlSpace="preserve">
 									<polygon points="8,5 5,5 8,7.5 "/>
 									<polygon points="4,20 8,20 8,9.6 4,6.2 "/>
-									<polygon points="14,9 10,9 10,9.2 14,12.6 "/>
-									<polygon points="10,20 14,20 14,14.7 10,11.3 "/>
+									<polygon points="13.5,9 9.5,9 9.5,9.2 13.5,12.6 "/>
+									<polygon points="9.5,20 13.5,20 13.5,14.7 9.5,11.3 "/>
 									<polygon points="15,20 19,20 19,19 15,15.5 "/>
 									<polygon points="19,13 15,13 15,13.5 19,16.9 "/>
-									<polygon points="20.9,20.6 1.9,4.3 0.8,5.6 19.9,21.8 20.9,20.6 20.9,20.6 "/>
+									<polygon points="20.9,20.6 1.9,4.3 0.8,5.6 19.9,21.8 20.9,20.6 "/>
 								</svg>
 							</SvgIcon>}
 							{currentStreamFade && <SvgIcon>
 								<svg version="1.1" id="Layer_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
 									x="0px" y="0px" viewBox="0 0 24 24" fill="#FFFFFF" xmlSpace="preserve">                 
 									<rect x="4" y="5" width="4" height="15"/>
-									<rect x="10" y="9" width="4" height="11"/>
+									<rect x="9.5" y="9" width="4" height="11"/>
 									<rect x="15" y="13" width="4" height="7"/>
 								</svg>
 							</SvgIcon>}
