@@ -40,7 +40,7 @@ export function AutoplayOverlay({ isGM }) {
 			</div>}
 			{isGM && !canAutoplay && isMobile && <div className="chromium-overlay">
 				<div className="gm-overlay-text">
-					<div>Sorry, mobile browsers don`&apos;`t support autoplay. Please use Firefox or Safari on desktop to hear audio.</div>
+					<div>Sorry, mobile browsers don&apos;t support autoplay. Please use Firefox or Safari on desktop to hear audio.</div>
 				</div>
 				<div className="gm-overlay-ignore" onClick={ignoreAutoplay}>Ignore and continue without audio</div>
 			</div>}
@@ -56,7 +56,7 @@ export function AutoplayOverlay({ isGM }) {
 			</div>}
 			{!isGM && !canAutoplay && isMobile && <div className="chromium-overlay">
 				<div className="overlay-text">
-					<div>Sorry, mobile browsers don`&apos;`t support autoplay. Please either...</div>
+					<div>Sorry, mobile browsers don&apos;t support autoplay. Please either...</div>
 					<div>
 						<div>• Use Firefox or Safari on desktop</div>
 						<div>• Ask your GM to share their audio through Zoom, Discord, etc.</div>

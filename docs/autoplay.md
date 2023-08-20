@@ -34,3 +34,16 @@ Sadly, the above setting will not “stick”. The moment Chrome is closed and r
 ![Edge Add Owlbear](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/edge_add_owlbear.png)
 
 3. Click "Add" again, and refresh the page.
+
+# Opera
+1. Enter `opera://settings/content/sound` in to the search bar and hit enter.
+
+![Opera Sound](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/opera_sound.png)
+
+2. Ensure either "Sites can play sound" is selected or add "www.owlbear.rodeo" to the list of allowed sites.
+3. Type "player" in to the search bar on the settings page.
+
+![Opera Player](https://raw.githubusercontent.com/kgbergman/music-player/main/docs/opera_player.png)
+
+4. Toggle "Enable Player" to off.
+5. Restart the web browser.
