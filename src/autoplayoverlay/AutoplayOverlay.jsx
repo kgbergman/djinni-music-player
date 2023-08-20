@@ -19,7 +19,7 @@ export function AutoplayOverlay({ isGM }) {
 	});
 
 	function openGithub() {
-		window.open("https://github.com/kgbergman/music-player/blob/main/public/autoplay.md", "_blank");
+		window.open("https://github.com/kgbergman/music-player/blob/main/docs/autoplay.md", "_blank");
 	}
 
 	function ignoreAutoplay() {
@@ -30,7 +30,7 @@ export function AutoplayOverlay({ isGM }) {
 		<div className="autoplay-overlay">
 			{isGM && !canAutoplay && isChromium && !isMobile && <div className="chromium-overlay">
 				<div className="gm-overlay-text">
-					<div className="gm-overlay-top">Sorry, your browser doesn`&apos;`t support autoplay. Please either...</div>
+					<div className="gm-overlay-top">Sorry, your browser doesn&apos;t support autoplay. Please either...</div>
 					<div>
 						<div>• Use Firefox or Safari</div>
 						<div>• Follow <a className="instructions-link" onClick={openGithub}>these instructions</a> to allow autoplay on your browser</div>
@@ -46,7 +46,7 @@ export function AutoplayOverlay({ isGM }) {
 			</div>}
 			{!isGM && !canAutoplay && isChromium && !isMobile && <div className="chromium-overlay">
 				<div className="overlay-text">
-					<div>Sorry, your browser doesn`&apos;`t support autoplay. Please either...</div>
+					<div>Sorry, your browser doesn&apos;t support autoplay. Please either...</div>
 					<div>
 						<div>• Use Firefox or Safari</div>
 						<div>• Follow <a className="instructions-link" onClick={openGithub}>these instructions</a> to allow autoplay on your browser</div>
