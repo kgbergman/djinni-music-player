@@ -7,7 +7,7 @@ icon: https://raw.githubusercontent.com/kgbergman/music-player/main/public/logo.
 tags:
   - "tool"
   - "audio"
-manifest: https://musicplayer.onrender.com/manifest.json
+manifest: https://music-player-adrf.onrender.com/manifest.json
 learn-more: https://github.com/kgbergman/music-player
 ---
 

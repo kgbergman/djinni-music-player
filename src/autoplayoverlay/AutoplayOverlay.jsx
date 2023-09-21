@@ -19,7 +19,7 @@ export function AutoplayOverlay({ isGM }) {
 	});
 
 	function openGithub() {
-		window.open("https://github.com/kgbergman/music-player/blob/main/docs/autoplay.md", "_blank");
+		window.open("https://github.com/kgbergman/djinni-music-player/blob/main/docs/autoplay.md", "_blank");
 	}
 
 	function ignoreAutoplay() {
